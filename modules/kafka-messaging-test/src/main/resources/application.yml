@@ -1,0 +1,39 @@
+debug: false
+spring:
+  cloud:
+    stream:
+      default:
+        producer:
+          useNativeEncoding: true
+        consumer:
+          useNativeEncoding: true
+#      schemaRegistryClient:
+#        endpoint: http://localhost:8085
+      bindings:
+        messageProducerAvro:
+          destination: test-messages
+          content-type: application/*+avro
+        messageProducerJson:
+          destination: test-messages
+          content-type: application/json
+        logTestMessage-in-0:
+          destination: test-messages
+          content-type: application/*+avro
+      kafka:
+        binder:
+          brokers: dockerhost.fritz.box
+          producer-properties:
+            key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+            #key.deserializer: org.apache.kafka.common.serialization.StringSerializer
+            value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+            schema.registry.url: http://dockerhost.fritz.box:8081
+          consumer-properties:
+            key.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+            #key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+            schema.registry.url: http://dockerhost.fritz.box:8081
+            specific.avro.reader: true
+#      schema:
+#        avro:
+#          schemaLocations: classpath*:avro/
+#          dynamicSchemaGenerationEnabled: true

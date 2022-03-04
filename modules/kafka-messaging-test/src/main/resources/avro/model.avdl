@@ -1,0 +1,8 @@
+
+@namespace("de.dfki.cos.basys.platform.spring.kafkamessagingtest.model")
+protocol TestMessages {
+
+	record TestMessage {
+		string message;
+	}
+}

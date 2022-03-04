@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.dfki.cos.basys.pom</groupId>
+		<artifactId>starter-parent</artifactId>
+		<version>0.3.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	
+    <groupId>de.dfki.cos.basys.processcontrol</groupId>
+    <artifactId>cc-task-manager</artifactId>
+    <name>cc-task-manager</name>
+    <description>BaSys 4.2 task manager for ControlComponents</description>
+    
+	<properties>
+        <java.version>11</java.version>
+        <avro.version>1.10.2</avro.version>
+        <spring-cloud.version>2020.0.4</spring-cloud.version>
+        <aas-registry.version>0.1.0-SNAPSHOT</aas-registry.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <name>Confluent</name>
+            <url>https://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.dfki.cos.basys.processcontrol</groupId>
+            <artifactId>shared-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.dfki.cos.basys.controlcomponent</groupId>
+            <artifactId>client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.basyx.aas.registry</groupId>
+            <artifactId>aas-registry-client</artifactId>
+            <version>${aas-registry.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.basyx.aas.registry</groupId>
+            <artifactId>aas-registry-compatibility</artifactId>
+            <version>${aas-registry.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.basyx.aas.registry</groupId>
+            <artifactId>aas-registry-paths</artifactId>
+            <version>${aas-registry.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.basyx.aas.registry</groupId>
+            <artifactId>aas-registry-events</artifactId>
+            <version>${aas-registry.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.basyx</groupId>
+            <artifactId>basyx.sdk</artifactId>
+            <version>${basyx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.confluent/kafka-avro-serializer -->
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
+            <version>6.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-binder-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>javax.xml.bind</groupId>-->
+<!--            <artifactId>jaxb-api</artifactId>-->
+<!--        </dependency>-->
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+        </plugins>
+    </build>
+
+</project>

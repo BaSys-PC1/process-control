@@ -1,0 +1,16 @@
+debug: true
+spring:
+  cloud:
+    stream:
+      bindings:
+        aasRegistryUpdates-in-0:
+          destination: aas-registry
+          content-type: application/json
+      kafka:
+        binder:
+          brokers: dockerhost.fritz.box
+basys:
+  ccagent-manager:
+    ccinstance-submodel-semantic-id: https://wiki.eclipse.org/BaSyx_/_Submodels#Control_Component_Instance
+    ccinterface-submodel-semantic-id: https://wiki.eclipse.org/BaSyx_/_Submodels#Control_Component_Interface
+

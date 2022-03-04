@@ -1,0 +1,72 @@
+@namespace("de.dfki.cos.basys.processcontrol.model")
+protocol ControlComponentMessages {
+	//import idl "time.avdl";
+
+	enum ExecutionCommand {
+		RESET, START, STOP, HOLD, UNHOLD, SUSPEND, UNSUSPEND, ABORT, CLEAR
+	}
+
+	enum ExecutionMode {
+		AUTO, SEMIAUTO, MANUAL, SIMULATE
+	}
+
+	enum OccupationCommand {
+		FREE, OCCUPY, PRIO
+	}
+
+	enum VariableType {
+		NULL, BOOLEAN, INTEGER, STRING, DOUBLE, LONG, DATE
+	}
+
+	enum ControlComponentRequestType {
+		OCCUPATION_COMMAND_REQUEST,
+		EXECUTION_MODE_REQUEST,
+		EXECUTION_COMMAND_REQUEST,
+		OPERATION_MODE_REQUEST
+	}
+
+	record Variable {
+		string name;
+		union{null,boolean,long,double,string} value;
+		VariableType type;
+	}
+
+	record OperationMode {
+		string name;
+		array<Variable> inputParameters;
+		array<Variable> outputParameters;
+	}
+
+	record ControlComponentRequest {
+		string componentId;
+		string correlationId;
+		string occupierId;
+
+		ControlComponentRequestType requestType;
+		union {OccupationCommand,ExecutionMode, ExecutionCommand, OperationMode} command;
+
+		//union {null,OccupationCommand} occupationCommand;
+		//union {null,ExecutionMode} executionMode;
+		//union {null,ExecutionCommand} executionCommand;
+		//union {null,OperationMode} operationMode;
+	}
+
+	enum RequestStatus {
+		UNDEFINED, ACCEPTED, REJECTED, NOOP, QUEUED, DONE, OK, NOT_OK
+	}
+
+	record ControlComponentRequestStatus {
+		RequestStatus status;
+		string message;
+	}
+
+	record ControlComponentResponse {
+		string componentId;
+		string correlationId;
+		RequestStatus status;
+		int statusCode;
+		string message;
+		ControlComponentRequest request;
+		array<Variable> outputParameters;
+	}
+}
