@@ -65,6 +65,7 @@ public class TestMain {
         try {
             log.info("retrieving the mir100_1 aas via basyx aas manager, identifier type can be ignored");
             log.info("---------------------------------------------");
+
             var result = aasManager.retrieveAAS(new Identifier(IdentifierType.CUSTOM, aasId));
             log.info(result.toString());
             log.info("----------------------");
@@ -90,10 +91,12 @@ public class TestMain {
         try {
             log.info("search for aas that contain a identification submodel");
             log.info("---------------------------------------------");
-            ShellDescriptorSearchQuery query = new ShellDescriptorSearchQuery()
-                    .match(new Match().path(AasRegistryPaths.submodelDescriptors().semanticId().asModelReference().keys().value()).value(idSubmodelSemanticId));
+            ShellDescriptorQuery query = new ShellDescriptorQuery();
+            query.setQueryType(ShellDescriptorQuery.QueryTypeEnum.MATCH);
+            query.setPath(AasRegistryPaths.submodelDescriptors().semanticId().asModelReference().keys().value());
+            query.setValue(idSubmodelSemanticId);
 
-            var searchResult = apiInstance.searchShellDescriptors(query);
+            var searchResult = apiInstance.searchShellDescriptors(new ShellDescriptorSearchRequest().query(query));
             log.info("Result size: " + searchResult.getTotal());
 
             Key instanceKey = new Key().type(KeyElements.CONCEPTDESCRIPTION).value(idSubmodelSemanticId);

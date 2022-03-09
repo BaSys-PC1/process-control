@@ -1,14 +1,59 @@
-debug: true
+debug: false
+server:
+  port: 8082
 spring:
   cloud:
+    function:
+      definition: aasRegistryUpdates;controlComponentRequests
     stream:
       bindings:
         aasRegistryUpdates-in-0:
           destination: aas-registry
           content-type: application/json
-      kafka:
-        binder:
-          brokers: dockerhost.fritz.box
+          binder: kafka1
+        controlComponentRequests-in-0:
+          destination: control-component-requests
+          content-type: application/*+avro
+          binder: kafka2
+          consumer:
+            useNativeDecoding: true
+        controlComponentResponses:
+          destination: control-component-responses
+          content-type: application/*+avro
+          binder: kafka2
+          producer:
+            useNativeEncoding: true
+      binders:
+        kafka1:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      brokers: dockerhost.fritz.box
+        kafka2:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      brokers: dockerhost.fritz.box
+                      producer-properties:
+                        key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                        #key.deserializer: org.apache.kafka.common.serialization.StringSerializer
+                        value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                        schema.registry.url: http://dockerhost.fritz.box:8081
+                      consumer-properties:
+                        key.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                        #key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                        value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                        schema.registry.url: http://dockerhost.fritz.box:8081
+                        specific.avro.reader: true
+
 basys:
   ccagent-manager:
     ccinstance-submodel-semantic-id: https://wiki.eclipse.org/BaSyx_/_Submodels#Control_Component_Instance

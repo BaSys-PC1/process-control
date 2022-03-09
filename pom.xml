@@ -19,7 +19,8 @@
 	<modules>
         <module>modules/shared-model</module>
 		<module>modules/cc-task-manager</module>
-		<module>modules/cc-task-channel-camunda</module>
+		<module>modules/task-channel-camunda-cc</module>
+		<module>modules/task-channel-camunda-wallet</module>
         <module>modules/kafka-messaging-test</module>
 	</modules>
 

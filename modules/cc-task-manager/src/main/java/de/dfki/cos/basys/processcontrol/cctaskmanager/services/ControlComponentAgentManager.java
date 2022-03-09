@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-@Service
+//@Service
 @Slf4j
 public class ControlComponentAgentManager implements ControlComponentAgentCallback {
 
