@@ -6,25 +6,42 @@ spring:
     function:
       definition: aasRegistryUpdates;controlComponentRequests
     stream:
+      kafka:
+        binder:
+          brokers: ${KAFKA_BROKER_ENDPOINT}
       bindings:
         aasRegistryUpdates-in-0:
           destination: aas-registry
           content-type: application/json
-          binder: kafka1
+          binder: kafka-json
         controlComponentRequests-in-0:
           destination: control-component-requests
           content-type: application/*+avro
-          binder: kafka2
+          binder: kafka-avro
+          consumer:
+            useNativeDecoding: true
+        controlComponentRequests-out-0:
+          destination: control-component-orders
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        controlComponentOrders-in-0:
+          destination: control-component-orders
+          content-type: application/*+avro
+          binder: kafka-avro
           consumer:
             useNativeDecoding: true
         controlComponentResponses:
           destination: control-component-responses
           content-type: application/*+avro
-          binder: kafka2
+          binder: kafka-avro
           producer:
             useNativeEncoding: true
       binders:
-        kafka1:
+        kafka-json:
+          type: kafka
+        kafka-avro:
           type: kafka
           environment:
             spring:
@@ -32,26 +49,16 @@ spring:
                 stream:
                   kafka:
                     binder:
-                      brokers: dockerhost.fritz.box
-        kafka2:
-          type: kafka
-          environment:
-            spring:
-              cloud:
-                stream:
-                  kafka:
-                    binder:
-                      brokers: dockerhost.fritz.box
                       producer-properties:
                         key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
                         #key.deserializer: org.apache.kafka.common.serialization.StringSerializer
                         value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-                        schema.registry.url: http://dockerhost.fritz.box:8081
+                        schema.registry.url: ${SCHEMA_REGISTRY_ENDPOINT}
                       consumer-properties:
                         key.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
                         #key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
                         value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-                        schema.registry.url: http://dockerhost.fritz.box:8081
+                        schema.registry.url: ${SCHEMA_REGISTRY_ENDPOINT}
                         specific.avro.reader: true
 
 basys:

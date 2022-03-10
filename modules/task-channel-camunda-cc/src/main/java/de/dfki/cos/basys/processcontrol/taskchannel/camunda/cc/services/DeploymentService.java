@@ -25,9 +25,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 @Slf4j
-//@Service
+@Service
 @RequiredArgsConstructor
 public class DeploymentService {
 
@@ -40,15 +41,16 @@ public class DeploymentService {
     @Value("${camunda.processDeployer.recursive}")
     private boolean recursive;
 
+    @Autowired
     private final DeploymentApi api;
 
+    @Autowired
     private final WatchService watchService;
 
     private Map<String,String> fileToIdMap = new HashMap<>();
 
-    @Async
     @PostConstruct
-    public void startMonitoring() {
+    public void recreateDeployments() {
         clearDeployments();
         for (String filePath : getFilePaths()) {
             String id = createDeployment(filePath);
@@ -56,7 +58,10 @@ public class DeploymentService {
                 fileToIdMap.put(filePath, id);
             }
         }
+    }
 
+    @Async()
+    public void startMonitoring() {
         log.info("START_MONITORING");
         Path path = Paths.get(watchedPath);
         try {

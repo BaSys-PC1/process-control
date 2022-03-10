@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 @Service
 @Slf4j
@@ -19,7 +20,7 @@ public class TaskDispatcher {
     private StreamBridge streamBridge;
 
     @Bean
-    public Consumer<ControlComponentRequest> controlComponentRequests() {
+    public Function<ControlComponentRequest,ControlComponentRequest> controlComponentRequests() {
         return this::handleComponentRequest;
     }
 
@@ -28,14 +29,32 @@ public class TaskDispatcher {
         return this::handleAasRegistryUpdates;
     }
 
+    @Bean
+    public Consumer<ControlComponentRequest> controlComponentOrders() {
+        return this::handleComponentOrder;
+    }
+
     private void handleAasRegistryUpdates(RegistryEvent registryEvent) {
         log.info("received registry event");
         log.debug(registryEvent.toString());
     }
 
-    private void handleComponentRequest(ControlComponentRequest controlComponentRequest) {
+    private ControlComponentRequest handleComponentRequest(ControlComponentRequest controlComponentRequest) {
+        log.info("received {} for {}", controlComponentRequest.getRequestType(), controlComponentRequest.getComponentId());
+        log.debug(controlComponentRequest.toString());
+        if (controlComponentRequest.getComponentId() == null) {
+            // TODO: find appropriate cc
+            controlComponentRequest.setComponentId("null");
+        } else {
+            // TODO: check if cc is available, find replacement otherwise
+        }
+        return  controlComponentRequest;
+    }
+
+    private void handleComponentOrder(ControlComponentRequest controlComponentRequest) {
         log.info("received {} for {}", controlComponentRequest.getRequestType(), controlComponentRequest.getComponentId());
         log.debug(controlComponentRequest.toString());
     }
+
 
 }
