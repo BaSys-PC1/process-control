@@ -1,11 +1,19 @@
 package de.dfki.cos.basys.processcontrol.cctaskmanager.services;
 
 import de.dfki.cos.basys.processcontrol.cctaskmanager.util.ControlComponentAgent;
+import de.dfki.cos.basys.processcontrol.model.ControlComponentRequest;
 import de.dfki.cos.basys.processcontrol.model.ControlComponentResponse;
+import de.dfki.cos.basys.processcontrol.model.RequestStatus;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.network.Mode;
+import org.eclipse.basyx.aas.manager.api.IAssetAdministrationShellManager;
 import org.eclipse.basyx.aas.registry.events.RegistryEvent;
 import org.eclipse.basyx.aas.registry.model.*;
+import org.eclipse.basyx.submodel.metamodel.api.ISubmodel;
+import org.eclipse.basyx.submodel.metamodel.api.identifier.IdentifierType;
+import org.eclipse.basyx.submodel.metamodel.api.submodelelement.ISubmodelElement;
+import org.eclipse.basyx.submodel.metamodel.api.submodelelement.ISubmodelElementCollection;
+import org.eclipse.basyx.submodel.metamodel.api.submodelelement.dataelement.IProperty;
+import org.eclipse.basyx.submodel.metamodel.map.identifier.Identifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.function.StreamBridge;
@@ -13,11 +21,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
-//@Service
+@Service
 @Slf4j
 public class ControlComponentAgentManager implements ControlComponentAgentCallback {
 
@@ -27,15 +37,44 @@ public class ControlComponentAgentManager implements ControlComponentAgentCallba
     @Autowired
     private ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
-    @Value("basys.ccagent-manager.ccinstance-submodel-semantic-id:https://wiki.eclipse.org/BaSyx_/_Submodels#Control_Component_Instance")
+    @Autowired
+    private AasRegistryQueries aasRegistryServices;
+
+    @Autowired
+    private IAssetAdministrationShellManager aasManager;
+
+    @Value("${basys.semanticIds.ccinstanceSubmodel}")
     private String ccInstanceSubmodelSemanticId;
 
     private Map<String, ControlComponentAgent> agents = new HashMap<>();
     private Map<String, SubmodelDescriptor> smDescriptors = new HashMap<>();
 
+    @PostConstruct
+    public void initialize() {
+        List<AssetAdministrationShellDescriptor> result = aasRegistryServices.searchAasDescriptorsWithSubmodel(ccInstanceSubmodelSemanticId);
+        Key instanceKey = new Key().type(KeyElements.CONCEPTDESCRIPTION).value(ccInstanceSubmodelSemanticId);
+        for (var aasDescriptor: result) {
+            var opt = aasDescriptor.getSubmodelDescriptors().stream().filter(smd -> ((ModelReference)smd.getSemanticId()).getKeys().contains(instanceKey)).findFirst();
+            opt.ifPresent(smDescriptor -> {
+                registerControlComponentAgent(aasDescriptor.getIdentification(), smDescriptor);
+            });
+        }
+    }
+
+    @PreDestroy
+    public void dispose() {
+        //TODO: think of more graceful way for shutdown; check cc state; if not stopped/complete -> wait
+        agents.values().stream().forEach(ControlComponentAgent::deactivate);
+    }
+
     @Override
     public void onControlComponentResponse(ControlComponentResponse response) {
         streamBridge.send("controlComponentResponses", response);
+    }
+
+    @Bean
+    public Consumer<RegistryEvent> aasRegistryUpdates() {
+        return this::handleAasRegistryUpdates;
     }
 
     private void handleAasRegistryUpdates(RegistryEvent event) {
@@ -54,51 +93,127 @@ public class ControlComponentAgentManager implements ControlComponentAgentCallba
                         ModelReference modelReference = (ModelReference) ref;
                         Key key = modelReference.getKeys().get(0);
                         if (key.getType() == KeyElements.CONCEPTDESCRIPTION && ccInstanceSubmodelSemanticId.equals(key.getValue())) {
-                            registerControlComponentAgent(event.getSubmodelDescriptor());
+                            registerControlComponentAgent(event.getId(), event.getSubmodelDescriptor());
                         }
                     }
                 }
                 break;
             case SUBMODEL_UNREGISTERED:
-                unregisterControlComponentAgent(event.getSubmodelId());
+                unregisterControlComponentAgent(event.getId(), event.getSubmodelId());
                 break;
             default:
                 break;
         }
     }
 
-    private void registerControlComponentAgent(SubmodelDescriptor smDescriptor) {
-        if (agents.containsKey(smDescriptor.getIdentification())) {
+    private void registerControlComponentAgent(String aasId, SubmodelDescriptor smDescriptor) {
+        if (agents.containsKey(aasId)) {
             // TODO: probably, we should check for different endpoint information and unregister the agent. For now, we do nothing.
             log.info("ControlComponentAgent for submodelId {} (IdShort: {}) already registered", smDescriptor.getIdentification(), smDescriptor.getIdShort());
             return;
         }
 
-        if (agents.containsKey(smDescriptor.getIdentification())) {
+        if (!agents.containsKey(aasId)) {
             log.info("register ControlComponentAgent for submodelId {} (IdShort: {})", smDescriptor.getIdentification(), smDescriptor.getIdShort());
-            smDescriptors.put(smDescriptor.getIdentification(), smDescriptor);
-            ControlComponentAgent agent = new ControlComponentAgent(null);
-            agent.activate();
-            agents.put(smDescriptor.getIdentification(), agent);
-            //TODO: create, host and register agent submodel
+
+            ISubmodel instanceSubmodel = aasManager.retrieveSubmodel(new Identifier(IdentifierType.CUSTOM, aasId), new Identifier(IdentifierType.CUSTOM, smDescriptor.getIdentification()));
+            ISubmodelElementCollection endpointCollection = (ISubmodelElementCollection) instanceSubmodel.getSubmodelElement("EndpointDescriptions");
+            Map<String, ISubmodelElement> endpoints =  endpointCollection.getSubmodelElements();
+
+            var transportProfileValue = "http://opcfoundation.org/UA-Profile/Transport/uatcp-uasc-uabinary";
+            var securityPolicyValue = "http://opcfoundation.org/UA/SecurityPolicy#Basic256Sha256";
+            var profileValue = 4;
+            AtomicReference<String> connectionStringValue = new AtomicReference<>("");
+            AtomicReference<String> nodeIdValue = new AtomicReference<>("");;
+
+            endpoints.values().stream().forEach(iSubmodelElement -> {
+                var endpoint = (ISubmodelElementCollection)iSubmodelElement;
+                var properties = endpoint.getProperties();
+                IProperty transportProfile = properties.get("TransportProfile");
+                IProperty securityPolicy = properties.get("SecurityPolicy");
+
+                if (transportProfile.getValue().equals(transportProfileValue)
+                        && securityPolicy.getValue().equals(securityPolicyValue)) {
+                    connectionStringValue.set((String) properties.get("Endpoint").getValue());
+                    nodeIdValue.set((String) properties.get("NodeId").getValue());
+                }
+
+//                properties.values().stream().forEach(iProperty -> {
+//                    log.info("Name: {}, Value: {}", iProperty.getIdShort(), iProperty.getValue());
+//                });
+            });
+
+            Properties config = new Properties();
+            config.setProperty("nodeId",nodeIdValue.get());
+            config.setProperty("connectionString",connectionStringValue.get());
+            config.setProperty("username","ccAgent");
+            config.setProperty("password","");
+
+            ControlComponentAgent agent = new ControlComponentAgent(config, this);
+            if (agent.activate()) {
+                agents.put(aasId, agent);
+                smDescriptors.put(aasId, smDescriptor);
+                //TODO: create, host and register agent submodel
+            }
         }
 
     }
 
-    private void unregisterControlComponentAgent(String smIdentifier) {
-        if (agents.containsKey(smIdentifier)) {
-            SubmodelDescriptor smDescriptor = smDescriptors.remove(smIdentifier);
-            ControlComponentAgent agent = agents.remove(smIdentifier);
+    private void unregisterControlComponentAgent(String aasId, String smIdentifier) {
+        if (agents.containsKey(aasId)) {
+            SubmodelDescriptor smDescriptor = smDescriptors.remove(aasId);
+            ControlComponentAgent agent = agents.remove(aasId);
             log.info("unregister ControlComponentAgent for submodelId {} (IdShort: {})", smDescriptor.getIdentification(), smDescriptor.getIdShort());
             //TODO: delete and unregister agent submodel
             agent.deactivate();
         }
     }
 
-
     @Bean
-    public Consumer<RegistryEvent> aasRegistryUpdates() {
-        return this::handleAasRegistryUpdates;
+    public Consumer<ControlComponentRequest> controlComponentOrders() {
+        return this::handleComponentOrder;
+    }
+
+    private void handleComponentOrder(ControlComponentRequest controlComponentRequest) {
+        log.info("received {} for {}", controlComponentRequest.getRequestType(), controlComponentRequest.getComponentId());
+        log.debug(controlComponentRequest.toString());
+        threadPoolTaskScheduler.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (controlComponentRequest.getAasId() == null) {
+                    ControlComponentResponse response = ControlComponentResponse.newBuilder()
+                            .setRequest(controlComponentRequest)
+                            .setComponentId(controlComponentRequest.getComponentId())
+                            .setAasId(controlComponentRequest.getAasId())
+                            .setCorrelationId(controlComponentRequest.getCorrelationId())
+                            .setMessage("no control component found for task")
+                            .setStatus(RequestStatus.REJECTED)
+                            .setStatusCode(-1)
+                            .setOutputParameters(Collections.emptyList())
+                            .build();
+                    streamBridge.send("controlComponentResponses", response);
+                } else {
+                    ControlComponentAgent agent = agents.get(controlComponentRequest.getAasId());
+                    if (agent == null) {
+                        ControlComponentResponse response = ControlComponentResponse.newBuilder()
+                                .setRequest(controlComponentRequest)
+                                .setComponentId(controlComponentRequest.getComponentId())
+                                .setAasId(controlComponentRequest.getAasId())
+                                .setCorrelationId(controlComponentRequest.getCorrelationId())
+                                .setMessage("control component agent not available for aasId " + controlComponentRequest.getAasId())
+                                .setStatus(RequestStatus.REJECTED)
+                                .setStatusCode(-2)
+                                .setOutputParameters(Collections.emptyList())
+                                .build();
+                        streamBridge.send("controlComponentResponses", response);
+                    } else {
+                        agent.handleControlComponentRequest(controlComponentRequest);
+                    }
+                }
+            }
+        });
+
+
     }
 
 

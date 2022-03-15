@@ -4,6 +4,7 @@ import org.eclipse.basyx.aas.manager.ConnectedAssetAdministrationShellManager;
 import org.eclipse.basyx.aas.manager.api.IAssetAdministrationShellManager;
 import org.eclipse.basyx.aas.registration.api.IAASRegistry;
 import org.eclipse.basyx.aas.registration.proxy.AASRegistryProxy;
+import org.eclipse.basyx.aas.registry.client.api.RegistryAndDiscoveryInterfaceApi;
 import org.eclipse.basyx.aas.registry.compatibility.DotAASRegistryProxy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,12 @@ public class AasConfig {
     @Value("${basys.aasRegistry.service.connectionString:http://localhost:4000}")
     private String arServiceConnectionString;
 
+    @Bean
+    public RegistryAndDiscoveryInterfaceApi registryApi() {
+        RegistryAndDiscoveryInterfaceApi apiInstance = new RegistryAndDiscoveryInterfaceApi();
+        apiInstance.getApiClient().setBasePath(arServiceConnectionString);
+        return apiInstance;
+    }
 
     @Bean
     public IAASRegistry aasRegistry() {

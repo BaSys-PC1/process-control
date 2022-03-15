@@ -36,7 +36,7 @@ public class CamundaExternalTaskWorker implements ExternalTaskHandler {
 
 	private ExternalTaskService externalTaskService;
 
-	private Map<String, ExternalTask> externalTasks = new HashMap<>();
+	private Map<CharSequence, ExternalTask> externalTasks = new HashMap<>();
 
 	public void execute(ExternalTask externalTask, ExternalTaskService externalTaskService) {
 		// the externalTaskService is only created once for all externalTasks. So we store it here the first time.		
@@ -46,8 +46,8 @@ public class CamundaExternalTaskWorker implements ExternalTaskHandler {
 			
 		ControlComponentRequest request = createControlComponentRequest(externalTask);
 		if (request != null) {
-			externalTasks.put(externalTask.getId(), externalTask);
-			log.info("new request arrived for: {}", request.getComponentId());
+			externalTasks.put(request.getCorrelationId(), externalTask);
+			log.info("new request arrived for:   {}, correlationId: {}", request.getComponentId(), request.getCorrelationId());
 			streamBridge.send("controlComponentRequests", request);
 		}
 	}
@@ -129,7 +129,7 @@ public class CamundaExternalTaskWorker implements ExternalTaskHandler {
 	}
 
 	protected void handleComponentResponse(ControlComponentResponse response) {
-		log.info("new response arrived from: {}", response.getComponentId());
+		log.info("new response arrived from: {}, correlationId: {}", response.getComponentId(), response.getCorrelationId());
 		ExternalTask externalTask = externalTasks.remove(response.getRequest().getCorrelationId());
 		if (externalTask != null) {
 			if (response.getStatus() == RequestStatus.OK) {

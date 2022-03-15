@@ -25,8 +25,8 @@ public class TestMain {
 
     public static void main(String[] args) throws UnsupportedEncodingException {
 
-        String aasRegistryEndpoint = "http://lns-90200.sb.dfki.de:8020";
-        //String aasRegistryEndpoint = "http://aasregistry.dockerhost";
+        //String aasRegistryEndpoint = "http://lns-90200.sb.dfki.de:8020";
+        String aasRegistryEndpoint = "http://aasregistry.dockerhost";
         //String aasRegistryEndpoint = "http://localhost:8080";
         String aasId = "https://dfki.de/ids/aas/mir100_1";
 
@@ -112,6 +112,27 @@ public class TestMain {
         } catch (Exception e) {
             log.error("Exception when searching for aas", e);
         }
+
+        try {
+            log.info("search for aas whose assetId ends with mir100_1");
+            log.info("---------------------------------------------");
+            ShellDescriptorQuery query = new ShellDescriptorQuery();
+            query.setQueryType(ShellDescriptorQuery.QueryTypeEnum.REGEX);
+            query.setPath(AasRegistryPaths.globalAssetId().asGlobalReference().value());
+            query.setValue("mir100_1");
+
+            var searchResult = apiInstance.searchShellDescriptors(new ShellDescriptorSearchRequest().query(query));
+            log.info("Result size: " + searchResult.getTotal());
+
+
+            for (var aasDescriptor: searchResult.getHits()) {
+                log.info("IdShort: {}", aasDescriptor.getIdShort());
+            }
+            log.info("---------------------------------------------");
+        } catch (Exception e) {
+            log.error("Exception when searching for aas", e);
+        }
+
 
     }
 }

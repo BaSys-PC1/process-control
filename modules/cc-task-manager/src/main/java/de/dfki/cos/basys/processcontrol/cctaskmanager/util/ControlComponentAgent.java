@@ -1,38 +1,51 @@
 package de.dfki.cos.basys.processcontrol.cctaskmanager.util;
 
-import de.dfki.cos.basys.controlcomponent.ComponentOrderStatus;
-import de.dfki.cos.basys.controlcomponent.OrderStatus;
-import de.dfki.cos.basys.controlcomponent.ParameterInfo;
+import de.dfki.cos.basys.common.component.ComponentContext;
+import de.dfki.cos.basys.common.component.ServiceProvider;
+import de.dfki.cos.basys.common.component.StringConstants;
+import de.dfki.cos.basys.controlcomponent.*;
 import de.dfki.cos.basys.controlcomponent.client.ControlComponentClient;
 import de.dfki.cos.basys.controlcomponent.client.ControlComponentClientImpl;
 import de.dfki.cos.basys.controlcomponent.packml.PackMLWaitStatesHandler;
 import de.dfki.cos.basys.processcontrol.cctaskmanager.services.ControlComponentAgentCallback;
 import de.dfki.cos.basys.processcontrol.model.*;
+import de.dfki.cos.basys.processcontrol.model.ExecutionCommand;
+import de.dfki.cos.basys.processcontrol.model.ExecutionMode;
+import de.dfki.cos.basys.processcontrol.model.OccupationCommand;
+import de.dfki.cos.basys.processcontrol.model.OperationMode;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.basyx.submodel.metamodel.api.ISubmodel;
 import org.springframework.core.task.AsyncTaskExecutor;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
-public class ControlComponentAgent implements PackMLWaitStatesHandler {
+public class ControlComponentAgent implements PackMLWaitStatesHandler, StatusInterface {
 
-    protected ControlComponentClient controlComponentClient = null;
+    protected ControlComponentClientImpl controlComponentClient = null;
     protected ControlComponentAgentCallback callback = null;
     private ControlComponentRequest currentRequest = null;
-    private AsyncTaskExecutor executor = null;
-    private ISubmodel instanceSubmodel = null;
 
-    public ControlComponentAgent(Properties config) {
-        controlComponentClient = new ControlComponentClientImpl(config, this);
+    private Properties config = null;
+
+    public ControlComponentAgent(Properties config, ControlComponentAgentCallback callback) {
+        this.config = config;
+        this.controlComponentClient = new ControlComponentClientImpl(config, this);
+        this.callback = callback;
     }
 
-    public void activate() {}
+    public boolean activate() {
+        String connectionString = config.getProperty("connectionString");
+        return controlComponentClient.connect(ComponentContext.getStaticContext(), connectionString);
+    }
 
-    public void deactivate() {}
+    public void deactivate() {
+        controlComponentClient.disconnect();
+    }
 
     public ControlComponentRequestStatus handleControlComponentRequest(ControlComponentRequest request) {
         ControlComponentRequestStatus status = null;
@@ -136,7 +149,7 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler {
         if (currentRequest != null) {
             OperationMode opMode = (OperationMode) currentRequest.getCommand();
             try {
-                ComponentOrderStatus status = executor.submit(new Callable<ComponentOrderStatus>() {
+                ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(new Callable<ComponentOrderStatus>() {
                     @Override
                     public ComponentOrderStatus call() throws Exception {
                         ComponentOrderStatus status = controlComponentClient.setOperationMode(opMode.getName().toString());
@@ -167,7 +180,7 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler {
         if (currentRequest != null) {
             OperationMode opMode = (OperationMode) currentRequest.getCommand();
             try {
-                ComponentOrderStatus status = executor.submit(new Callable<ComponentOrderStatus>() {
+                ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(new Callable<ComponentOrderStatus>() {
                     @Override
                     public ComponentOrderStatus call() throws Exception {
                         ComponentOrderStatus status = controlComponentClient.free();
@@ -175,6 +188,7 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler {
                         ControlComponentResponse response = new ControlComponentResponse();
                         response.setRequest(currentRequest);
                         response.setComponentId(currentRequest.getComponentId());
+                        response.setAasId(currentRequest.getAasId());
                         response.setCorrelationId(currentRequest.getCorrelationId());
                         response.setStatus(RequestStatus.OK);
                         response.setStatusCode(controlComponentClient.getErrorCode());
@@ -211,7 +225,7 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler {
         if (currentRequest != null) {
             OperationMode opMode = (OperationMode) currentRequest.getCommand();
             try {
-                ComponentOrderStatus status = executor.submit(new Callable<ComponentOrderStatus>() {
+                ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(new Callable<ComponentOrderStatus>() {
                     @Override
                     public ComponentOrderStatus call() throws Exception {
                         ComponentOrderStatus status = controlComponentClient.free();
@@ -219,6 +233,7 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler {
                         ControlComponentResponse response = new ControlComponentResponse();
                         response.setRequest(currentRequest);
                         response.setComponentId(currentRequest.getComponentId());
+                        response.setAasId(currentRequest.getAasId());
                         response.setCorrelationId(currentRequest.getCorrelationId());
                         response.setStatus(RequestStatus.NOT_OK);
                         response.setStatusCode(controlComponentClient.getErrorCode());
@@ -269,5 +284,60 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler {
         if (currentRequest != null) {
 
         }
+    }
+
+    @Override
+    public OccupationStatus getOccupationStatus() {
+        return controlComponentClient.getOccupationStatus();
+    }
+
+    @Override
+    public OccupationState getOccupationState() {
+        return controlComponentClient.getOccupationState();
+    }
+
+    @Override
+    public String getOccupierId() {
+        return controlComponentClient.getOccupierId();
+    }
+
+    @Override
+    public List<OperationModeInfo> getOperationModes() {
+        return controlComponentClient.getOperationModes();
+    }
+
+    @Override
+    public OperationModeInfo getOperationMode() {
+        return controlComponentClient.getOperationMode();
+    }
+
+    @Override
+    public String getWorkState() {
+        return controlComponentClient.getWorkState();
+    }
+
+    @Override
+    public ErrorStatus getErrorStatus() {
+        return controlComponentClient.getErrorStatus();
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return controlComponentClient.getErrorMessage();
+    }
+
+    @Override
+    public int getErrorCode() {
+        return controlComponentClient.getErrorCode();
+    }
+
+    @Override
+    public ExecutionState getExecutionState() {
+        return controlComponentClient.getExecutionState();
+    }
+
+    @Override
+    public de.dfki.cos.basys.controlcomponent.ExecutionMode getExecutionMode() {
+        return controlComponentClient.getExecutionMode();
     }
 }

@@ -4,7 +4,7 @@ server:
 spring:
   cloud:
     function:
-      definition: aasRegistryUpdates;controlComponentRequests
+      definition: aasRegistryUpdates;controlComponentRequests;controlComponentOrders
     stream:
       kafka:
         binder:
@@ -62,7 +62,10 @@ spring:
                         specific.avro.reader: true
 
 basys:
-  ccagent-manager:
-    ccinstance-submodel-semantic-id: https://wiki.eclipse.org/BaSyx_/_Submodels#Control_Component_Instance
-    ccinterface-submodel-semantic-id: https://wiki.eclipse.org/BaSyx_/_Submodels#Control_Component_Interface
+  aasRegistry:
+    type: dotaas
+    service:
+      connectionString: http://aasregistry.dockerhost
+  semanticIds:
+    ccinstanceSubmodel: https://wiki.eclipse.org/BaSyx_/_Submodels#Control_Component_Instance
 
