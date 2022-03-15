@@ -15,7 +15,7 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class Variable extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = -7747623198238459722L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Variable\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",\"string\"]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Variable\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -71,7 +71,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
     return DECODER.decode(b);
   }
 
-   private java.lang.CharSequence name;
+   private java.lang.String name;
    private java.lang.Object value;
    private de.dfki.cos.basys.processcontrol.model.VariableType type;
 
@@ -88,7 +88,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
    * @param value The new value for value
    * @param type The new value for type
    */
-  public Variable(java.lang.CharSequence name, java.lang.Object value, de.dfki.cos.basys.processcontrol.model.VariableType type) {
+  public Variable(java.lang.String name, java.lang.Object value, de.dfki.cos.basys.processcontrol.model.VariableType type) {
     this.name = name;
     this.value = value;
     this.type = type;
@@ -110,7 +110,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: name = (java.lang.CharSequence)value$; break;
+    case 0: name = value$ != null ? value$.toString() : null; break;
     case 1: value = value$; break;
     case 2: type = (de.dfki.cos.basys.processcontrol.model.VariableType)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
@@ -121,7 +121,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
    * Gets the value of the 'name' field.
    * @return The value of the 'name' field.
    */
-  public java.lang.CharSequence getName() {
+  public java.lang.String getName() {
     return name;
   }
 
@@ -130,7 +130,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'name' field.
    * @param value the value to set.
    */
-  public void setName(java.lang.CharSequence value) {
+  public void setName(java.lang.String value) {
     this.name = value;
   }
 
@@ -209,7 +209,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Variable>
     implements org.apache.avro.data.RecordBuilder<Variable> {
 
-    private java.lang.CharSequence name;
+    private java.lang.String name;
     private java.lang.Object value;
     private de.dfki.cos.basys.processcontrol.model.VariableType type;
 
@@ -262,7 +262,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
       * Gets the value of the 'name' field.
       * @return The value.
       */
-    public java.lang.CharSequence getName() {
+    public java.lang.String getName() {
       return name;
     }
 
@@ -272,7 +272,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
       * @param value The value of 'name'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.Variable.Builder setName(java.lang.CharSequence value) {
+    public de.dfki.cos.basys.processcontrol.model.Variable.Builder setName(java.lang.String value) {
       validate(fields()[0], value);
       this.name = value;
       fieldSetFlags()[0] = true;
@@ -383,7 +383,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
     public Variable build() {
       try {
         Variable record = new Variable();
-        record.name = fieldSetFlags()[0] ? this.name : (java.lang.CharSequence) defaultValue(fields()[0]);
+        record.name = fieldSetFlags()[0] ? this.name : (java.lang.String) defaultValue(fields()[0]);
         record.value = fieldSetFlags()[1] ? this.value :  defaultValue(fields()[1]);
         record.type = fieldSetFlags()[2] ? this.type : (de.dfki.cos.basys.processcontrol.model.VariableType) defaultValue(fields()[2]);
         return record;

@@ -38,7 +38,8 @@ protocol ControlComponentMessages {
 	}
 
 	record ControlComponentRequest {
-		string componentId;
+		union {null,string} componentId;
+		union {null,string} aasId;
 		string correlationId;
 		string occupierId;
 
@@ -61,11 +62,12 @@ protocol ControlComponentMessages {
 	}
 
 	record ControlComponentResponse {
-		string componentId;
+		union {null,string} componentId;
+		union {null,string} aasId;
 		string correlationId;
 		RequestStatus status;
 		int statusCode;
-		string message;
+		union {null,string} message;
 		ControlComponentRequest request;
 		array<Variable> outputParameters;
 	}

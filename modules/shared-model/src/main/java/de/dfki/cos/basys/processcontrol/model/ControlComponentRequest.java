@@ -14,8 +14,8 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class ControlComponentRequest extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 645819251129383922L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentRequest\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"componentId\",\"type\":\"string\"},{\"name\":\"correlationId\",\"type\":\"string\"},{\"name\":\"occupierId\",\"type\":\"string\"},{\"name\":\"requestType\",\"type\":{\"type\":\"enum\",\"name\":\"ControlComponentRequestType\",\"symbols\":[\"OCCUPATION_COMMAND_REQUEST\",\"EXECUTION_MODE_REQUEST\",\"EXECUTION_COMMAND_REQUEST\",\"OPERATION_MODE_REQUEST\"]}},{\"name\":\"command\",\"type\":[{\"type\":\"enum\",\"name\":\"OccupationCommand\",\"symbols\":[\"FREE\",\"OCCUPY\",\"PRIO\"]},{\"type\":\"enum\",\"name\":\"ExecutionMode\",\"symbols\":[\"AUTO\",\"SEMIAUTO\",\"MANUAL\",\"SIMULATE\"]},{\"type\":\"enum\",\"name\":\"ExecutionCommand\",\"symbols\":[\"RESET\",\"START\",\"STOP\",\"HOLD\",\"UNHOLD\",\"SUSPEND\",\"UNSUSPEND\",\"ABORT\",\"CLEAR\"]},{\"type\":\"record\",\"name\":\"OperationMode\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",\"string\"]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"}}]}]}]}");
+  private static final long serialVersionUID = 8546194955782672398L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentRequest\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"occupierId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"requestType\",\"type\":{\"type\":\"enum\",\"name\":\"ControlComponentRequestType\",\"symbols\":[\"OCCUPATION_COMMAND_REQUEST\",\"EXECUTION_MODE_REQUEST\",\"EXECUTION_COMMAND_REQUEST\",\"OPERATION_MODE_REQUEST\"]}},{\"name\":\"command\",\"type\":[{\"type\":\"enum\",\"name\":\"OccupationCommand\",\"symbols\":[\"FREE\",\"OCCUPY\",\"PRIO\"]},{\"type\":\"enum\",\"name\":\"ExecutionMode\",\"symbols\":[\"AUTO\",\"SEMIAUTO\",\"MANUAL\",\"SIMULATE\"]},{\"type\":\"enum\",\"name\":\"ExecutionCommand\",\"symbols\":[\"RESET\",\"START\",\"STOP\",\"HOLD\",\"UNHOLD\",\"SUSPEND\",\"UNSUSPEND\",\"ABORT\",\"CLEAR\"]},{\"type\":\"record\",\"name\":\"OperationMode\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"}}]}]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -71,9 +71,10 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     return DECODER.decode(b);
   }
 
-   private java.lang.CharSequence componentId;
-   private java.lang.CharSequence correlationId;
-   private java.lang.CharSequence occupierId;
+   private java.lang.String componentId;
+   private java.lang.String aasId;
+   private java.lang.String correlationId;
+   private java.lang.String occupierId;
    private de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType requestType;
    private java.lang.Object command;
 
@@ -87,13 +88,15 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
   /**
    * All-args constructor.
    * @param componentId The new value for componentId
+   * @param aasId The new value for aasId
    * @param correlationId The new value for correlationId
    * @param occupierId The new value for occupierId
    * @param requestType The new value for requestType
    * @param command The new value for command
    */
-  public ControlComponentRequest(java.lang.CharSequence componentId, java.lang.CharSequence correlationId, java.lang.CharSequence occupierId, de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType requestType, java.lang.Object command) {
+  public ControlComponentRequest(java.lang.String componentId, java.lang.String aasId, java.lang.String correlationId, java.lang.String occupierId, de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType requestType, java.lang.Object command) {
     this.componentId = componentId;
+    this.aasId = aasId;
     this.correlationId = correlationId;
     this.occupierId = occupierId;
     this.requestType = requestType;
@@ -106,10 +109,11 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
   public java.lang.Object get(int field$) {
     switch (field$) {
     case 0: return componentId;
-    case 1: return correlationId;
-    case 2: return occupierId;
-    case 3: return requestType;
-    case 4: return command;
+    case 1: return aasId;
+    case 2: return correlationId;
+    case 3: return occupierId;
+    case 4: return requestType;
+    case 5: return command;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -118,11 +122,12 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: componentId = (java.lang.CharSequence)value$; break;
-    case 1: correlationId = (java.lang.CharSequence)value$; break;
-    case 2: occupierId = (java.lang.CharSequence)value$; break;
-    case 3: requestType = (de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType)value$; break;
-    case 4: command = value$; break;
+    case 0: componentId = value$ != null ? value$.toString() : null; break;
+    case 1: aasId = value$ != null ? value$.toString() : null; break;
+    case 2: correlationId = value$ != null ? value$.toString() : null; break;
+    case 3: occupierId = value$ != null ? value$.toString() : null; break;
+    case 4: requestType = (de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType)value$; break;
+    case 5: command = value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -131,7 +136,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
    * Gets the value of the 'componentId' field.
    * @return The value of the 'componentId' field.
    */
-  public java.lang.CharSequence getComponentId() {
+  public java.lang.String getComponentId() {
     return componentId;
   }
 
@@ -140,15 +145,32 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
    * Sets the value of the 'componentId' field.
    * @param value the value to set.
    */
-  public void setComponentId(java.lang.CharSequence value) {
+  public void setComponentId(java.lang.String value) {
     this.componentId = value;
+  }
+
+  /**
+   * Gets the value of the 'aasId' field.
+   * @return The value of the 'aasId' field.
+   */
+  public java.lang.String getAasId() {
+    return aasId;
+  }
+
+
+  /**
+   * Sets the value of the 'aasId' field.
+   * @param value the value to set.
+   */
+  public void setAasId(java.lang.String value) {
+    this.aasId = value;
   }
 
   /**
    * Gets the value of the 'correlationId' field.
    * @return The value of the 'correlationId' field.
    */
-  public java.lang.CharSequence getCorrelationId() {
+  public java.lang.String getCorrelationId() {
     return correlationId;
   }
 
@@ -157,7 +179,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
    * Sets the value of the 'correlationId' field.
    * @param value the value to set.
    */
-  public void setCorrelationId(java.lang.CharSequence value) {
+  public void setCorrelationId(java.lang.String value) {
     this.correlationId = value;
   }
 
@@ -165,7 +187,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
    * Gets the value of the 'occupierId' field.
    * @return The value of the 'occupierId' field.
    */
-  public java.lang.CharSequence getOccupierId() {
+  public java.lang.String getOccupierId() {
     return occupierId;
   }
 
@@ -174,7 +196,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
    * Sets the value of the 'occupierId' field.
    * @param value the value to set.
    */
-  public void setOccupierId(java.lang.CharSequence value) {
+  public void setOccupierId(java.lang.String value) {
     this.occupierId = value;
   }
 
@@ -253,9 +275,10 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<ControlComponentRequest>
     implements org.apache.avro.data.RecordBuilder<ControlComponentRequest> {
 
-    private java.lang.CharSequence componentId;
-    private java.lang.CharSequence correlationId;
-    private java.lang.CharSequence occupierId;
+    private java.lang.String componentId;
+    private java.lang.String aasId;
+    private java.lang.String correlationId;
+    private java.lang.String occupierId;
     private de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType requestType;
     private java.lang.Object command;
 
@@ -274,21 +297,25 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
         this.componentId = data().deepCopy(fields()[0].schema(), other.componentId);
         fieldSetFlags()[0] = other.fieldSetFlags()[0];
       }
-      if (isValidValue(fields()[1], other.correlationId)) {
-        this.correlationId = data().deepCopy(fields()[1].schema(), other.correlationId);
+      if (isValidValue(fields()[1], other.aasId)) {
+        this.aasId = data().deepCopy(fields()[1].schema(), other.aasId);
         fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
-      if (isValidValue(fields()[2], other.occupierId)) {
-        this.occupierId = data().deepCopy(fields()[2].schema(), other.occupierId);
+      if (isValidValue(fields()[2], other.correlationId)) {
+        this.correlationId = data().deepCopy(fields()[2].schema(), other.correlationId);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
-      if (isValidValue(fields()[3], other.requestType)) {
-        this.requestType = data().deepCopy(fields()[3].schema(), other.requestType);
+      if (isValidValue(fields()[3], other.occupierId)) {
+        this.occupierId = data().deepCopy(fields()[3].schema(), other.occupierId);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
       }
-      if (isValidValue(fields()[4], other.command)) {
-        this.command = data().deepCopy(fields()[4].schema(), other.command);
+      if (isValidValue(fields()[4], other.requestType)) {
+        this.requestType = data().deepCopy(fields()[4].schema(), other.requestType);
         fieldSetFlags()[4] = other.fieldSetFlags()[4];
+      }
+      if (isValidValue(fields()[5], other.command)) {
+        this.command = data().deepCopy(fields()[5].schema(), other.command);
+        fieldSetFlags()[5] = other.fieldSetFlags()[5];
       }
     }
 
@@ -302,21 +329,25 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
         this.componentId = data().deepCopy(fields()[0].schema(), other.componentId);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.correlationId)) {
-        this.correlationId = data().deepCopy(fields()[1].schema(), other.correlationId);
+      if (isValidValue(fields()[1], other.aasId)) {
+        this.aasId = data().deepCopy(fields()[1].schema(), other.aasId);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.occupierId)) {
-        this.occupierId = data().deepCopy(fields()[2].schema(), other.occupierId);
+      if (isValidValue(fields()[2], other.correlationId)) {
+        this.correlationId = data().deepCopy(fields()[2].schema(), other.correlationId);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.requestType)) {
-        this.requestType = data().deepCopy(fields()[3].schema(), other.requestType);
+      if (isValidValue(fields()[3], other.occupierId)) {
+        this.occupierId = data().deepCopy(fields()[3].schema(), other.occupierId);
         fieldSetFlags()[3] = true;
       }
-      if (isValidValue(fields()[4], other.command)) {
-        this.command = data().deepCopy(fields()[4].schema(), other.command);
+      if (isValidValue(fields()[4], other.requestType)) {
+        this.requestType = data().deepCopy(fields()[4].schema(), other.requestType);
         fieldSetFlags()[4] = true;
+      }
+      if (isValidValue(fields()[5], other.command)) {
+        this.command = data().deepCopy(fields()[5].schema(), other.command);
+        fieldSetFlags()[5] = true;
       }
     }
 
@@ -324,7 +355,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * Gets the value of the 'componentId' field.
       * @return The value.
       */
-    public java.lang.CharSequence getComponentId() {
+    public java.lang.String getComponentId() {
       return componentId;
     }
 
@@ -334,7 +365,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * @param value The value of 'componentId'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setComponentId(java.lang.CharSequence value) {
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setComponentId(java.lang.String value) {
       validate(fields()[0], value);
       this.componentId = value;
       fieldSetFlags()[0] = true;
@@ -361,10 +392,50 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
+      * Gets the value of the 'aasId' field.
+      * @return The value.
+      */
+    public java.lang.String getAasId() {
+      return aasId;
+    }
+
+
+    /**
+      * Sets the value of the 'aasId' field.
+      * @param value The value of 'aasId'.
+      * @return This builder.
+      */
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setAasId(java.lang.String value) {
+      validate(fields()[1], value);
+      this.aasId = value;
+      fieldSetFlags()[1] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'aasId' field has been set.
+      * @return True if the 'aasId' field has been set, false otherwise.
+      */
+    public boolean hasAasId() {
+      return fieldSetFlags()[1];
+    }
+
+
+    /**
+      * Clears the value of the 'aasId' field.
+      * @return This builder.
+      */
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearAasId() {
+      aasId = null;
+      fieldSetFlags()[1] = false;
+      return this;
+    }
+
+    /**
       * Gets the value of the 'correlationId' field.
       * @return The value.
       */
-    public java.lang.CharSequence getCorrelationId() {
+    public java.lang.String getCorrelationId() {
       return correlationId;
     }
 
@@ -374,10 +445,10 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * @param value The value of 'correlationId'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setCorrelationId(java.lang.CharSequence value) {
-      validate(fields()[1], value);
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setCorrelationId(java.lang.String value) {
+      validate(fields()[2], value);
       this.correlationId = value;
-      fieldSetFlags()[1] = true;
+      fieldSetFlags()[2] = true;
       return this;
     }
 
@@ -386,7 +457,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * @return True if the 'correlationId' field has been set, false otherwise.
       */
     public boolean hasCorrelationId() {
-      return fieldSetFlags()[1];
+      return fieldSetFlags()[2];
     }
 
 
@@ -396,7 +467,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearCorrelationId() {
       correlationId = null;
-      fieldSetFlags()[1] = false;
+      fieldSetFlags()[2] = false;
       return this;
     }
 
@@ -404,7 +475,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * Gets the value of the 'occupierId' field.
       * @return The value.
       */
-    public java.lang.CharSequence getOccupierId() {
+    public java.lang.String getOccupierId() {
       return occupierId;
     }
 
@@ -414,10 +485,10 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * @param value The value of 'occupierId'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setOccupierId(java.lang.CharSequence value) {
-      validate(fields()[2], value);
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setOccupierId(java.lang.String value) {
+      validate(fields()[3], value);
       this.occupierId = value;
-      fieldSetFlags()[2] = true;
+      fieldSetFlags()[3] = true;
       return this;
     }
 
@@ -426,7 +497,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * @return True if the 'occupierId' field has been set, false otherwise.
       */
     public boolean hasOccupierId() {
-      return fieldSetFlags()[2];
+      return fieldSetFlags()[3];
     }
 
 
@@ -436,7 +507,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearOccupierId() {
       occupierId = null;
-      fieldSetFlags()[2] = false;
+      fieldSetFlags()[3] = false;
       return this;
     }
 
@@ -455,9 +526,9 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * @return This builder.
       */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setRequestType(de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType value) {
-      validate(fields()[3], value);
+      validate(fields()[4], value);
       this.requestType = value;
-      fieldSetFlags()[3] = true;
+      fieldSetFlags()[4] = true;
       return this;
     }
 
@@ -466,7 +537,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * @return True if the 'requestType' field has been set, false otherwise.
       */
     public boolean hasRequestType() {
-      return fieldSetFlags()[3];
+      return fieldSetFlags()[4];
     }
 
 
@@ -476,7 +547,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearRequestType() {
       requestType = null;
-      fieldSetFlags()[3] = false;
+      fieldSetFlags()[4] = false;
       return this;
     }
 
@@ -495,9 +566,9 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * @return This builder.
       */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setCommand(java.lang.Object value) {
-      validate(fields()[4], value);
+      validate(fields()[5], value);
       this.command = value;
-      fieldSetFlags()[4] = true;
+      fieldSetFlags()[5] = true;
       return this;
     }
 
@@ -506,7 +577,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       * @return True if the 'command' field has been set, false otherwise.
       */
     public boolean hasCommand() {
-      return fieldSetFlags()[4];
+      return fieldSetFlags()[5];
     }
 
 
@@ -516,7 +587,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
       */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearCommand() {
       command = null;
-      fieldSetFlags()[4] = false;
+      fieldSetFlags()[5] = false;
       return this;
     }
 
@@ -525,11 +596,12 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     public ControlComponentRequest build() {
       try {
         ControlComponentRequest record = new ControlComponentRequest();
-        record.componentId = fieldSetFlags()[0] ? this.componentId : (java.lang.CharSequence) defaultValue(fields()[0]);
-        record.correlationId = fieldSetFlags()[1] ? this.correlationId : (java.lang.CharSequence) defaultValue(fields()[1]);
-        record.occupierId = fieldSetFlags()[2] ? this.occupierId : (java.lang.CharSequence) defaultValue(fields()[2]);
-        record.requestType = fieldSetFlags()[3] ? this.requestType : (de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType) defaultValue(fields()[3]);
-        record.command = fieldSetFlags()[4] ? this.command :  defaultValue(fields()[4]);
+        record.componentId = fieldSetFlags()[0] ? this.componentId : (java.lang.String) defaultValue(fields()[0]);
+        record.aasId = fieldSetFlags()[1] ? this.aasId : (java.lang.String) defaultValue(fields()[1]);
+        record.correlationId = fieldSetFlags()[2] ? this.correlationId : (java.lang.String) defaultValue(fields()[2]);
+        record.occupierId = fieldSetFlags()[3] ? this.occupierId : (java.lang.String) defaultValue(fields()[3]);
+        record.requestType = fieldSetFlags()[4] ? this.requestType : (de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType) defaultValue(fields()[4]);
+        record.command = fieldSetFlags()[5] ? this.command :  defaultValue(fields()[5]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
