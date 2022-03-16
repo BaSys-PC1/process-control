@@ -24,13 +24,15 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
-public class ControlComponentAgent implements PackMLWaitStatesHandler, StatusInterface {
+public class ControlComponentAgent implements PackMLWaitStatesHandler /*, StatusInterface*/ {
 
     protected ControlComponentClientImpl controlComponentClient = null;
     protected ControlComponentAgentCallback callback = null;
     private ControlComponentRequest currentRequest = null;
 
     private Properties config = null;
+
+    private boolean isActive = false;
 
     public ControlComponentAgent(Properties config, ControlComponentAgentCallback callback) {
         this.config = config;
@@ -40,15 +42,35 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler, StatusInt
 
     public boolean activate() {
         String connectionString = config.getProperty("connectionString");
-        return controlComponentClient.connect(ComponentContext.getStaticContext(), connectionString);
+        isActive = controlComponentClient.connect(ComponentContext.getStaticContext(), connectionString);
+        return isActive();
     }
 
     public void deactivate() {
-        controlComponentClient.disconnect();
+        if (controlComponentClient.isConnected()) {
+            isActive = false; // prevents calls from outside when deactivation is ongoing
+            //TODO: think of more graceful way for shutdown; check cc state; if not stopped/complete -> wait
+            if (controlComponentClient.getExecutionState() != ExecutionState.COMPLETE
+                    || controlComponentClient.getExecutionState() != ExecutionState.STOPPED) {
+                controlComponentClient.stop();
+            }
+            controlComponentClient.disconnect();
+        }
+    }
+
+    public boolean isActive() {
+        return isActive && controlComponentClient.isConnected();
     }
 
     public ControlComponentRequestStatus handleControlComponentRequest(ControlComponentRequest request) {
         ControlComponentRequestStatus status = null;
+
+        if (!isActive()) {
+            status = new ControlComponentRequestStatus();
+            status.setStatus(RequestStatus.REJECTED);
+            status.setMessage("agent not active");
+            return status;
+        }
 
         switch (request.getRequestType()) {
             case OCCUPATION_COMMAND_REQUEST:
@@ -285,7 +307,7 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler, StatusInt
 
         }
     }
-
+/*
     @Override
     public OccupationStatus getOccupationStatus() {
         return controlComponentClient.getOccupationStatus();
@@ -340,4 +362,5 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler, StatusInt
     public de.dfki.cos.basys.controlcomponent.ExecutionMode getExecutionMode() {
         return controlComponentClient.getExecutionMode();
     }
+ */
 }

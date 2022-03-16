@@ -2,6 +2,7 @@ package de.dfki.cos.basys.processcontrol.cctaskmanager.services;
 
 import de.dfki.cos.basys.processcontrol.cctaskmanager.util.ControlComponentAgent;
 import de.dfki.cos.basys.processcontrol.model.ControlComponentRequest;
+import de.dfki.cos.basys.processcontrol.model.ControlComponentRequestStatus;
 import de.dfki.cos.basys.processcontrol.model.ControlComponentResponse;
 import de.dfki.cos.basys.processcontrol.model.RequestStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -63,8 +64,7 @@ public class ControlComponentAgentManager implements ControlComponentAgentCallba
 
     @PreDestroy
     public void dispose() {
-        //TODO: think of more graceful way for shutdown; check cc state; if not stopped/complete -> wait
-        agents.values().stream().forEach(ControlComponentAgent::deactivate);
+        agents.values().parallelStream().forEach(ControlComponentAgent::deactivate);
     }
 
     @Override
@@ -180,8 +180,9 @@ public class ControlComponentAgentManager implements ControlComponentAgentCallba
         threadPoolTaskScheduler.execute(new Runnable() {
             @Override
             public void run() {
+                ControlComponentResponse response = null;
                 if (controlComponentRequest.getAasId() == null) {
-                    ControlComponentResponse response = ControlComponentResponse.newBuilder()
+                    response = ControlComponentResponse.newBuilder()
                             .setRequest(controlComponentRequest)
                             .setComponentId(controlComponentRequest.getComponentId())
                             .setAasId(controlComponentRequest.getAasId())
@@ -191,11 +192,10 @@ public class ControlComponentAgentManager implements ControlComponentAgentCallba
                             .setStatusCode(-1)
                             .setOutputParameters(Collections.emptyList())
                             .build();
-                    streamBridge.send("controlComponentResponses", response);
                 } else {
                     ControlComponentAgent agent = agents.get(controlComponentRequest.getAasId());
                     if (agent == null) {
-                        ControlComponentResponse response = ControlComponentResponse.newBuilder()
+                        response = ControlComponentResponse.newBuilder()
                                 .setRequest(controlComponentRequest)
                                 .setComponentId(controlComponentRequest.getComponentId())
                                 .setAasId(controlComponentRequest.getAasId())
@@ -205,10 +205,26 @@ public class ControlComponentAgentManager implements ControlComponentAgentCallba
                                 .setStatusCode(-2)
                                 .setOutputParameters(Collections.emptyList())
                                 .build();
-                        streamBridge.send("controlComponentResponses", response);
                     } else {
-                        agent.handleControlComponentRequest(controlComponentRequest);
+                        ControlComponentRequestStatus status = agent.handleControlComponentRequest(controlComponentRequest);
+                        if (status.getStatus() != RequestStatus.ACCEPTED && status.getStatus() != RequestStatus.QUEUED) {
+                            response = ControlComponentResponse.newBuilder()
+                                    .setRequest(controlComponentRequest)
+                                    .setComponentId(controlComponentRequest.getComponentId())
+                                    .setAasId(controlComponentRequest.getAasId())
+                                    .setCorrelationId(controlComponentRequest.getCorrelationId())
+                                    .setMessage(status.getMessage())
+                                    .setStatus(status.getStatus())
+                                    .setStatusCode(0)
+                                    .setOutputParameters(Collections.emptyList())
+                                    .build();
+                        } else {
+                            // TODO: implement timer to check if execution is stalled and report back if so
+                        }
                     }
+                }
+                if (response != null) {
+                    streamBridge.send("controlComponentResponses", response);
                 }
             }
         });

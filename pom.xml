@@ -21,7 +21,7 @@
 		<module>modules/cc-task-manager</module>
 		<module>modules/task-channel-camunda-cc</module>
 		<module>modules/task-channel-camunda-wallet</module>
-        <module>modules/kafka-messaging-test</module>
+<!--        <module>modules/kafka-messaging-test</module>-->
 	</modules>
 
 	<scm>
