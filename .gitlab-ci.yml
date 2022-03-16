@@ -39,7 +39,7 @@ deploy:
   script:
     - mvn $MAVEN_CLI_OPTS deploy
   only:
-    - master
+    - main
     - develop
 
 docker:
@@ -60,5 +60,5 @@ docker:
     - chmod 775 ./mvnw
     - ./mvnw $MAVEN_CLI_OPTS -Ddocker.username=$DOCKER_REGISTRY_USER -Ddocker.password=$DOCKER_REGISTRY_PASSWORD spring-boot:build-image -pl cc-task-manager,task-channel-camunda-cc,task-channel-camunda-wallet
   only:
-    - master
+    - main
     - develop
