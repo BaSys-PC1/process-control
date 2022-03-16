@@ -3,10 +3,10 @@ package de.dfki.cos.basys.processcontrol.cctaskmanager;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class CcTaskManagerApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 
