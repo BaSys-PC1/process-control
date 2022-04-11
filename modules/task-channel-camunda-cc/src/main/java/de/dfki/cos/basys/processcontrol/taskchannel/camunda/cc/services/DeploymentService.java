@@ -32,14 +32,17 @@ import java.util.concurrent.Executor;
 @RequiredArgsConstructor
 public class DeploymentService {
 
-    @Value("${camunda.processDeployer.watchedPath:#dont_watch#}")
-    private String watchedPath;
+    @Value("${camunda.processDeployer.sourcePath:#empty#}")
+    private String sourcePath;
 
-    @Value("${camunda.processDeployer.fileSuffixes}")
+    @Value("${camunda.processDeployer.fileSuffixes:.bpmn}")
     private String fileSuffixes;
 
-    @Value("${camunda.processDeployer.recursive}")
+    @Value("${camunda.processDeployer.recursive:false}")
     private boolean recursive;
+
+    @Value("${camunda.processDeployer.watch:false}")
+    private boolean watch;
 
     @Autowired
     private final DeploymentApi api;
@@ -63,7 +66,8 @@ public class DeploymentService {
     @Async()
     public void startMonitoring() {
         log.info("START_MONITORING");
-        Path path = Paths.get(watchedPath);
+        if (!watch) return;
+        Path path = Paths.get(sourcePath);
         try {
             WatchKey key;
             while ((key = watchService.take()) != null) {
@@ -137,7 +141,7 @@ public class DeploymentService {
             depth = Integer.MAX_VALUE;
 
         try {
-            Files.find(Paths.get(watchedPath), depth, (filePath, fileAttr) -> filter.accept(filePath.toFile())).map(p -> p.toString()).forEach(paths::add);
+            Files.find(Paths.get(sourcePath), depth, (filePath, fileAttr) -> filter.accept(filePath.toFile())).map(p -> p.toString()).forEach(paths::add);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

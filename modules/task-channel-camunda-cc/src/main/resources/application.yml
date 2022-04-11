@@ -46,9 +46,10 @@ spring:
 logging.level.org.camunda.bpm.client: info # increase the log level of the application
 
 camunda.processDeployer:
-  watchedPath: ./processes
+  sourcePath: ./processes
   fileSuffixes: .bpmn
   recursive: false
+  watch: true
   endpoint: ${CAMUNDA_REST_ENDPOINT}
 camunda.bpm.client:
   base-url: ${CAMUNDA_REST_ENDPOINT} # the URL pointing to the Camunda Platform Runtime REST API
