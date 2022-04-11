@@ -14,18 +14,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 @Configuration
 public class DeploymentServiceConfig {
 
-    @Value("${camunda.processDeployer.sourcePath}")
-    private String sourcePath;
-
-    @Value("${camunda.processDeployer.fileSuffixes}")
-    private String fileSuffix;
-
-    @Value("${camunda.processDeployer.recursive}")
-    private boolean recursive;
-
-    @Value("${camunda.processDeployer.watch}")
-    private boolean watch;
-
     @Value("${camunda.processDeployer.endpoint}")
     private String camundaRestEndpoint;
 
@@ -40,46 +28,4 @@ public class DeploymentServiceConfig {
         return api;
     }
 
-    @Bean
-    public WatchService watchService() {
-        log.debug("watch folder: {}", sourcePath);
-        try {
-            final WatchService watchService = FileSystems.getDefault().newWatchService();
-
-            //don't configure if not needed.
-            if (!watch) return watchService;
-
-            Path path = Paths.get(sourcePath);
-
-            log.info("watch folder: {}", path.toAbsolutePath());
-            if (!Files.isDirectory(path)) {
-                throw new RuntimeException("folder to watch is not a folder: " + path);
-            }
-
-            if (recursive) {
-                Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
-                    @Override
-                    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                        dir.register(
-                                watchService,
-                                StandardWatchEventKinds.ENTRY_DELETE,
-                                StandardWatchEventKinds.ENTRY_MODIFY,
-                                StandardWatchEventKinds.ENTRY_CREATE);
-                        return FileVisitResult.CONTINUE;
-                    }
-                });
-            } else {
-                path.register(
-                        watchService,
-                        StandardWatchEventKinds.ENTRY_DELETE,
-                        StandardWatchEventKinds.ENTRY_MODIFY,
-                        StandardWatchEventKinds.ENTRY_CREATE
-                );
-            }
-            return watchService;
-        } catch (IOException e) {
-            log.error("could not create watch service:", e);
-        }
-        return null;
-    }
 }

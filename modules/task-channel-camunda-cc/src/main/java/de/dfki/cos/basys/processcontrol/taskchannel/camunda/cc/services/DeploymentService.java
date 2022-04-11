@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.threeten.bp.OffsetDateTime;
@@ -21,6 +22,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,8 +49,7 @@ public class DeploymentService {
     @Autowired
     private final DeploymentApi api;
 
-    @Autowired
-    private final WatchService watchService;
+    private WatchService watchService;
 
     private Map<String,String> fileToIdMap = new HashMap<>();
 
@@ -70,6 +71,7 @@ public class DeploymentService {
         Path path = Paths.get(sourcePath);
         try {
             WatchKey key;
+            watchService = createWatchService();
             while ((key = watchService.take()) != null) {
                 for (WatchEvent<?> ev : key.pollEvents()) {
                     log.debug("Event kind: {}; File affected: {}", ev.kind(), ev.context());
@@ -209,6 +211,45 @@ public class DeploymentService {
             log.error(e.getMessage());
         }
 
+    }
+
+    public WatchService createWatchService() {
+        log.debug("watch folder: {}", sourcePath);
+        try {
+            final WatchService watchService = FileSystems.getDefault().newWatchService();
+
+            Path path = Paths.get(sourcePath);
+
+            log.info("watch folder: {}", path.toAbsolutePath());
+            if (!Files.isDirectory(path)) {
+                throw new RuntimeException("folder to watch is not a folder: " + path);
+            }
+
+            if (recursive) {
+                Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                        dir.register(
+                                watchService,
+                                StandardWatchEventKinds.ENTRY_DELETE,
+                                StandardWatchEventKinds.ENTRY_MODIFY,
+                                StandardWatchEventKinds.ENTRY_CREATE);
+                        return FileVisitResult.CONTINUE;
+                    }
+                });
+            } else {
+                path.register(
+                        watchService,
+                        StandardWatchEventKinds.ENTRY_DELETE,
+                        StandardWatchEventKinds.ENTRY_MODIFY,
+                        StandardWatchEventKinds.ENTRY_CREATE
+                );
+            }
+            return watchService;
+        } catch (IOException e) {
+            log.error("could not create watch service:", e);
+        }
+        return null;
     }
 
 }
