@@ -14,14 +14,17 @@ import java.nio.file.attribute.BasicFileAttributes;
 @Configuration
 public class DeploymentServiceConfig {
 
-    @Value("${camunda.processDeployer.watchedPath}")
-    private String watchedPath;
+    @Value("${camunda.processDeployer.sourcePath}")
+    private String sourcePath;
 
     @Value("${camunda.processDeployer.fileSuffixes}")
     private String fileSuffix;
 
     @Value("${camunda.processDeployer.recursive}")
     private boolean recursive;
+
+    @Value("${camunda.processDeployer.watch}")
+    private boolean watch;
 
     @Value("${camunda.processDeployer.endpoint}")
     private String camundaRestEndpoint;
@@ -39,10 +42,14 @@ public class DeploymentServiceConfig {
 
     @Bean
     public WatchService watchService() {
-        log.debug("watch folder: {}", watchedPath);
+        log.debug("watch folder: {}", sourcePath);
         try {
             final WatchService watchService = FileSystems.getDefault().newWatchService();
-            Path path = Paths.get(watchedPath);
+
+            //don't configure if not needed.
+            if (!watch) return watchService;
+
+            Path path = Paths.get(sourcePath);
 
             log.info("watch folder: {}", path.toAbsolutePath());
             if (!Files.isDirectory(path)) {
