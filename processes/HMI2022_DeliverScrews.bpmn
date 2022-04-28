@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_0uth2jv" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+  <bpmn:process id="Process_Deliver_Screws" name="Deliver Screws" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Deliver Screws">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="agvId" label="AGV ID" type="string" defaultValue="mir100_1" />
+          <camunda:formField id="materialOutputId" label="Material Output ID" type="string" defaultValue="materialoutput_2" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_04dn1kb</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_0udikyg" name="AGV: Goto Screw Storage" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">MVSYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "SCREW_STORAGE"}
+]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${agvId}</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_04dn1kb</bpmn:incoming>
+      <bpmn:outgoing>Flow_1cp2m07</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_14dxot0" name="Screw Output: Output Screws" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">OUTPUTMT</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${materialOutputId}</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1cp2m07</bpmn:incoming>
+      <bpmn:outgoing>Flow_1m3080f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_01eod1k" name="AGV: Goto Screw Joining Station" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">MVSYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "SCREW_JOINING_STATION"}
+]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${agvId}</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1m3080f</bpmn:incoming>
+      <bpmn:outgoing>Flow_17t7es0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_19m42fb" name="AGV: Unload Material" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">UNLOAD</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${agvId}</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_17t7es0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1w6coic</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1cp2m07" sourceRef="Activity_0udikyg" targetRef="Activity_14dxot0" />
+    <bpmn:sequenceFlow id="Flow_1m3080f" sourceRef="Activity_14dxot0" targetRef="Activity_01eod1k" />
+    <bpmn:sequenceFlow id="Flow_17t7es0" sourceRef="Activity_01eod1k" targetRef="Activity_19m42fb" />
+    <bpmn:sequenceFlow id="Flow_04dn1kb" sourceRef="StartEvent_1" targetRef="Activity_0udikyg" />
+    <bpmn:serviceTask id="Activity_1wq9lcc" name="AGV: Goto Home Position" camunda:modelerTemplate="de.dfki.cos.basys.operationMode" camunda:type="external" camunda:topic="ControlComponent">
+      <bpmn:extensionElements>
+        <camunda:field name="_componentId" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="requestType">OperationModeRequest</camunda:inputParameter>
+          <camunda:inputParameter name="outputParameters">[]</camunda:inputParameter>
+          <camunda:inputParameter name="token">MVSYM</camunda:inputParameter>
+          <camunda:inputParameter name="inputParameters">
+            <camunda:script scriptFormat="freemarker">[
+{ "name": "position", "type" : "STRING", "value": "_HOME_"}
+]</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="componentId">
+            <camunda:script scriptFormat="freemarker">${agvId}</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1w6coic</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dzbuxo</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1w6coic" sourceRef="Activity_19m42fb" targetRef="Activity_1wq9lcc" />
+    <bpmn:endEvent id="Event_0bhb8yu">
+      <bpmn:incoming>Flow_0dzbuxo</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0dzbuxo" sourceRef="Activity_1wq9lcc" targetRef="Event_0bhb8yu" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Deliver_Screws">
+      <bpmndi:BPMNEdge id="Flow_0dzbuxo_di" bpmnElement="Flow_0dzbuxo">
+        <di:waypoint x="990" y="120" />
+        <di:waypoint x="1042" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w6coic_di" bpmnElement="Flow_1w6coic">
+        <di:waypoint x="840" y="120" />
+        <di:waypoint x="890" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04dn1kb_di" bpmnElement="Flow_04dn1kb">
+        <di:waypoint x="238" y="120" />
+        <di:waypoint x="290" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17t7es0_di" bpmnElement="Flow_17t7es0">
+        <di:waypoint x="690" y="120" />
+        <di:waypoint x="740" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1m3080f_di" bpmnElement="Flow_1m3080f">
+        <di:waypoint x="540" y="120" />
+        <di:waypoint x="590" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1cp2m07_di" bpmnElement="Flow_1cp2m07">
+        <di:waypoint x="390" y="120" />
+        <di:waypoint x="440" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="202" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="184" y="145" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0udikyg_di" bpmnElement="Activity_0udikyg" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="290" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14dxot0_di" bpmnElement="Activity_14dxot0" bioc:stroke="rgb(251, 140, 0)" bioc:fill="rgb(255, 224, 178)">
+        <dc:Bounds x="440" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01eod1k_di" bpmnElement="Activity_01eod1k" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="590" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19m42fb_di" bpmnElement="Activity_19m42fb" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="740" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wq9lcc_di" bpmnElement="Activity_1wq9lcc" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="890" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0bhb8yu_di" bpmnElement="Event_0bhb8yu">
+        <dc:Bounds x="1042" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,10 +1,12 @@
 [
 {
+	"$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.9.1/resources/schema.json",
 	"name": "Execution Command Request",
 	"id": "de.dfki.cos.basys.executionCommand",
 	"appliesTo": [
 		"bpmn:ServiceTask"
 	],
+	"entriesVisible": false,
 	"properties": [
 		{
 			"label": "camunda:type",
@@ -71,18 +73,16 @@
 				"notEmpty": true
 			}
 		}
-	],
-	"entriesVisible": {
-      "_all": false,
-	  "name" : true
-    }
+	]
 },
 {
+	"$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.9.1/resources/schema.json",
 	"name": "Execution Mode Request",
 	"id": "de.dfki.cos.basys.executionMode",
 	"appliesTo": [
 		"bpmn:ServiceTask"
 	],
+	"entriesVisible": false,
 	"properties": [
 		{
 			"label": "camunda:type",
@@ -142,18 +142,16 @@
 				"notEmpty": true
 			}
 		}
-	],
-	"entriesVisible": {
-      "_all": false,
-	  "name" : true
-    }
+	]
 },
 {
+	"$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.9.1/resources/schema.json",
 	"name": "Occupation Command Request",
 	"id": "de.dfki.cos.basys.occupationCommand",
 	"appliesTo": [
 		"bpmn:ServiceTask"
 	],
+	"entriesVisible": false,
 	"properties": [
 		{
 			"label": "camunda:type",
@@ -214,18 +212,16 @@
 				"notEmpty": true
 			}
 		}
-	],
-	"entriesVisible": {
-      "_all": false,
-	  "name" : true
-    }
+	]
 },
 {
+	"$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.9.1/resources/schema.json",
 	"name": "Operation Mode Request",
 	"id": "de.dfki.cos.basys.operationMode",
 	"appliesTo": [
 		"bpmn:ServiceTask"
 	],
+	"entriesVisible": false,
 	"properties": [
 		{
 			"label": "camunda:type",
@@ -302,18 +298,16 @@
 				"type": "camunda:inputParameter"
 			}
 		}
-	],
-	"entriesVisible": {
-      "_all": false,
-	  "name": true
-    }
+	]
 },
 {
+	"$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.9.1/resources/schema.json",
 	"name": "Wait",
 	"id": "de.dfki.cos.basys.wait",
 	"appliesTo": [
 		"bpmn:ServiceTask"
 	],
+	"entriesVisible": false,
 	"properties": [
 		{
 			"label": "camunda:type",
@@ -357,10 +351,6 @@
 				"notEmpty": true
 			}
 		}		
-	],
-	"entriesVisible": {
-      "_all": false,
-	  "name" : true
-    }
+	]
 }
 ]

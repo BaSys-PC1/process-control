@@ -1,10 +1,12 @@
 [
 {
+	"$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.9.1/resources/schema.json",
 	"name": "Execution Command Request (Select Component)",
 	"id": "de.dfki.cos.basys.executionCommand.select",
 	"appliesTo": [
 		"bpmn:ServiceTask"
 	],
+	"entriesVisible": false,
 	"properties": [
 		{
 			"label": "camunda:type",
@@ -74,18 +76,16 @@
 				"notEmpty": true
 			}
 		}
-	],
-	"entriesVisible": {
-      "_all": false,
-	  "name" : true
-    }
+	]
 },
 {
+	"$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.9.1/resources/schema.json",
 	"name": "Execution Mode Request (Select Component)",
 	"id": "de.dfki.cos.basys.executionMode.select",
 	"appliesTo": [
 		"bpmn:ServiceTask"
 	],
+	"entriesVisible": false,
 	"properties": [
 		{
 			"label": "camunda:type",
@@ -148,18 +148,16 @@
 				"notEmpty": true
 			}
 		}
-	],
-	"entriesVisible": {
-      "_all": false,
-	  "name" : true
-    }
+	]
 },
 {
+	"$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.9.1/resources/schema.json",
 	"name": "Occupation Command Request (Select Component)",
 	"id": "de.dfki.cos.basys.occupationCommand.select",
 	"appliesTo": [
 		"bpmn:ServiceTask"
 	],
+	"entriesVisible": false,
 	"properties": [
 		{
 			"label": "camunda:type",
@@ -223,18 +221,16 @@
 				"notEmpty": true
 			}
 		}
-	],
-	"entriesVisible": {
-      "_all": false,
-	  "name" : true
-    }
+	]
 },
 {
+	"$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.9.1/resources/schema.json",
 	"name": "Operation Mode Request (Select Component)",
 	"id": "de.dfki.cos.basys.operationMode.select",
 	"appliesTo": [
 		"bpmn:ServiceTask"
 	],
+	"entriesVisible": false,
 	"properties": [
 		{
 			"label": "camunda:type",
@@ -314,10 +310,6 @@
 				"type": "camunda:inputParameter"
 			}
 		}
-	],
-	"entriesVisible": {
-      "_all": false,
-	  "name": true
-    }
+	]
 }
 ]
