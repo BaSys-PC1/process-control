@@ -10,6 +10,6 @@ COPY --from=builder snapshot-dependencies/ ./
 RUN true
 COPY --from=builder spring-boot-loader/ ./
 COPY --from=builder application/ ./
-EXPOSE 8080
+EXPOSE 8082
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/.urandom", "org.springframework.boot.loader.JarLauncher"]
 
