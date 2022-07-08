@@ -76,7 +76,8 @@ public class AasRegistryQueries {
         ShellDescriptorQuery query = new ShellDescriptorQuery();
         query.setQueryType(ShellDescriptorQuery.QueryTypeEnum.REGEX);
         query.setPath(AasRegistryPaths.globalAssetId().asGlobalReference().value());
-        query.setValue(assetName);
+        //FIXME: this pattern is probably not strict enough
+        query.setValue(".*" + assetName);
 
         var searchResult = registryApi.searchShellDescriptors(new ShellDescriptorSearchRequest().query(query).page(new Page().size(1).index(0)));
         log.info("Result size: " + searchResult.getTotal());
