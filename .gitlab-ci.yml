@@ -1,10 +1,10 @@
 image: maven:3-eclipse-temurin-11-alpine
 
 variables:
-  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_CLI_OPTS: "-s ${CI_PROJECT_DIR}/.m2/settings.xml --batch-mode"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-  MAVEN_TARGET_CLASSES: '${CI_PROJECT_DIR}/modules/**/target/classes'
-  MAVEN_TARGET_JARS: '${CI_PROJECT_DIR}/modules/**/target/*.jar'
+  MAVEN_TARGET_CLASSES: '${CI_PROJECT_DIR}/**/target/classes'
+  MAVEN_TARGET_JARS: '${CI_PROJECT_DIR}/**/target/*.jar'
   DOCKER_HOST: "tcp://docker:2375" 
   DOCKER_TLS_CERTDIR: ""
 
