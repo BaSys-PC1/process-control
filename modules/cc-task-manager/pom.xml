@@ -20,7 +20,7 @@
         <java.version>11</java.version>
         <avro.version>1.10.2</avro.version>
         <spring-cloud.version>2020.0.4</spring-cloud.version>
-        <aas-registry.version>0.1.0-SNAPSHOT</aas-registry.version>
+        <aas-registry.version>0.3.0-SNAPSHOT</aas-registry.version>
     </properties>
 
     <repositories>
