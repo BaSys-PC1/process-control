@@ -92,47 +92,47 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
     }
 
     protected ControlComponentRequestStatus handleExecutionCommandRequest(ControlComponentRequest req) {
-        log.info("handleExecutionCommandRequest '{}' (businessKey = {})", req.getCommand(), req.getOccupierId());
+        log.info("handleExecutionCommandRequest '{}' (businessKey = {})", req.getExecutionCommand(), req.getOccupierId());
 
-        ComponentOrderStatus order = controlComponentClient.raiseExecutionCommand(de.dfki.cos.basys.controlcomponent.ExecutionCommand.get(((ExecutionCommand) req.getCommand()).name()));
+        ComponentOrderStatus order = controlComponentClient.raiseExecutionCommand(de.dfki.cos.basys.controlcomponent.ExecutionCommand.get(req.getExecutionCommand().name()));
 
         ControlComponentRequestStatus status = new ControlComponentRequestStatus();
         status.setStatus(RequestStatus.valueOf(order.getStatus().getLiteral()));
         status.setMessage(order.getMessage());
 
-        log.info("handleExecutionCommandRequest '{}' - finished", req.getCommand());
+        log.info("handleExecutionCommandRequest '{}' - finished", req.getExecutionCommand());
         return status;
     }
 
     protected ControlComponentRequestStatus handleExecutionModeRequest(ControlComponentRequest req) {
-        log.info("handleExecutionModeRequest '{}' (businessKey = {})", req.getCommand(), req.getOccupierId());
+        log.info("handleExecutionModeRequest '{}' (businessKey = {})", req.getExecutionMode(), req.getOccupierId());
 
         ControlComponentClient client = controlComponentClient;
-        ComponentOrderStatus order = client.setExecutionMode(de.dfki.cos.basys.controlcomponent.ExecutionMode.get(((ExecutionMode) req.getCommand()).name()));
+        ComponentOrderStatus order = client.setExecutionMode(de.dfki.cos.basys.controlcomponent.ExecutionMode.get(req.getExecutionMode().name()));
 
         ControlComponentRequestStatus status = new ControlComponentRequestStatus();
         status.setStatus(RequestStatus.valueOf(order.getStatus().getLiteral()));
         status.setMessage(order.getMessage());
 
-        log.info("handleExecutionModeRequest '{}' - finished", req.getCommand());
+        log.info("handleExecutionModeRequest '{}' - finished", req.getExecutionMode());
         return status;
     }
 
     protected ControlComponentRequestStatus handleOccupationCommandRequest(ControlComponentRequest req) {
-        log.info("handleOccupationCommandRequest '{}' (businessKey = {})", req.getCommand(), req.getOccupierId());
+        log.info("handleOccupationCommandRequest '{}' (businessKey = {})", req.getOccupationCommand(), req.getOccupierId());
 
-        ComponentOrderStatus order = controlComponentClient.occupy(de.dfki.cos.basys.controlcomponent.OccupationCommand.get(((OccupationCommand) req.getCommand()).name()));
+        ComponentOrderStatus order = controlComponentClient.occupy(de.dfki.cos.basys.controlcomponent.OccupationCommand.get(req.getOccupationCommand().name()));
 
         ControlComponentRequestStatus status = new ControlComponentRequestStatus();
         status.setStatus(RequestStatus.valueOf(order.getStatus().getLiteral()));
         status.setMessage(order.getMessage());
 
-        log.info("handleOccupationCommandRequest '{}' - finished", req.getCommand());
+        log.info("handleOccupationCommandRequest '{}' - finished", req.getOccupationCommand());
         return status;
     }
 
     protected ControlComponentRequestStatus handleOperationModeRequest(ControlComponentRequest req) {
-        log.info("handleOperationModeRequest '{}' (businessKey = {})", ((OperationMode) req.getCommand()).getName(), req.getOccupierId());
+        log.info("handleOperationModeRequest '{}' (businessKey = {})", req.getOperationMode().getName(), req.getOccupierId());
 
         /*
          * Prerequisites:
@@ -164,7 +164,7 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
         status.setStatus(RequestStatus.valueOf(order.getStatus().getLiteral()));
         status.setMessage(order.getMessage());
 
-        log.info("handleOperationModeRequest '{}' - finished", ((OperationMode) req.getCommand()).getName());
+        log.info("handleOperationModeRequest '{}' - finished", (req.getOperationMode().getName()));
         return status;
     }
 
@@ -172,15 +172,15 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
     public void onIdle() {
         log.info("onIdle - start");
         if (currentRequest != null) {
-            OperationMode opMode = (OperationMode) currentRequest.getCommand();
+            OperationMode opMode = currentRequest.getOperationMode();
             try {
                 ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
-                    ComponentOrderStatus status1 = controlComponentClient.setOperationMode(opMode.getName());
+                    ComponentOrderStatus status1 = controlComponentClient.setOperationMode((String) opMode.getName());
                     if (status1.getStatus() == OrderStatus.DONE) {
                         log.debug("set operation mode to {}", opMode.getName());
                         for (Variable var : opMode.getInputParameters()) {
                             //TODO: put switch block into Variable class, test date parsing and setting via opcua
-                            controlComponentClient.setParameterValue(var.getName(), var.getValue());
+                            controlComponentClient.setParameterValue((String) var.getName(), var.getValue());
                         }
                         status1 = controlComponentClient.start();
                     }
@@ -200,7 +200,7 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
     public void onComplete() {
         log.info("onComplete - start");
         if (currentRequest != null) {
-            OperationMode opMode = (OperationMode) currentRequest.getCommand();
+            OperationMode opMode = currentRequest.getOperationMode();
             try {
                 ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
                     ComponentOrderStatus status1 = controlComponentClient.free();
@@ -241,7 +241,7 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
     public void onStopped() {
         log.info("onStopped - start");
         if (currentRequest != null) {
-            OperationMode opMode = (OperationMode) currentRequest.getCommand();
+            OperationMode opMode = currentRequest.getOperationMode();
             try {
                 ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
                     ComponentOrderStatus status1 = controlComponentClient.free();
