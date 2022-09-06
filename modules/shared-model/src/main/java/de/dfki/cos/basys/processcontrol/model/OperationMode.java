@@ -15,10 +15,12 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class OperationMode extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = -8603286687531739519L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"OperationMode\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
+
+
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"OperationMode\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",\"string\"]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
-  private static SpecificData MODEL$ = new SpecificData();
+  private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<OperationMode> ENCODER =
       new BinaryMessageEncoder<OperationMode>(MODEL$, SCHEMA$);
@@ -71,9 +73,9 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
     return DECODER.decode(b);
   }
 
-   private java.lang.String name;
-   private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> inputParameters;
-   private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
+  private java.lang.CharSequence name;
+  private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> inputParameters;
+  private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -88,7 +90,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
    * @param inputParameters The new value for inputParameters
    * @param outputParameters The new value for outputParameters
    */
-  public OperationMode(java.lang.String name, java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> inputParameters, java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters) {
+  public OperationMode(java.lang.CharSequence name, java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> inputParameters, java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters) {
     this.name = name;
     this.inputParameters = inputParameters;
     this.outputParameters = outputParameters;
@@ -110,7 +112,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: name = value$ != null ? value$.toString() : null; break;
+    case 0: name = (java.lang.CharSequence)value$; break;
     case 1: inputParameters = (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>)value$; break;
     case 2: outputParameters = (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
@@ -121,7 +123,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
    * Gets the value of the 'name' field.
    * @return The value of the 'name' field.
    */
-  public java.lang.String getName() {
+  public java.lang.CharSequence getName() {
     return name;
   }
 
@@ -130,7 +132,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
    * Sets the value of the 'name' field.
    * @param value the value to set.
    */
-  public void setName(java.lang.String value) {
+  public void setName(java.lang.CharSequence value) {
     this.name = value;
   }
 
@@ -209,7 +211,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<OperationMode>
     implements org.apache.avro.data.RecordBuilder<OperationMode> {
 
-    private java.lang.String name;
+    private java.lang.CharSequence name;
     private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> inputParameters;
     private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
 
@@ -262,7 +264,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
       * Gets the value of the 'name' field.
       * @return The value.
       */
-    public java.lang.String getName() {
+    public java.lang.CharSequence getName() {
       return name;
     }
 
@@ -272,7 +274,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
       * @param value The value of 'name'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.OperationMode.Builder setName(java.lang.String value) {
+    public de.dfki.cos.basys.processcontrol.model.OperationMode.Builder setName(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.name = value;
       fieldSetFlags()[0] = true;
@@ -383,7 +385,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
     public OperationMode build() {
       try {
         OperationMode record = new OperationMode();
-        record.name = fieldSetFlags()[0] ? this.name : (java.lang.String) defaultValue(fields()[0]);
+        record.name = fieldSetFlags()[0] ? this.name : (java.lang.CharSequence) defaultValue(fields()[0]);
         record.inputParameters = fieldSetFlags()[1] ? this.inputParameters : (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>) defaultValue(fields()[1]);
         record.outputParameters = fieldSetFlags()[2] ? this.outputParameters : (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>) defaultValue(fields()[2]);
         return record;

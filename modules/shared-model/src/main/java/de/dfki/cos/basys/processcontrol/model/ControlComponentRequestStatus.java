@@ -15,10 +15,12 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class ControlComponentRequestStatus extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = 6239160205502515344L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentRequestStatus\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"RequestStatus\",\"symbols\":[\"UNDEFINED\",\"ACCEPTED\",\"REJECTED\",\"NOOP\",\"QUEUED\",\"DONE\",\"OK\",\"NOT_OK\"]}},{\"name\":\"message\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
+
+
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentRequestStatus\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"RequestStatus\",\"symbols\":[\"UNDEFINED\",\"ACCEPTED\",\"REJECTED\",\"NOOP\",\"QUEUED\",\"DONE\",\"OK\",\"NOT_OK\"]}},{\"name\":\"message\",\"type\":\"string\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
-  private static SpecificData MODEL$ = new SpecificData();
+  private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<ControlComponentRequestStatus> ENCODER =
       new BinaryMessageEncoder<ControlComponentRequestStatus>(MODEL$, SCHEMA$);
@@ -71,8 +73,8 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
     return DECODER.decode(b);
   }
 
-   private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
-   private java.lang.String message;
+  private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
+  private java.lang.CharSequence message;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -86,7 +88,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
    * @param status The new value for status
    * @param message The new value for message
    */
-  public ControlComponentRequestStatus(de.dfki.cos.basys.processcontrol.model.RequestStatus status, java.lang.String message) {
+  public ControlComponentRequestStatus(de.dfki.cos.basys.processcontrol.model.RequestStatus status, java.lang.CharSequence message) {
     this.status = status;
     this.message = message;
   }
@@ -107,7 +109,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: status = (de.dfki.cos.basys.processcontrol.model.RequestStatus)value$; break;
-    case 1: message = value$ != null ? value$.toString() : null; break;
+    case 1: message = (java.lang.CharSequence)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -133,7 +135,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
    * Gets the value of the 'message' field.
    * @return The value of the 'message' field.
    */
-  public java.lang.String getMessage() {
+  public java.lang.CharSequence getMessage() {
     return message;
   }
 
@@ -142,7 +144,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
    * Sets the value of the 'message' field.
    * @param value the value to set.
    */
-  public void setMessage(java.lang.String value) {
+  public void setMessage(java.lang.CharSequence value) {
     this.message = value;
   }
 
@@ -188,7 +190,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
     implements org.apache.avro.data.RecordBuilder<ControlComponentRequestStatus> {
 
     private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
-    private java.lang.String message;
+    private java.lang.CharSequence message;
 
     /** Creates a new Builder */
     private Builder() {
@@ -271,7 +273,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
       * Gets the value of the 'message' field.
       * @return The value.
       */
-    public java.lang.String getMessage() {
+    public java.lang.CharSequence getMessage() {
       return message;
     }
 
@@ -281,7 +283,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
       * @param value The value of 'message'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequestStatus.Builder setMessage(java.lang.String value) {
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentRequestStatus.Builder setMessage(java.lang.CharSequence value) {
       validate(fields()[1], value);
       this.message = value;
       fieldSetFlags()[1] = true;
@@ -313,7 +315,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
       try {
         ControlComponentRequestStatus record = new ControlComponentRequestStatus();
         record.status = fieldSetFlags()[0] ? this.status : (de.dfki.cos.basys.processcontrol.model.RequestStatus) defaultValue(fields()[0]);
-        record.message = fieldSetFlags()[1] ? this.message : (java.lang.String) defaultValue(fields()[1]);
+        record.message = fieldSetFlags()[1] ? this.message : (java.lang.CharSequence) defaultValue(fields()[1]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -359,7 +361,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
     if (fieldOrder == null) {
       this.status = de.dfki.cos.basys.processcontrol.model.RequestStatus.values()[in.readEnum()];
 
-      this.message = in.readString();
+      this.message = in.readString(this.message instanceof Utf8 ? (Utf8)this.message : null);
 
     } else {
       for (int i = 0; i < 2; i++) {
@@ -369,7 +371,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
           break;
 
         case 1:
-          this.message = in.readString();
+          this.message = in.readString(this.message instanceof Utf8 ? (Utf8)this.message : null);
           break;
 
         default:

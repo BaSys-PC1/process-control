@@ -14,11 +14,13 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class ControlComponentResponse extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 3857923912821934590L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentResponse\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"RequestStatus\",\"symbols\":[\"UNDEFINED\",\"ACCEPTED\",\"REJECTED\",\"NOOP\",\"QUEUED\",\"DONE\",\"OK\",\"NOT_OK\"]}},{\"name\":\"statusCode\",\"type\":\"int\"},{\"name\":\"message\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"request\",\"type\":{\"type\":\"record\",\"name\":\"ControlComponentRequest\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"occupierId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"requestType\",\"type\":{\"type\":\"enum\",\"name\":\"ControlComponentRequestType\",\"symbols\":[\"OCCUPATION_COMMAND_REQUEST\",\"EXECUTION_MODE_REQUEST\",\"EXECUTION_COMMAND_REQUEST\",\"OPERATION_MODE_REQUEST\"]}},{\"name\":\"command\",\"type\":[{\"type\":\"enum\",\"name\":\"OccupationCommand\",\"symbols\":[\"FREE\",\"OCCUPY\",\"PRIO\"]},{\"type\":\"enum\",\"name\":\"ExecutionMode\",\"symbols\":[\"AUTO\",\"SEMIAUTO\",\"MANUAL\",\"SIMULATE\"]},{\"type\":\"enum\",\"name\":\"ExecutionCommand\",\"symbols\":[\"RESET\",\"START\",\"STOP\",\"HOLD\",\"UNHOLD\",\"SUSPEND\",\"UNSUSPEND\",\"ABORT\",\"CLEAR\"]},{\"type\":\"record\",\"name\":\"OperationMode\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}]}]}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
+  private static final long serialVersionUID = 4158494473835493370L;
+
+
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentResponse\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",\"string\"]},{\"name\":\"aasId\",\"type\":[\"null\",\"string\"]},{\"name\":\"correlationId\",\"type\":\"string\"},{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"RequestStatus\",\"symbols\":[\"UNDEFINED\",\"ACCEPTED\",\"REJECTED\",\"NOOP\",\"QUEUED\",\"DONE\",\"OK\",\"NOT_OK\"]}},{\"name\":\"statusCode\",\"type\":\"int\"},{\"name\":\"message\",\"type\":[\"null\",\"string\"]},{\"name\":\"request\",\"type\":{\"type\":\"record\",\"name\":\"ControlComponentRequest\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",\"string\"]},{\"name\":\"aasId\",\"type\":[\"null\",\"string\"]},{\"name\":\"correlationId\",\"type\":\"string\"},{\"name\":\"occupierId\",\"type\":\"string\"},{\"name\":\"requestType\",\"type\":{\"type\":\"enum\",\"name\":\"ControlComponentRequestType\",\"symbols\":[\"OCCUPATION_COMMAND_REQUEST\",\"EXECUTION_MODE_REQUEST\",\"EXECUTION_COMMAND_REQUEST\",\"OPERATION_MODE_REQUEST\"]}},{\"name\":\"occupationCommand\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"OccupationCommand\",\"symbols\":[\"FREE\",\"OCCUPY\",\"PRIO\"]}]},{\"name\":\"executionMode\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExecutionMode\",\"symbols\":[\"AUTO\",\"SEMIAUTO\",\"MANUAL\",\"SIMULATE\"]}]},{\"name\":\"executionCommand\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExecutionCommand\",\"symbols\":[\"RESET\",\"START\",\"STOP\",\"HOLD\",\"UNHOLD\",\"SUSPEND\",\"UNSUSPEND\",\"ABORT\",\"CLEAR\"]}]},{\"name\":\"operationMode\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"OperationMode\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",\"string\"]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}]}]}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
-  private static SpecificData MODEL$ = new SpecificData();
+  private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<ControlComponentResponse> ENCODER =
       new BinaryMessageEncoder<ControlComponentResponse>(MODEL$, SCHEMA$);
@@ -71,14 +73,14 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     return DECODER.decode(b);
   }
 
-   private java.lang.String componentId;
-   private java.lang.String aasId;
-   private java.lang.String correlationId;
-   private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
-   private int statusCode;
-   private java.lang.String message;
-   private de.dfki.cos.basys.processcontrol.model.ControlComponentRequest request;
-   private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
+  private java.lang.CharSequence componentId;
+  private java.lang.CharSequence aasId;
+  private java.lang.CharSequence correlationId;
+  private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
+  private int statusCode;
+  private java.lang.CharSequence message;
+  private de.dfki.cos.basys.processcontrol.model.ControlComponentRequest request;
+  private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -98,7 +100,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * @param request The new value for request
    * @param outputParameters The new value for outputParameters
    */
-  public ControlComponentResponse(java.lang.String componentId, java.lang.String aasId, java.lang.String correlationId, de.dfki.cos.basys.processcontrol.model.RequestStatus status, java.lang.Integer statusCode, java.lang.String message, de.dfki.cos.basys.processcontrol.model.ControlComponentRequest request, java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters) {
+  public ControlComponentResponse(java.lang.CharSequence componentId, java.lang.CharSequence aasId, java.lang.CharSequence correlationId, de.dfki.cos.basys.processcontrol.model.RequestStatus status, java.lang.Integer statusCode, java.lang.CharSequence message, de.dfki.cos.basys.processcontrol.model.ControlComponentRequest request, java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters) {
     this.componentId = componentId;
     this.aasId = aasId;
     this.correlationId = correlationId;
@@ -130,12 +132,12 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: componentId = value$ != null ? value$.toString() : null; break;
-    case 1: aasId = value$ != null ? value$.toString() : null; break;
-    case 2: correlationId = value$ != null ? value$.toString() : null; break;
+    case 0: componentId = (java.lang.CharSequence)value$; break;
+    case 1: aasId = (java.lang.CharSequence)value$; break;
+    case 2: correlationId = (java.lang.CharSequence)value$; break;
     case 3: status = (de.dfki.cos.basys.processcontrol.model.RequestStatus)value$; break;
     case 4: statusCode = (java.lang.Integer)value$; break;
-    case 5: message = value$ != null ? value$.toString() : null; break;
+    case 5: message = (java.lang.CharSequence)value$; break;
     case 6: request = (de.dfki.cos.basys.processcontrol.model.ControlComponentRequest)value$; break;
     case 7: outputParameters = (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
@@ -146,7 +148,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * Gets the value of the 'componentId' field.
    * @return The value of the 'componentId' field.
    */
-  public java.lang.String getComponentId() {
+  public java.lang.CharSequence getComponentId() {
     return componentId;
   }
 
@@ -155,7 +157,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * Sets the value of the 'componentId' field.
    * @param value the value to set.
    */
-  public void setComponentId(java.lang.String value) {
+  public void setComponentId(java.lang.CharSequence value) {
     this.componentId = value;
   }
 
@@ -163,7 +165,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * Gets the value of the 'aasId' field.
    * @return The value of the 'aasId' field.
    */
-  public java.lang.String getAasId() {
+  public java.lang.CharSequence getAasId() {
     return aasId;
   }
 
@@ -172,7 +174,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * Sets the value of the 'aasId' field.
    * @param value the value to set.
    */
-  public void setAasId(java.lang.String value) {
+  public void setAasId(java.lang.CharSequence value) {
     this.aasId = value;
   }
 
@@ -180,7 +182,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * Gets the value of the 'correlationId' field.
    * @return The value of the 'correlationId' field.
    */
-  public java.lang.String getCorrelationId() {
+  public java.lang.CharSequence getCorrelationId() {
     return correlationId;
   }
 
@@ -189,7 +191,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * Sets the value of the 'correlationId' field.
    * @param value the value to set.
    */
-  public void setCorrelationId(java.lang.String value) {
+  public void setCorrelationId(java.lang.CharSequence value) {
     this.correlationId = value;
   }
 
@@ -231,7 +233,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * Gets the value of the 'message' field.
    * @return The value of the 'message' field.
    */
-  public java.lang.String getMessage() {
+  public java.lang.CharSequence getMessage() {
     return message;
   }
 
@@ -240,7 +242,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * Sets the value of the 'message' field.
    * @param value the value to set.
    */
-  public void setMessage(java.lang.String value) {
+  public void setMessage(java.lang.CharSequence value) {
     this.message = value;
   }
 
@@ -319,12 +321,12 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<ControlComponentResponse>
     implements org.apache.avro.data.RecordBuilder<ControlComponentResponse> {
 
-    private java.lang.String componentId;
-    private java.lang.String aasId;
-    private java.lang.String correlationId;
+    private java.lang.CharSequence componentId;
+    private java.lang.CharSequence aasId;
+    private java.lang.CharSequence correlationId;
     private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
     private int statusCode;
-    private java.lang.String message;
+    private java.lang.CharSequence message;
     private de.dfki.cos.basys.processcontrol.model.ControlComponentRequest request;
     private de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder requestBuilder;
     private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
@@ -422,7 +424,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
       * Gets the value of the 'componentId' field.
       * @return The value.
       */
-    public java.lang.String getComponentId() {
+    public java.lang.CharSequence getComponentId() {
       return componentId;
     }
 
@@ -432,7 +434,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
       * @param value The value of 'componentId'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setComponentId(java.lang.String value) {
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setComponentId(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.componentId = value;
       fieldSetFlags()[0] = true;
@@ -462,7 +464,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
       * Gets the value of the 'aasId' field.
       * @return The value.
       */
-    public java.lang.String getAasId() {
+    public java.lang.CharSequence getAasId() {
       return aasId;
     }
 
@@ -472,7 +474,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
       * @param value The value of 'aasId'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setAasId(java.lang.String value) {
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setAasId(java.lang.CharSequence value) {
       validate(fields()[1], value);
       this.aasId = value;
       fieldSetFlags()[1] = true;
@@ -502,7 +504,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
       * Gets the value of the 'correlationId' field.
       * @return The value.
       */
-    public java.lang.String getCorrelationId() {
+    public java.lang.CharSequence getCorrelationId() {
       return correlationId;
     }
 
@@ -512,7 +514,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
       * @param value The value of 'correlationId'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setCorrelationId(java.lang.String value) {
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setCorrelationId(java.lang.CharSequence value) {
       validate(fields()[2], value);
       this.correlationId = value;
       fieldSetFlags()[2] = true;
@@ -621,7 +623,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
       * Gets the value of the 'message' field.
       * @return The value.
       */
-    public java.lang.String getMessage() {
+    public java.lang.CharSequence getMessage() {
       return message;
     }
 
@@ -631,7 +633,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
       * @param value The value of 'message'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setMessage(java.lang.String value) {
+    public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setMessage(java.lang.CharSequence value) {
       validate(fields()[5], value);
       this.message = value;
       fieldSetFlags()[5] = true;
@@ -778,12 +780,12 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     public ControlComponentResponse build() {
       try {
         ControlComponentResponse record = new ControlComponentResponse();
-        record.componentId = fieldSetFlags()[0] ? this.componentId : (java.lang.String) defaultValue(fields()[0]);
-        record.aasId = fieldSetFlags()[1] ? this.aasId : (java.lang.String) defaultValue(fields()[1]);
-        record.correlationId = fieldSetFlags()[2] ? this.correlationId : (java.lang.String) defaultValue(fields()[2]);
+        record.componentId = fieldSetFlags()[0] ? this.componentId : (java.lang.CharSequence) defaultValue(fields()[0]);
+        record.aasId = fieldSetFlags()[1] ? this.aasId : (java.lang.CharSequence) defaultValue(fields()[1]);
+        record.correlationId = fieldSetFlags()[2] ? this.correlationId : (java.lang.CharSequence) defaultValue(fields()[2]);
         record.status = fieldSetFlags()[3] ? this.status : (de.dfki.cos.basys.processcontrol.model.RequestStatus) defaultValue(fields()[3]);
         record.statusCode = fieldSetFlags()[4] ? this.statusCode : (java.lang.Integer) defaultValue(fields()[4]);
-        record.message = fieldSetFlags()[5] ? this.message : (java.lang.String) defaultValue(fields()[5]);
+        record.message = fieldSetFlags()[5] ? this.message : (java.lang.CharSequence) defaultValue(fields()[5]);
         if (requestBuilder != null) {
           try {
             record.request = this.requestBuilder.build();
