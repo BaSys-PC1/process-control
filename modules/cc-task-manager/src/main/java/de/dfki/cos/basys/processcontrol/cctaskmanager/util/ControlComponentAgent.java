@@ -175,12 +175,12 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
             OperationMode opMode = currentRequest.getOperationMode();
             try {
                 ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
-                    ComponentOrderStatus status1 = controlComponentClient.setOperationMode((String) opMode.getName());
+                    ComponentOrderStatus status1 = controlComponentClient.setOperationMode(opMode.getName());
                     if (status1.getStatus() == OrderStatus.DONE) {
                         log.debug("set operation mode to {}", opMode.getName());
                         for (Variable var : opMode.getInputParameters()) {
                             //TODO: put switch block into Variable class, test date parsing and setting via opcua
-                            controlComponentClient.setParameterValue((String) var.getName(), var.getValue());
+                            controlComponentClient.setParameterValue(var.getName(), var.getValue());
                         }
                         status1 = controlComponentClient.start();
                     }
