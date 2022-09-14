@@ -55,7 +55,7 @@ public class TaskDispatcher {
     private void checkInputParameterTypes(ControlComponentRequest controlComponentRequest) {
         if (controlComponentRequest.getRequestType() == ControlComponentRequestType.OPERATION_MODE_REQUEST) {
             log.info("checkVariableTypes of operation mode request");
-            OperationMode op = (OperationMode) controlComponentRequest.getCommand();
+            OperationMode op = controlComponentRequest.getOperationMode();
             op.getInputParameters().forEach(variable -> {
                 switch (variable.getType()) {
                     case DOUBLE:

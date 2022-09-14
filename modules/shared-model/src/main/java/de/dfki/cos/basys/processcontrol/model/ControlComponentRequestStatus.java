@@ -15,10 +15,12 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class ControlComponentRequestStatus extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = 6239160205502515344L;
+
+
   public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentRequestStatus\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"RequestStatus\",\"symbols\":[\"UNDEFINED\",\"ACCEPTED\",\"REJECTED\",\"NOOP\",\"QUEUED\",\"DONE\",\"OK\",\"NOT_OK\"]}},{\"name\":\"message\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
-  private static SpecificData MODEL$ = new SpecificData();
+  private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<ControlComponentRequestStatus> ENCODER =
       new BinaryMessageEncoder<ControlComponentRequestStatus>(MODEL$, SCHEMA$);
@@ -71,8 +73,8 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
     return DECODER.decode(b);
   }
 
-   private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
-   private java.lang.String message;
+  private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
+  private java.lang.String message;
 
   /**
    * Default constructor.  Note that this does not initialize fields

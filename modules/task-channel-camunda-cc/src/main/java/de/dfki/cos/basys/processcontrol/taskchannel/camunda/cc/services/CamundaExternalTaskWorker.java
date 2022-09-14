@@ -76,20 +76,20 @@ public class CamundaExternalTaskWorker implements ExternalTaskHandler {
 		switch (requestType) {
 			case "ExecutionCommandRequest":
 				r.setRequestType(ControlComponentRequestType.EXECUTION_COMMAND_REQUEST);
-				r.setCommand(ExecutionCommand.valueOf(token));
+				r.setExecutionCommand(ExecutionCommand.valueOf(token));
 				break;
 			case "ExecutionModeRequest":
 				r.setRequestType(ControlComponentRequestType.EXECUTION_MODE_REQUEST);
-				r.setCommand(ExecutionMode.valueOf(token));
+				r.setExecutionMode(ExecutionMode.valueOf(token));
 				break;
 			case "OccupationCommandRequest":
 				r.setRequestType(ControlComponentRequestType.OCCUPATION_COMMAND_REQUEST);
-				r.setCommand(OccupationCommand.valueOf(token));
+				r.setOccupationCommand(OccupationCommand.valueOf(token));
 				break;
 			case "OperationModeRequest":
 				r.setRequestType(ControlComponentRequestType.OPERATION_MODE_REQUEST);
 				OperationMode opMode = new OperationMode();
-				r.setCommand(opMode);
+				r.setOperationMode(opMode);
 
 				opMode.setName(token);
 				try {
