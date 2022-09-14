@@ -15,10 +15,12 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class OperationMode extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = -8603286687531739519L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"OperationMode\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"}}]}");
+
+
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"OperationMode\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
-  private static SpecificData MODEL$ = new SpecificData();
+  private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<OperationMode> ENCODER =
       new BinaryMessageEncoder<OperationMode>(MODEL$, SCHEMA$);
@@ -71,9 +73,9 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
     return DECODER.decode(b);
   }
 
-   private java.lang.String name;
-   private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> inputParameters;
-   private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
+  private java.lang.String name;
+  private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> inputParameters;
+  private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
 
   /**
    * Default constructor.  Note that this does not initialize fields

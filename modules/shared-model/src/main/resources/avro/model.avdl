@@ -33,8 +33,8 @@ protocol ControlComponentMessages {
 
 	record OperationMode {
 		string name;
-		array<Variable> inputParameters;
-		array<Variable> outputParameters;
+		array<Variable> inputParameters = [];
+		array<Variable> outputParameters = [];
 	}
 
 	record ControlComponentRequest {
@@ -44,12 +44,12 @@ protocol ControlComponentMessages {
 		string occupierId;
 
 		ControlComponentRequestType requestType;
-		union {OccupationCommand,ExecutionMode, ExecutionCommand, OperationMode} command;
+		//union {OccupationCommand,ExecutionMode, ExecutionCommand, OperationMode} command;
 
-		//union {null,OccupationCommand} occupationCommand;
-		//union {null,ExecutionMode} executionMode;
-		//union {null,ExecutionCommand} executionCommand;
-		//union {null,OperationMode} operationMode;
+		union {null,OccupationCommand} occupationCommand;
+		union {null,ExecutionMode} executionMode;
+		union {null,ExecutionCommand} executionCommand;
+		union {null,OperationMode} operationMode;
 	}
 
 	enum RequestStatus {
@@ -69,6 +69,6 @@ protocol ControlComponentMessages {
 		int statusCode;
 		union {null,string} message;
 		ControlComponentRequest request;
-		array<Variable> outputParameters;
+		array<Variable> outputParameters = [];
 	}
 }

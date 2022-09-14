@@ -14,11 +14,13 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class ControlComponentResponse extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 3857923912821934590L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentResponse\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"RequestStatus\",\"symbols\":[\"UNDEFINED\",\"ACCEPTED\",\"REJECTED\",\"NOOP\",\"QUEUED\",\"DONE\",\"OK\",\"NOT_OK\"]}},{\"name\":\"statusCode\",\"type\":\"int\"},{\"name\":\"message\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"request\",\"type\":{\"type\":\"record\",\"name\":\"ControlComponentRequest\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"occupierId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"requestType\",\"type\":{\"type\":\"enum\",\"name\":\"ControlComponentRequestType\",\"symbols\":[\"OCCUPATION_COMMAND_REQUEST\",\"EXECUTION_MODE_REQUEST\",\"EXECUTION_COMMAND_REQUEST\",\"OPERATION_MODE_REQUEST\"]}},{\"name\":\"command\",\"type\":[{\"type\":\"enum\",\"name\":\"OccupationCommand\",\"symbols\":[\"FREE\",\"OCCUPY\",\"PRIO\"]},{\"type\":\"enum\",\"name\":\"ExecutionMode\",\"symbols\":[\"AUTO\",\"SEMIAUTO\",\"MANUAL\",\"SIMULATE\"]},{\"type\":\"enum\",\"name\":\"ExecutionCommand\",\"symbols\":[\"RESET\",\"START\",\"STOP\",\"HOLD\",\"UNHOLD\",\"SUSPEND\",\"UNSUSPEND\",\"ABORT\",\"CLEAR\"]},{\"type\":\"record\",\"name\":\"OperationMode\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"}}]}]}]}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"}}]}");
+  private static final long serialVersionUID = 4158494473835493370L;
+
+
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentResponse\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"RequestStatus\",\"symbols\":[\"UNDEFINED\",\"ACCEPTED\",\"REJECTED\",\"NOOP\",\"QUEUED\",\"DONE\",\"OK\",\"NOT_OK\"]}},{\"name\":\"statusCode\",\"type\":\"int\"},{\"name\":\"message\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"request\",\"type\":{\"type\":\"record\",\"name\":\"ControlComponentRequest\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"occupierId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"requestType\",\"type\":{\"type\":\"enum\",\"name\":\"ControlComponentRequestType\",\"symbols\":[\"OCCUPATION_COMMAND_REQUEST\",\"EXECUTION_MODE_REQUEST\",\"EXECUTION_COMMAND_REQUEST\",\"OPERATION_MODE_REQUEST\"]}},{\"name\":\"occupationCommand\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"OccupationCommand\",\"symbols\":[\"FREE\",\"OCCUPY\",\"PRIO\"]}]},{\"name\":\"executionMode\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExecutionMode\",\"symbols\":[\"AUTO\",\"SEMIAUTO\",\"MANUAL\",\"SIMULATE\"]}]},{\"name\":\"executionCommand\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExecutionCommand\",\"symbols\":[\"RESET\",\"START\",\"STOP\",\"HOLD\",\"UNHOLD\",\"SUSPEND\",\"UNSUSPEND\",\"ABORT\",\"CLEAR\"]}]},{\"name\":\"operationMode\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"OperationMode\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}]}]}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
-  private static SpecificData MODEL$ = new SpecificData();
+  private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<ControlComponentResponse> ENCODER =
       new BinaryMessageEncoder<ControlComponentResponse>(MODEL$, SCHEMA$);
@@ -71,14 +73,14 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     return DECODER.decode(b);
   }
 
-   private java.lang.String componentId;
-   private java.lang.String aasId;
-   private java.lang.String correlationId;
-   private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
-   private int statusCode;
-   private java.lang.String message;
-   private de.dfki.cos.basys.processcontrol.model.ControlComponentRequest request;
-   private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
+  private java.lang.String componentId;
+  private java.lang.String aasId;
+  private java.lang.String correlationId;
+  private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
+  private int statusCode;
+  private java.lang.String message;
+  private de.dfki.cos.basys.processcontrol.model.ControlComponentRequest request;
+  private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> outputParameters;
 
   /**
    * Default constructor.  Note that this does not initialize fields

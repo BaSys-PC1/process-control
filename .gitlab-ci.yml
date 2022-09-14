@@ -1,10 +1,13 @@
 image: maven:3-eclipse-temurin-11-alpine
 
 variables:
-  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_CLI_OPTS: "-s ${CI_PROJECT_DIR}/.m2/settings.xml --batch-mode"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-  MAVEN_TARGET_CLASSES: '${CI_PROJECT_DIR}/modules/**/target/classes'
-  MAVEN_TARGET_JARS: '${CI_PROJECT_DIR}/modules/**/target/*.jar'
+  MAVEN_TARGET_CLASSES: '${CI_PROJECT_DIR}/**/target/classes'
+  MAVEN_TARGET_JARS: '${CI_PROJECT_DIR}/**/target/*.jar'
+  DOCKER_HOST: "tcp://docker:2375" 
+  DOCKER_TLS_CERTDIR: ""
+
 
 cache:
   paths:
@@ -40,6 +43,10 @@ mvn-compile:
 
 mvn-test:
   stage: test
+  services:
+     - name: docker:20.10.17-dind
+       # explicitly disable tls to avoid docker startup interruption
+       command: ["--tls=false"]
   tags:
     - basys
     - maven
@@ -50,11 +57,11 @@ mvn-test:
 
 mvn-docker-install:
   stage: install
-  image: dfkibasys/docker-temurin11jdk:20.10.12  
+  image: dfkibasys/docker-temurin11jdk:20.10.17  
   variables:
      DOCKER_DRIVER: overlay2
   services:
-    - name: docker:20.10.12-dind
+    - name: docker:20.10.17-dind
     # explicitly disable tls to avoid docker startup interruption
       command: ["--tls=false"]
   tags:
@@ -65,44 +72,44 @@ mvn-docker-install:
     - ./mvnw $MAVEN_CLI_OPTS install -Dmaven.validate.skip=true  -Dmaven.test.skip=true -Dmaven.compile.skip=true -Ddocker.username=$DOCKER_REGISTRY_USER -Ddocker.password=$DOCKER_REGISTRY_PASSWORD 
   dependencies:
     - mvn-compile
-  artifacts:
-    paths:
-      - $MAVEN_TARGET_RELEASE_JARS
-    expire_in: 3 hour
+  # artifacts:
+  #   paths:
+  #     - $MAVEN_TARGET_RELEASE_JARS
+  #   expire_in: 3 hour
 
-mvn-deploy:
-  stage: deploy
-  tags:
-    - basys
-    - maven
-  script:
-    - chmod 775 ./mvnw
-    - ./mvnw $MAVEN_CLI_OPTS deploy -Dmaven.validate.skip=true -Dmaven.test.skip=true -Dmaven.compile.skip=true -Dmaven.install.skip=true
-  dependencies:
-    - mvn-docker-install
-  rules:
-    - if: $CI_COMMIT_BRANCH == 'master'
-    - if: $CI_COMMIT_BRANCH == 'develop'
+# mvn-deploy:
+#   stage: deploy
+#   tags:
+#     - basys
+#     - maven
+#   script:
+#     - chmod 775 ./mvnw
+#     - ./mvnw $MAVEN_CLI_OPTS deploy -Dmaven.validate.skip=true -Dmaven.test.skip=true -Dmaven.compile.skip=true -Dmaven.install.skip=true
+#   dependencies:
+#     - mvn-docker-install
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == 'master'
+#     - if: $CI_COMMIT_BRANCH == 'develop'
     
-docker-publish:
+mvn-docker-publish:
   stage: deploy
   tags:
     - basys
     - docker
-  image: dfkibasys/docker-temurin11jdk:20.10.12
+  image: dfkibasys/docker-temurin11jdk:20.10.17
   variables:
     DOCKER_DRIVER: overlay2
   services:
-     - name: docker:20.10.12-dind
+    - name: docker:20.10.17-dind
      # explicitly disable tls to avoid docker startup interruption
-       command: ["--tls=false"]
+      command: ["--tls=false"]
   before_script:
     - docker info
   dependencies:
-     - mvn-compile
+    - mvn-compile
   script:
     - chmod 775 ./mvnw
-    - ./mvnw $MAVEN_CLI_OPTS deploy -Dmaven.validate.skip=true -Dmaven.compile.skip=true -Dmaven.test.skip=true  -Ddocker.username=$DOCKER_REGISTRY_USER -Ddocker.password=$DOCKER_REGISTRY_PASSWORD
+    - ./mvnw $MAVEN_CLI_OPTS deploy  -Dmaven.validate.skip=true -Dmaven.compile.skip=true -Dmaven.test.skip=true  -Ddocker.username=$DOCKER_REGISTRY_USER -Ddocker.password=$DOCKER_REGISTRY_PASSWORD
   rules:
     - if: $CI_COMMIT_BRANCH == 'master'
     - if: $CI_COMMIT_BRANCH == 'develop'
