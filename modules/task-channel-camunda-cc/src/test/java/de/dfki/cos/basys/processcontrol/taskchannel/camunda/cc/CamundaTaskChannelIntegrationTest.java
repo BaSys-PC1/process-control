@@ -26,11 +26,11 @@ import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 import org.testcontainers.utility.DockerImageName;
 
-import de.dfki.cos.basys.common.rest.camunda.ApiException;
-import de.dfki.cos.basys.common.rest.camunda.api.DeploymentApi;
-import de.dfki.cos.basys.common.rest.camunda.dto.CountResultDto;
-import de.dfki.cos.basys.common.rest.camunda.dto.DeploymentDto;
-import de.dfki.cos.basys.common.rest.camunda.dto.DeploymentResourceDto;
+import org.camunda.community.rest.client.invoker.ApiException;
+import org.camunda.community.rest.client.api.DeploymentApi;
+import org.camunda.community.rest.client.dto.CountResultDto;
+//import org.camunda.community.rest.client.dto.DeploymentDto;
+import org.camunda.community.rest.client.dto.DeploymentResourceDto;
 import de.dfki.cos.basys.processcontrol.taskchannel.camunda.cc.services.ProcessFileStorage;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = { "camunda.processDeployer.recursive=true" })

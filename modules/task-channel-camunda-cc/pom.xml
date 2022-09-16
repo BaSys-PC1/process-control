@@ -45,9 +45,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>de.dfki.cos.basys.common.rest.camunda</groupId>
-			<artifactId>client</artifactId>
-			<version>7.14.0</version>
+			<groupId>org.camunda.community</groupId>
+			<artifactId>camunda-engine-rest-client-openapi-java</artifactId>
+			<version>7.17.4</version>
 		</dependency>
 
 		<dependency>
@@ -117,17 +117,6 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.mockito</groupId>
