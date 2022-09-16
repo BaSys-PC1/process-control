@@ -1,0 +1,57 @@
+
+List of third-party dependencies grouped by their license type.
+
+    Apache-2.0:
+
+        * Apache Commons IO (commons-io:commons-io:2.8.0 - https://commons.apache.org/proper/commons-io/)
+        * client (de.dfki.cos.basys.common.rest.camunda:client:7.14.0 - https://github.com/openapitools/openapi-generator)
+        * kafka-avro-serializer (io.confluent:kafka-avro-serializer:6.2.2 - http://confluent.io/kafka-avro-serializer)
+        * Apache Avro (org.apache.avro:avro:1.10.2 - https://avro.apache.org)
+        * Camunda Platform - Spring Boot Starter - Client - Spring Boot (org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-external-task-client:7.16.0 - http://www.camunda.org/camunda-database-settings/camunda-bpm-spring-boot-starter-root/camunda-bpm-spring-boot-starter-external-task-client)
+        * aas-registry-client (org.eclipse.basyx.aas.registry:aas-registry-client:0.3.0-20220809.065622-29 - https://spring.io/projects/spring-boot/aas-registry/aas-registry-client)
+        * aas-registry-compatibility (org.eclipse.basyx.aas.registry:aas-registry-compatibility:0.3.0-20220809.065628-29 - https://spring.io/projects/spring-boot/aas-registry/aas-registry-compatibility)
+        * aas-registry-events (org.eclipse.basyx.aas.registry:aas-registry-events:0.3.0-20220809.065626-29 - https://spring.io/projects/spring-boot/aas-registry/aas-registry-events)
+        * aas-registry-paths (org.eclipse.basyx.aas.registry:aas-registry-paths:0.3.0-20220809.065627-29 - https://spring.io/projects/spring-boot/aas-registry/aas-registry-paths)
+        * spring-boot-starter-actuator (org.springframework.boot:spring-boot-starter-actuator:2.6.3 - https://spring.io/projects/spring-boot)
+        * spring-boot-starter-logging (org.springframework.boot:spring-boot-starter-logging:2.6.3 - https://spring.io/projects/spring-boot)
+        * spring-boot-starter-test (org.springframework.boot:spring-boot-starter-test:2.6.3 - https://spring.io/projects/spring-boot)
+        * spring-boot-starter-web (org.springframework.boot:spring-boot-starter-web:2.6.3 - https://spring.io/projects/spring-boot)
+        * spring-cloud-stream (org.springframework.cloud:spring-cloud-stream:3.1.4 - https://spring.io/spring-cloud/spring-cloud-stream-parent/spring-cloud-stream)
+        * spring-cloud-stream-binder-kafka (org.springframework.cloud:spring-cloud-stream-binder-kafka:3.1.4 - https://spring.io/spring-cloud/spring-cloud-stream-binder-kafka-parent/spring-cloud-stream-binder-kafka)
+        * Spring Integration Core (org.springframework.integration:spring-integration-core:5.5.8 - https://github.com/spring-projects/spring-integration)
+        * Spring Integration File Support (org.springframework.integration:spring-integration-file:5.5.8 - https://github.com/spring-projects/spring-integration)
+        * Spring Kafka Support (org.springframework.kafka:spring-kafka:2.8.2 - https://github.com/spring-projects/spring-kafka)
+        * Spring Kafka Test Support (org.springframework.kafka:spring-kafka-test:2.8.2 - https://github.com/spring-projects/spring-kafka)
+
+    CDDL 1.1:
+
+        * jaxb-api (javax.xml.bind:jaxb-api:2.3.1 - https://github.com/javaee/jaxb-spec/jaxb-api)
+
+    EPL-1.0:
+
+        * Logback Classic Module (ch.qos.logback:logback-classic:1.2.10 - http://logback.qos.ch/logback-classic)
+        * Logback Core Module (ch.qos.logback:logback-core:1.2.10 - http://logback.qos.ch/logback-core)
+        * JUnit (junit:junit:4.13.2 - http://junit.org)
+
+    EPL-2.0:
+
+        * BaSys 4.2 ControlComponent Client (de.dfki.cos.basys.controlcomponent:client:0.3.0-20220419.082332-14 - https://www.basys40.de/starter-parent/client/)
+        * shared-model (de.dfki.cos.basys.processcontrol:shared-model:0.3.0-20220914.153114-71 - https://www.basys40.de/starter-parent/shared-model/)
+        * JUnit Vintage Engine (org.junit.vintage:junit-vintage-engine:5.8.2 - https://junit.org/junit5/)
+
+    GNU Lesser General Public License:
+
+        * Logback Classic Module (ch.qos.logback:logback-classic:1.2.10 - http://logback.qos.ch/logback-classic)
+        * Logback Core Module (ch.qos.logback:logback-core:1.2.10 - http://logback.qos.ch/logback-core)
+
+    GPL2 w/ CPE:
+
+        * jaxb-api (javax.xml.bind:jaxb-api:2.3.1 - https://github.com/javaee/jaxb-spec/jaxb-api)
+
+    MIT:
+
+        * BaSyx SDK (org.eclipse.basyx:basyx.sdk:1.2.0 - https://www.eclipse.org/basyx/)
+        * mockito-core (org.mockito:mockito-core:4.0.0 - https://github.com/mockito/mockito)
+        * Project Lombok (org.projectlombok:lombok:1.18.22 - https://projectlombok.org)
+        * Testcontainers :: Kafka (org.testcontainers:kafka:1.17.3 - https://testcontainers.org)
+        * Testcontainers Core (org.testcontainers:testcontainers:1.17.3 - https://testcontainers.org)
