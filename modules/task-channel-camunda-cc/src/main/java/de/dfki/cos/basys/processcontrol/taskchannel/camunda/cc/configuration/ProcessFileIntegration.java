@@ -1,6 +1,7 @@
 package de.dfki.cos.basys.processcontrol.taskchannel.camunda.cc.configuration;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -32,12 +33,11 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.threeten.bp.OffsetDateTime;
 
-import de.dfki.cos.basys.common.rest.camunda.ApiException;
-import de.dfki.cos.basys.common.rest.camunda.api.DeploymentApi;
-import de.dfki.cos.basys.common.rest.camunda.dto.DeploymentDto;
-import de.dfki.cos.basys.common.rest.camunda.dto.DeploymentWithDefinitionsDto;
+import org.camunda.community.rest.client.invoker.ApiException;
+import org.camunda.community.rest.client.api.DeploymentApi;
+import org.camunda.community.rest.client.dto.DeploymentDto;
+import org.camunda.community.rest.client.dto.DeploymentWithDefinitionsDto;
 import de.dfki.cos.basys.processcontrol.taskchannel.camunda.cc.services.ProcessFileStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -142,8 +142,9 @@ public class ProcessFileIntegration {
 		Boolean deployChangedOnly = null;
 		Boolean enableDuplicateFiltering = null;
 		String deploymentName = FilenameUtils.getBaseName(filePath);
+		Date deploymentActivationTime = null; //Date.from(Instant.now())
 		try {
-			DeploymentWithDefinitionsDto response = api.createDeployment(tenantId, deploymentSource, deployChangedOnly, enableDuplicateFiltering, deploymentName, new File(filePath));
+			DeploymentWithDefinitionsDto response = api.createDeployment(tenantId, deploymentSource, deployChangedOnly, enableDuplicateFiltering, deploymentName, deploymentActivationTime, new File(filePath));
 			return response.getId();
 		} catch (ApiException e) {
 			log.error("could not create deployment " + filePath);
@@ -177,13 +178,14 @@ public class ProcessFileIntegration {
 		String tenantIdIn = null;
 		Boolean withoutTenantId = null;
 		Boolean includeDeploymentsWithoutTenantId = null;
-		OffsetDateTime after = null;
-		OffsetDateTime before = null;
+		Date after = null;
+		Date before = null;
 		String sortBy = null;
 		String sortOrder = null;
 		Integer firstResult = null;
 		Integer maxResults = null;
 		try {
+
 			List<DeploymentDto> response = api.getDeployments(id, name, nameLike, source, withoutSource, tenantIdIn, withoutTenantId, includeDeploymentsWithoutTenantId, after, before, sortBy, sortOrder, firstResult, maxResults);
 
 			for (DeploymentDto deployment : response) {

@@ -1,6 +1,6 @@
 package de.dfki.cos.basys.processcontrol.taskchannel.camunda.cc.configuration;
 
-import de.dfki.cos.basys.common.rest.camunda.api.DeploymentApi;
+import org.camunda.community.rest.client.api.DeploymentApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
