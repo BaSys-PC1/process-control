@@ -34,9 +34,9 @@ public class MqttTaskChannelService implements IMqttMessageListener {
     private Map<CharSequence, ControlComponentRequest> issuedRequests = new HashMap<>();
 
     @Value("${spring.cloud.stream.bindings.controlComponentRequests.destination}")
-    private static String REQUEST_TOPIC;
+    private String REQUEST_TOPIC;
     @Value("${spring.cloud.stream.bindings.controlComponentResponses-in-0.destination}")
-    private static String RESPONSE_TOPIC;
+    private String RESPONSE_TOPIC;
 
     @PostConstruct
     public void postConstruct() {
