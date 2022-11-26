@@ -2,9 +2,16 @@ package de.dfki.cos.basys.processcontrol.taskchannel.mqtt.cc.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Charsets;
 import de.dfki.cos.basys.processcontrol.model.ControlComponentRequest;
 import de.dfki.cos.basys.processcontrol.model.ControlComponentResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.avro.data.Json;
+import org.apache.avro.generic.GenericDatumWriter;
+import org.apache.avro.io.DatumWriter;
+import org.apache.avro.io.Encoder;
+import org.apache.avro.io.EncoderFactory;
+import org.apache.avro.specific.SpecificDatumWriter;
 import org.eclipse.paho.client.mqttv3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +20,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -66,13 +75,24 @@ public class MqttTaskChannelService implements IMqttMessageListener {
         ControlComponentRequest externalTask = issuedRequests.remove(response.getRequest().getCorrelationId());
         if (externalTask != null) {
             try {
+
+//                DatumWriter<ControlComponentResponse> writer = new GenericDatumWriter<>(ControlComponentResponse.getClassSchema());
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                Encoder jsonEncoder = EncoderFactory.get().jsonEncoder(ControlComponentResponse.getClassSchema(), stream);
+//                writer.write(response, jsonEncoder);
+//                jsonEncoder.flush();
+//                String payload = stream.toString(Charsets.UTF_8);
+
+                //String payload = Json.toString(response);
                 String payload  = mapper.writeValueAsString(response);
-                publish(RESPONSE_TOPIC, payload, 1, false);
+                publish(RESPONSE_TOPIC, payload, 2, false);
             } catch (JsonProcessingException e) {
                 log.error(e.getMessage(), e);
             } catch (MqttPersistenceException e) {
                 log.error(e.getMessage(), e);
             } catch (MqttException e) {
+                log.error(e.getMessage(), e);
+            } catch (IOException e) {
                 log.error(e.getMessage(), e);
             }
         } else {
@@ -84,7 +104,6 @@ public class MqttTaskChannelService implements IMqttMessageListener {
     public Consumer<ControlComponentResponse> controlComponentResponses() {
         return this::handleComponentResponse;
     }
-
 
     private void publish(final String topic, final String payload, int qos, boolean retained)
             throws MqttPersistenceException, MqttException {
