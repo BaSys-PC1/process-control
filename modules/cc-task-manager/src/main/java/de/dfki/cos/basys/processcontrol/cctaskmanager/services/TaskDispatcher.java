@@ -78,16 +78,16 @@ public class TaskDispatcher {
                             log.error("Input parameter '{}': specified type '{}' NOT consistent with value '{}', {} detected!", variable.getName(), variable.getType(), variable.getValue(), variable.getValue().getClass());
                         }
                         break;
-                    case LONG:
-                        if (variable.getValue() instanceof Long) {
-                            log.debug("Input parameter '{}': specified type '{}' consistent with value '{}' ", variable.getName(), variable.getType(), variable.getValue());
-                        } else if (variable.getValue() instanceof String) {
-                            log.warn("Input parameter '{}': specified type '{}' NOT consistent with value '{}', {} detected, try to parse... ", variable.getName(), variable.getType(), variable.getValue(), variable.getValue().getClass());
-                            variable.setValue(Long.parseLong(variable.getValue().toString()));
-                        } else {
-                            log.error("Input parameter '{}': specified type '{}' NOT consistent with value '{}', {} detected!", variable.getName(), variable.getType(), variable.getValue(), variable.getValue().getClass());
-                        }
-                        break;
+//                    case LONG:
+//                        if (variable.getValue() instanceof Long) {
+//                            log.debug("Input parameter '{}': specified type '{}' consistent with value '{}' ", variable.getName(), variable.getType(), variable.getValue());
+//                        } else if (variable.getValue() instanceof String) {
+//                            log.warn("Input parameter '{}': specified type '{}' NOT consistent with value '{}', {} detected, try to parse... ", variable.getName(), variable.getType(), variable.getValue(), variable.getValue().getClass());
+//                            variable.setValue(Long.parseLong(variable.getValue().toString()));
+//                        } else {
+//                            log.error("Input parameter '{}': specified type '{}' NOT consistent with value '{}', {} detected!", variable.getName(), variable.getType(), variable.getValue(), variable.getValue().getClass());
+//                        }
+//                        break;
                     case BOOLEAN:
                         if (variable.getValue() instanceof Boolean) {
                             log.debug("Input parameter '{}': specified type '{}' consistent with value '{}' ", variable.getName(), variable.getType(), variable.getValue());

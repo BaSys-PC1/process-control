@@ -10,8 +10,8 @@ public class VariableTypeHelper {
             case "Int16":
             case "Integer":
                 return VariableType.INTEGER;
-            case "Int64":
-                return VariableType.LONG;
+//            case "Int64":
+//                return VariableType.LONG;
             case "Double":
             case "Float":
                 return VariableType.DOUBLE;
