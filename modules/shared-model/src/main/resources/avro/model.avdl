@@ -15,7 +15,7 @@ protocol ControlComponentMessages {
 	}
 
 	enum VariableType {
-		NULL, BOOLEAN, INTEGER, STRING, DOUBLE, DATE
+		NULL, BOOLEAN, INTEGER, STRING, DOUBLE, LONG, DATE
 	}
 
 	enum ControlComponentRequestType {
@@ -27,7 +27,7 @@ protocol ControlComponentMessages {
 
 	record Variable {
 		string name;
-		union{null,boolean,double,string} value;
+		union{null,boolean,long,double,string} value;
 		VariableType type;
 	}
 
