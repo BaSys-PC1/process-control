@@ -27,7 +27,7 @@ protocol ControlComponentMessages {
 
 	record Variable {
 		string name;
-		union{null,boolean,long,double,string} value;
+		union{null,boolean,long,double,string,int} value;
 		VariableType type;
 	}
 

@@ -14,19 +14,19 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class ControlComponentResponse extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 4158494473835493370L;
+  private static final long serialVersionUID = -8260654732065653055L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentResponse\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"RequestStatus\",\"symbols\":[\"UNDEFINED\",\"ACCEPTED\",\"REJECTED\",\"NOOP\",\"QUEUED\",\"DONE\",\"OK\",\"NOT_OK\"]}},{\"name\":\"statusCode\",\"type\":\"int\"},{\"name\":\"message\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"request\",\"type\":{\"type\":\"record\",\"name\":\"ControlComponentRequest\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"occupierId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"requestType\",\"type\":{\"type\":\"enum\",\"name\":\"ControlComponentRequestType\",\"symbols\":[\"OCCUPATION_COMMAND_REQUEST\",\"EXECUTION_MODE_REQUEST\",\"EXECUTION_COMMAND_REQUEST\",\"OPERATION_MODE_REQUEST\"]}},{\"name\":\"occupationCommand\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"OccupationCommand\",\"symbols\":[\"FREE\",\"OCCUPY\",\"PRIO\"]}]},{\"name\":\"executionMode\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExecutionMode\",\"symbols\":[\"AUTO\",\"SEMIAUTO\",\"MANUAL\",\"SIMULATE\"]}]},{\"name\":\"executionCommand\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExecutionCommand\",\"symbols\":[\"RESET\",\"START\",\"STOP\",\"HOLD\",\"UNHOLD\",\"SUSPEND\",\"UNSUSPEND\",\"ABORT\",\"CLEAR\"]}]},{\"name\":\"operationMode\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"OperationMode\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}]}]}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ControlComponentResponse\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"RequestStatus\",\"symbols\":[\"UNDEFINED\",\"ACCEPTED\",\"REJECTED\",\"NOOP\",\"QUEUED\",\"DONE\",\"OK\",\"NOT_OK\"]}},{\"name\":\"statusCode\",\"type\":\"int\"},{\"name\":\"message\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"request\",\"type\":{\"type\":\"record\",\"name\":\"ControlComponentRequest\",\"fields\":[{\"name\":\"componentId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"aasId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"correlationId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"occupierId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"requestType\",\"type\":{\"type\":\"enum\",\"name\":\"ControlComponentRequestType\",\"symbols\":[\"OCCUPATION_COMMAND_REQUEST\",\"EXECUTION_MODE_REQUEST\",\"EXECUTION_COMMAND_REQUEST\",\"OPERATION_MODE_REQUEST\"]}},{\"name\":\"occupationCommand\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"OccupationCommand\",\"symbols\":[\"FREE\",\"OCCUPY\",\"PRIO\"]}]},{\"name\":\"executionMode\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExecutionMode\",\"symbols\":[\"AUTO\",\"SEMIAUTO\",\"MANUAL\",\"SIMULATE\"]}]},{\"name\":\"executionCommand\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExecutionCommand\",\"symbols\":[\"RESET\",\"START\",\"STOP\",\"HOLD\",\"UNHOLD\",\"SUSPEND\",\"UNSUSPEND\",\"ABORT\",\"CLEAR\"]}]},{\"name\":\"operationMode\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"OperationMode\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"},\"int\"]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}]}]}},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<ControlComponentResponse> ENCODER =
-      new BinaryMessageEncoder<ControlComponentResponse>(MODEL$, SCHEMA$);
+          new BinaryMessageEncoder<ControlComponentResponse>(MODEL$, SCHEMA$);
 
   private static final BinaryMessageDecoder<ControlComponentResponse> DECODER =
-      new BinaryMessageDecoder<ControlComponentResponse>(MODEL$, SCHEMA$);
+          new BinaryMessageDecoder<ControlComponentResponse>(MODEL$, SCHEMA$);
 
   /**
    * Return the BinaryMessageEncoder instance used by this class.
@@ -69,7 +69,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    * @throws java.io.IOException if the given bytes could not be deserialized into an instance of this class
    */
   public static ControlComponentResponse fromByteBuffer(
-      java.nio.ByteBuffer b) throws java.io.IOException {
+          java.nio.ByteBuffer b) throws java.io.IOException {
     return DECODER.decode(b);
   }
 
@@ -116,15 +116,15 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
   // Used by DatumWriter.  Applications should not call.
   public java.lang.Object get(int field$) {
     switch (field$) {
-    case 0: return componentId;
-    case 1: return aasId;
-    case 2: return correlationId;
-    case 3: return status;
-    case 4: return statusCode;
-    case 5: return message;
-    case 6: return request;
-    case 7: return outputParameters;
-    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+      case 0: return componentId;
+      case 1: return aasId;
+      case 2: return correlationId;
+      case 3: return status;
+      case 4: return statusCode;
+      case 5: return message;
+      case 6: return request;
+      case 7: return outputParameters;
+      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -132,15 +132,15 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: componentId = value$ != null ? value$.toString() : null; break;
-    case 1: aasId = value$ != null ? value$.toString() : null; break;
-    case 2: correlationId = value$ != null ? value$.toString() : null; break;
-    case 3: status = (de.dfki.cos.basys.processcontrol.model.RequestStatus)value$; break;
-    case 4: statusCode = (java.lang.Integer)value$; break;
-    case 5: message = value$ != null ? value$.toString() : null; break;
-    case 6: request = (de.dfki.cos.basys.processcontrol.model.ControlComponentRequest)value$; break;
-    case 7: outputParameters = (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>)value$; break;
-    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+      case 0: componentId = value$ != null ? value$.toString() : null; break;
+      case 1: aasId = value$ != null ? value$.toString() : null; break;
+      case 2: correlationId = value$ != null ? value$.toString() : null; break;
+      case 3: status = (de.dfki.cos.basys.processcontrol.model.RequestStatus)value$; break;
+      case 4: statusCode = (java.lang.Integer)value$; break;
+      case 5: message = value$ != null ? value$.toString() : null; break;
+      case 6: request = (de.dfki.cos.basys.processcontrol.model.ControlComponentRequest)value$; break;
+      case 7: outputParameters = (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>)value$; break;
+      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -319,7 +319,7 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
    */
   @org.apache.avro.specific.AvroGenerated
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<ControlComponentResponse>
-    implements org.apache.avro.data.RecordBuilder<ControlComponentResponse> {
+          implements org.apache.avro.data.RecordBuilder<ControlComponentResponse> {
 
     private java.lang.String componentId;
     private java.lang.String aasId;
@@ -421,19 +421,19 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Gets the value of the 'componentId' field.
-      * @return The value.
-      */
+     * Gets the value of the 'componentId' field.
+     * @return The value.
+     */
     public java.lang.String getComponentId() {
       return componentId;
     }
 
 
     /**
-      * Sets the value of the 'componentId' field.
-      * @param value The value of 'componentId'.
-      * @return This builder.
-      */
+     * Sets the value of the 'componentId' field.
+     * @param value The value of 'componentId'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setComponentId(java.lang.String value) {
       validate(fields()[0], value);
       this.componentId = value;
@@ -442,18 +442,18 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Checks whether the 'componentId' field has been set.
-      * @return True if the 'componentId' field has been set, false otherwise.
-      */
+     * Checks whether the 'componentId' field has been set.
+     * @return True if the 'componentId' field has been set, false otherwise.
+     */
     public boolean hasComponentId() {
       return fieldSetFlags()[0];
     }
 
 
     /**
-      * Clears the value of the 'componentId' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'componentId' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder clearComponentId() {
       componentId = null;
       fieldSetFlags()[0] = false;
@@ -461,19 +461,19 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Gets the value of the 'aasId' field.
-      * @return The value.
-      */
+     * Gets the value of the 'aasId' field.
+     * @return The value.
+     */
     public java.lang.String getAasId() {
       return aasId;
     }
 
 
     /**
-      * Sets the value of the 'aasId' field.
-      * @param value The value of 'aasId'.
-      * @return This builder.
-      */
+     * Sets the value of the 'aasId' field.
+     * @param value The value of 'aasId'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setAasId(java.lang.String value) {
       validate(fields()[1], value);
       this.aasId = value;
@@ -482,18 +482,18 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Checks whether the 'aasId' field has been set.
-      * @return True if the 'aasId' field has been set, false otherwise.
-      */
+     * Checks whether the 'aasId' field has been set.
+     * @return True if the 'aasId' field has been set, false otherwise.
+     */
     public boolean hasAasId() {
       return fieldSetFlags()[1];
     }
 
 
     /**
-      * Clears the value of the 'aasId' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'aasId' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder clearAasId() {
       aasId = null;
       fieldSetFlags()[1] = false;
@@ -501,19 +501,19 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Gets the value of the 'correlationId' field.
-      * @return The value.
-      */
+     * Gets the value of the 'correlationId' field.
+     * @return The value.
+     */
     public java.lang.String getCorrelationId() {
       return correlationId;
     }
 
 
     /**
-      * Sets the value of the 'correlationId' field.
-      * @param value The value of 'correlationId'.
-      * @return This builder.
-      */
+     * Sets the value of the 'correlationId' field.
+     * @param value The value of 'correlationId'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setCorrelationId(java.lang.String value) {
       validate(fields()[2], value);
       this.correlationId = value;
@@ -522,18 +522,18 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Checks whether the 'correlationId' field has been set.
-      * @return True if the 'correlationId' field has been set, false otherwise.
-      */
+     * Checks whether the 'correlationId' field has been set.
+     * @return True if the 'correlationId' field has been set, false otherwise.
+     */
     public boolean hasCorrelationId() {
       return fieldSetFlags()[2];
     }
 
 
     /**
-      * Clears the value of the 'correlationId' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'correlationId' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder clearCorrelationId() {
       correlationId = null;
       fieldSetFlags()[2] = false;
@@ -541,19 +541,19 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Gets the value of the 'status' field.
-      * @return The value.
-      */
+     * Gets the value of the 'status' field.
+     * @return The value.
+     */
     public de.dfki.cos.basys.processcontrol.model.RequestStatus getStatus() {
       return status;
     }
 
 
     /**
-      * Sets the value of the 'status' field.
-      * @param value The value of 'status'.
-      * @return This builder.
-      */
+     * Sets the value of the 'status' field.
+     * @param value The value of 'status'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setStatus(de.dfki.cos.basys.processcontrol.model.RequestStatus value) {
       validate(fields()[3], value);
       this.status = value;
@@ -562,18 +562,18 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Checks whether the 'status' field has been set.
-      * @return True if the 'status' field has been set, false otherwise.
-      */
+     * Checks whether the 'status' field has been set.
+     * @return True if the 'status' field has been set, false otherwise.
+     */
     public boolean hasStatus() {
       return fieldSetFlags()[3];
     }
 
 
     /**
-      * Clears the value of the 'status' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'status' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder clearStatus() {
       status = null;
       fieldSetFlags()[3] = false;
@@ -581,19 +581,19 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Gets the value of the 'statusCode' field.
-      * @return The value.
-      */
+     * Gets the value of the 'statusCode' field.
+     * @return The value.
+     */
     public int getStatusCode() {
       return statusCode;
     }
 
 
     /**
-      * Sets the value of the 'statusCode' field.
-      * @param value The value of 'statusCode'.
-      * @return This builder.
-      */
+     * Sets the value of the 'statusCode' field.
+     * @param value The value of 'statusCode'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setStatusCode(int value) {
       validate(fields()[4], value);
       this.statusCode = value;
@@ -602,37 +602,37 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Checks whether the 'statusCode' field has been set.
-      * @return True if the 'statusCode' field has been set, false otherwise.
-      */
+     * Checks whether the 'statusCode' field has been set.
+     * @return True if the 'statusCode' field has been set, false otherwise.
+     */
     public boolean hasStatusCode() {
       return fieldSetFlags()[4];
     }
 
 
     /**
-      * Clears the value of the 'statusCode' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'statusCode' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder clearStatusCode() {
       fieldSetFlags()[4] = false;
       return this;
     }
 
     /**
-      * Gets the value of the 'message' field.
-      * @return The value.
-      */
+     * Gets the value of the 'message' field.
+     * @return The value.
+     */
     public java.lang.String getMessage() {
       return message;
     }
 
 
     /**
-      * Sets the value of the 'message' field.
-      * @param value The value of 'message'.
-      * @return This builder.
-      */
+     * Sets the value of the 'message' field.
+     * @param value The value of 'message'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setMessage(java.lang.String value) {
       validate(fields()[5], value);
       this.message = value;
@@ -641,18 +641,18 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Checks whether the 'message' field has been set.
-      * @return True if the 'message' field has been set, false otherwise.
-      */
+     * Checks whether the 'message' field has been set.
+     * @return True if the 'message' field has been set, false otherwise.
+     */
     public boolean hasMessage() {
       return fieldSetFlags()[5];
     }
 
 
     /**
-      * Clears the value of the 'message' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'message' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder clearMessage() {
       message = null;
       fieldSetFlags()[5] = false;
@@ -660,19 +660,19 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Gets the value of the 'request' field.
-      * @return The value.
-      */
+     * Gets the value of the 'request' field.
+     * @return The value.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest getRequest() {
       return request;
     }
 
 
     /**
-      * Sets the value of the 'request' field.
-      * @param value The value of 'request'.
-      * @return This builder.
-      */
+     * Sets the value of the 'request' field.
+     * @param value The value of 'request'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setRequest(de.dfki.cos.basys.processcontrol.model.ControlComponentRequest value) {
       validate(fields()[6], value);
       this.requestBuilder = null;
@@ -682,9 +682,9 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Checks whether the 'request' field has been set.
-      * @return True if the 'request' field has been set, false otherwise.
-      */
+     * Checks whether the 'request' field has been set.
+     * @return True if the 'request' field has been set, false otherwise.
+     */
     public boolean hasRequest() {
       return fieldSetFlags()[6];
     }
@@ -725,9 +725,9 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Clears the value of the 'request' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'request' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder clearRequest() {
       request = null;
       requestBuilder = null;
@@ -736,19 +736,19 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Gets the value of the 'outputParameters' field.
-      * @return The value.
-      */
+     * Gets the value of the 'outputParameters' field.
+     * @return The value.
+     */
     public java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> getOutputParameters() {
       return outputParameters;
     }
 
 
     /**
-      * Sets the value of the 'outputParameters' field.
-      * @param value The value of 'outputParameters'.
-      * @return This builder.
-      */
+     * Sets the value of the 'outputParameters' field.
+     * @param value The value of 'outputParameters'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder setOutputParameters(java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> value) {
       validate(fields()[7], value);
       this.outputParameters = value;
@@ -757,18 +757,18 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
     }
 
     /**
-      * Checks whether the 'outputParameters' field has been set.
-      * @return True if the 'outputParameters' field has been set, false otherwise.
-      */
+     * Checks whether the 'outputParameters' field has been set.
+     * @return True if the 'outputParameters' field has been set, false otherwise.
+     */
     public boolean hasOutputParameters() {
       return fieldSetFlags()[7];
     }
 
 
     /**
-      * Clears the value of the 'outputParameters' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'outputParameters' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentResponse.Builder clearOutputParameters() {
       outputParameters = null;
       fieldSetFlags()[7] = false;
@@ -808,19 +808,19 @@ public class ControlComponentResponse extends org.apache.avro.specific.SpecificR
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumWriter<ControlComponentResponse>
-    WRITER$ = (org.apache.avro.io.DatumWriter<ControlComponentResponse>)MODEL$.createDatumWriter(SCHEMA$);
+          WRITER$ = (org.apache.avro.io.DatumWriter<ControlComponentResponse>)MODEL$.createDatumWriter(SCHEMA$);
 
   @Override public void writeExternal(java.io.ObjectOutput out)
-    throws java.io.IOException {
+          throws java.io.IOException {
     WRITER$.write(this, SpecificData.getEncoder(out));
   }
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumReader<ControlComponentResponse>
-    READER$ = (org.apache.avro.io.DatumReader<ControlComponentResponse>)MODEL$.createDatumReader(SCHEMA$);
+          READER$ = (org.apache.avro.io.DatumReader<ControlComponentResponse>)MODEL$.createDatumReader(SCHEMA$);
 
   @Override public void readExternal(java.io.ObjectInput in)
-    throws java.io.IOException {
+          throws java.io.IOException {
     READER$.read(this, SpecificData.getDecoder(in));
   }
 

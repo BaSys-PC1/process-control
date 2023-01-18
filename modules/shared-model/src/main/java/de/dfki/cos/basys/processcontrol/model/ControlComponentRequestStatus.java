@@ -23,10 +23,10 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
   private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<ControlComponentRequestStatus> ENCODER =
-      new BinaryMessageEncoder<ControlComponentRequestStatus>(MODEL$, SCHEMA$);
+          new BinaryMessageEncoder<ControlComponentRequestStatus>(MODEL$, SCHEMA$);
 
   private static final BinaryMessageDecoder<ControlComponentRequestStatus> DECODER =
-      new BinaryMessageDecoder<ControlComponentRequestStatus>(MODEL$, SCHEMA$);
+          new BinaryMessageDecoder<ControlComponentRequestStatus>(MODEL$, SCHEMA$);
 
   /**
    * Return the BinaryMessageEncoder instance used by this class.
@@ -69,7 +69,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
    * @throws java.io.IOException if the given bytes could not be deserialized into an instance of this class
    */
   public static ControlComponentRequestStatus fromByteBuffer(
-      java.nio.ByteBuffer b) throws java.io.IOException {
+          java.nio.ByteBuffer b) throws java.io.IOException {
     return DECODER.decode(b);
   }
 
@@ -98,9 +98,9 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
   // Used by DatumWriter.  Applications should not call.
   public java.lang.Object get(int field$) {
     switch (field$) {
-    case 0: return status;
-    case 1: return message;
-    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+      case 0: return status;
+      case 1: return message;
+      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -108,9 +108,9 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: status = (de.dfki.cos.basys.processcontrol.model.RequestStatus)value$; break;
-    case 1: message = value$ != null ? value$.toString() : null; break;
-    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+      case 0: status = (de.dfki.cos.basys.processcontrol.model.RequestStatus)value$; break;
+      case 1: message = value$ != null ? value$.toString() : null; break;
+      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -187,7 +187,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
    */
   @org.apache.avro.specific.AvroGenerated
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<ControlComponentRequestStatus>
-    implements org.apache.avro.data.RecordBuilder<ControlComponentRequestStatus> {
+          implements org.apache.avro.data.RecordBuilder<ControlComponentRequestStatus> {
 
     private de.dfki.cos.basys.processcontrol.model.RequestStatus status;
     private java.lang.String message;
@@ -230,19 +230,19 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
     }
 
     /**
-      * Gets the value of the 'status' field.
-      * @return The value.
-      */
+     * Gets the value of the 'status' field.
+     * @return The value.
+     */
     public de.dfki.cos.basys.processcontrol.model.RequestStatus getStatus() {
       return status;
     }
 
 
     /**
-      * Sets the value of the 'status' field.
-      * @param value The value of 'status'.
-      * @return This builder.
-      */
+     * Sets the value of the 'status' field.
+     * @param value The value of 'status'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequestStatus.Builder setStatus(de.dfki.cos.basys.processcontrol.model.RequestStatus value) {
       validate(fields()[0], value);
       this.status = value;
@@ -251,18 +251,18 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
     }
 
     /**
-      * Checks whether the 'status' field has been set.
-      * @return True if the 'status' field has been set, false otherwise.
-      */
+     * Checks whether the 'status' field has been set.
+     * @return True if the 'status' field has been set, false otherwise.
+     */
     public boolean hasStatus() {
       return fieldSetFlags()[0];
     }
 
 
     /**
-      * Clears the value of the 'status' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'status' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequestStatus.Builder clearStatus() {
       status = null;
       fieldSetFlags()[0] = false;
@@ -270,19 +270,19 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
     }
 
     /**
-      * Gets the value of the 'message' field.
-      * @return The value.
-      */
+     * Gets the value of the 'message' field.
+     * @return The value.
+     */
     public java.lang.String getMessage() {
       return message;
     }
 
 
     /**
-      * Sets the value of the 'message' field.
-      * @param value The value of 'message'.
-      * @return This builder.
-      */
+     * Sets the value of the 'message' field.
+     * @param value The value of 'message'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequestStatus.Builder setMessage(java.lang.String value) {
       validate(fields()[1], value);
       this.message = value;
@@ -291,18 +291,18 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
     }
 
     /**
-      * Checks whether the 'message' field has been set.
-      * @return True if the 'message' field has been set, false otherwise.
-      */
+     * Checks whether the 'message' field has been set.
+     * @return True if the 'message' field has been set, false otherwise.
+     */
     public boolean hasMessage() {
       return fieldSetFlags()[1];
     }
 
 
     /**
-      * Clears the value of the 'message' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'message' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequestStatus.Builder clearMessage() {
       message = null;
       fieldSetFlags()[1] = false;
@@ -327,26 +327,26 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumWriter<ControlComponentRequestStatus>
-    WRITER$ = (org.apache.avro.io.DatumWriter<ControlComponentRequestStatus>)MODEL$.createDatumWriter(SCHEMA$);
+          WRITER$ = (org.apache.avro.io.DatumWriter<ControlComponentRequestStatus>)MODEL$.createDatumWriter(SCHEMA$);
 
   @Override public void writeExternal(java.io.ObjectOutput out)
-    throws java.io.IOException {
+          throws java.io.IOException {
     WRITER$.write(this, SpecificData.getEncoder(out));
   }
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumReader<ControlComponentRequestStatus>
-    READER$ = (org.apache.avro.io.DatumReader<ControlComponentRequestStatus>)MODEL$.createDatumReader(SCHEMA$);
+          READER$ = (org.apache.avro.io.DatumReader<ControlComponentRequestStatus>)MODEL$.createDatumReader(SCHEMA$);
 
   @Override public void readExternal(java.io.ObjectInput in)
-    throws java.io.IOException {
+          throws java.io.IOException {
     READER$.read(this, SpecificData.getDecoder(in));
   }
 
   @Override protected boolean hasCustomCoders() { return true; }
 
   @Override public void customEncode(org.apache.avro.io.Encoder out)
-    throws java.io.IOException
+          throws java.io.IOException
   {
     out.writeEnum(this.status.ordinal());
 
@@ -355,7 +355,7 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
   }
 
   @Override public void customDecode(org.apache.avro.io.ResolvingDecoder in)
-    throws java.io.IOException
+          throws java.io.IOException
   {
     org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
     if (fieldOrder == null) {
@@ -366,16 +366,16 @@ public class ControlComponentRequestStatus extends org.apache.avro.specific.Spec
     } else {
       for (int i = 0; i < 2; i++) {
         switch (fieldOrder[i].pos()) {
-        case 0:
-          this.status = de.dfki.cos.basys.processcontrol.model.RequestStatus.values()[in.readEnum()];
-          break;
+          case 0:
+            this.status = de.dfki.cos.basys.processcontrol.model.RequestStatus.values()[in.readEnum()];
+            break;
 
-        case 1:
-          this.message = in.readString();
-          break;
+          case 1:
+            this.message = in.readString();
+            break;
 
-        default:
-          throw new java.io.IOException("Corrupt ResolvingDecoder.");
+          default:
+            throw new java.io.IOException("Corrupt ResolvingDecoder.");
         }
       }
     }

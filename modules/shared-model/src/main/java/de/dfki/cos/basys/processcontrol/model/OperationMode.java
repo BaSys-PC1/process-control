@@ -14,19 +14,19 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class OperationMode extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -8603286687531739519L;
+  private static final long serialVersionUID = -291557288974937818L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"OperationMode\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"OperationMode\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"inputParameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Variable\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"},\"int\"]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}},\"default\":[]},{\"name\":\"outputParameters\",\"type\":{\"type\":\"array\",\"items\":\"Variable\"},\"default\":[]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<OperationMode> ENCODER =
-      new BinaryMessageEncoder<OperationMode>(MODEL$, SCHEMA$);
+          new BinaryMessageEncoder<OperationMode>(MODEL$, SCHEMA$);
 
   private static final BinaryMessageDecoder<OperationMode> DECODER =
-      new BinaryMessageDecoder<OperationMode>(MODEL$, SCHEMA$);
+          new BinaryMessageDecoder<OperationMode>(MODEL$, SCHEMA$);
 
   /**
    * Return the BinaryMessageEncoder instance used by this class.
@@ -69,7 +69,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
    * @throws java.io.IOException if the given bytes could not be deserialized into an instance of this class
    */
   public static OperationMode fromByteBuffer(
-      java.nio.ByteBuffer b) throws java.io.IOException {
+          java.nio.ByteBuffer b) throws java.io.IOException {
     return DECODER.decode(b);
   }
 
@@ -101,10 +101,10 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
   // Used by DatumWriter.  Applications should not call.
   public java.lang.Object get(int field$) {
     switch (field$) {
-    case 0: return name;
-    case 1: return inputParameters;
-    case 2: return outputParameters;
-    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+      case 0: return name;
+      case 1: return inputParameters;
+      case 2: return outputParameters;
+      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -112,10 +112,10 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: name = value$ != null ? value$.toString() : null; break;
-    case 1: inputParameters = (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>)value$; break;
-    case 2: outputParameters = (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>)value$; break;
-    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+      case 0: name = value$ != null ? value$.toString() : null; break;
+      case 1: inputParameters = (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>)value$; break;
+      case 2: outputParameters = (java.util.List<de.dfki.cos.basys.processcontrol.model.Variable>)value$; break;
+      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -209,7 +209,7 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
    */
   @org.apache.avro.specific.AvroGenerated
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<OperationMode>
-    implements org.apache.avro.data.RecordBuilder<OperationMode> {
+          implements org.apache.avro.data.RecordBuilder<OperationMode> {
 
     private java.lang.String name;
     private java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> inputParameters;
@@ -261,19 +261,19 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
     }
 
     /**
-      * Gets the value of the 'name' field.
-      * @return The value.
-      */
+     * Gets the value of the 'name' field.
+     * @return The value.
+     */
     public java.lang.String getName() {
       return name;
     }
 
 
     /**
-      * Sets the value of the 'name' field.
-      * @param value The value of 'name'.
-      * @return This builder.
-      */
+     * Sets the value of the 'name' field.
+     * @param value The value of 'name'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.OperationMode.Builder setName(java.lang.String value) {
       validate(fields()[0], value);
       this.name = value;
@@ -282,18 +282,18 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
     }
 
     /**
-      * Checks whether the 'name' field has been set.
-      * @return True if the 'name' field has been set, false otherwise.
-      */
+     * Checks whether the 'name' field has been set.
+     * @return True if the 'name' field has been set, false otherwise.
+     */
     public boolean hasName() {
       return fieldSetFlags()[0];
     }
 
 
     /**
-      * Clears the value of the 'name' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'name' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.OperationMode.Builder clearName() {
       name = null;
       fieldSetFlags()[0] = false;
@@ -301,19 +301,19 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
     }
 
     /**
-      * Gets the value of the 'inputParameters' field.
-      * @return The value.
-      */
+     * Gets the value of the 'inputParameters' field.
+     * @return The value.
+     */
     public java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> getInputParameters() {
       return inputParameters;
     }
 
 
     /**
-      * Sets the value of the 'inputParameters' field.
-      * @param value The value of 'inputParameters'.
-      * @return This builder.
-      */
+     * Sets the value of the 'inputParameters' field.
+     * @param value The value of 'inputParameters'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.OperationMode.Builder setInputParameters(java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> value) {
       validate(fields()[1], value);
       this.inputParameters = value;
@@ -322,18 +322,18 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
     }
 
     /**
-      * Checks whether the 'inputParameters' field has been set.
-      * @return True if the 'inputParameters' field has been set, false otherwise.
-      */
+     * Checks whether the 'inputParameters' field has been set.
+     * @return True if the 'inputParameters' field has been set, false otherwise.
+     */
     public boolean hasInputParameters() {
       return fieldSetFlags()[1];
     }
 
 
     /**
-      * Clears the value of the 'inputParameters' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'inputParameters' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.OperationMode.Builder clearInputParameters() {
       inputParameters = null;
       fieldSetFlags()[1] = false;
@@ -341,19 +341,19 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
     }
 
     /**
-      * Gets the value of the 'outputParameters' field.
-      * @return The value.
-      */
+     * Gets the value of the 'outputParameters' field.
+     * @return The value.
+     */
     public java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> getOutputParameters() {
       return outputParameters;
     }
 
 
     /**
-      * Sets the value of the 'outputParameters' field.
-      * @param value The value of 'outputParameters'.
-      * @return This builder.
-      */
+     * Sets the value of the 'outputParameters' field.
+     * @param value The value of 'outputParameters'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.OperationMode.Builder setOutputParameters(java.util.List<de.dfki.cos.basys.processcontrol.model.Variable> value) {
       validate(fields()[2], value);
       this.outputParameters = value;
@@ -362,18 +362,18 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
     }
 
     /**
-      * Checks whether the 'outputParameters' field has been set.
-      * @return True if the 'outputParameters' field has been set, false otherwise.
-      */
+     * Checks whether the 'outputParameters' field has been set.
+     * @return True if the 'outputParameters' field has been set, false otherwise.
+     */
     public boolean hasOutputParameters() {
       return fieldSetFlags()[2];
     }
 
 
     /**
-      * Clears the value of the 'outputParameters' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'outputParameters' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.OperationMode.Builder clearOutputParameters() {
       outputParameters = null;
       fieldSetFlags()[2] = false;
@@ -399,19 +399,19 @@ public class OperationMode extends org.apache.avro.specific.SpecificRecordBase i
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumWriter<OperationMode>
-    WRITER$ = (org.apache.avro.io.DatumWriter<OperationMode>)MODEL$.createDatumWriter(SCHEMA$);
+          WRITER$ = (org.apache.avro.io.DatumWriter<OperationMode>)MODEL$.createDatumWriter(SCHEMA$);
 
   @Override public void writeExternal(java.io.ObjectOutput out)
-    throws java.io.IOException {
+          throws java.io.IOException {
     WRITER$.write(this, SpecificData.getEncoder(out));
   }
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumReader<OperationMode>
-    READER$ = (org.apache.avro.io.DatumReader<OperationMode>)MODEL$.createDatumReader(SCHEMA$);
+          READER$ = (org.apache.avro.io.DatumReader<OperationMode>)MODEL$.createDatumReader(SCHEMA$);
 
   @Override public void readExternal(java.io.ObjectInput in)
-    throws java.io.IOException {
+          throws java.io.IOException {
     READER$.read(this, SpecificData.getDecoder(in));
   }
 
