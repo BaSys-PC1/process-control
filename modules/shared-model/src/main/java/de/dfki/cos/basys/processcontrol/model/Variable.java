@@ -14,19 +14,19 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class Variable extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -7747623198238459722L;
+  private static final long serialVersionUID = 2488780988266049858L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Variable\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"DATE\"]}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Variable\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":[\"null\",\"boolean\",\"long\",\"double\",{\"type\":\"string\",\"avro.java.string\":\"String\"},\"int\"]},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"VariableType\",\"symbols\":[\"NULL\",\"BOOLEAN\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"LONG\",\"DATE\"]}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<Variable> ENCODER =
-      new BinaryMessageEncoder<Variable>(MODEL$, SCHEMA$);
+          new BinaryMessageEncoder<Variable>(MODEL$, SCHEMA$);
 
   private static final BinaryMessageDecoder<Variable> DECODER =
-      new BinaryMessageDecoder<Variable>(MODEL$, SCHEMA$);
+          new BinaryMessageDecoder<Variable>(MODEL$, SCHEMA$);
 
   /**
    * Return the BinaryMessageEncoder instance used by this class.
@@ -69,7 +69,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
    * @throws java.io.IOException if the given bytes could not be deserialized into an instance of this class
    */
   public static Variable fromByteBuffer(
-      java.nio.ByteBuffer b) throws java.io.IOException {
+          java.nio.ByteBuffer b) throws java.io.IOException {
     return DECODER.decode(b);
   }
 
@@ -101,10 +101,10 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
   // Used by DatumWriter.  Applications should not call.
   public java.lang.Object get(int field$) {
     switch (field$) {
-    case 0: return name;
-    case 1: return value;
-    case 2: return type;
-    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+      case 0: return name;
+      case 1: return value;
+      case 2: return type;
+      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -112,10 +112,10 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: name = value$ != null ? value$.toString() : null; break;
-    case 1: value = value$; break;
-    case 2: type = (de.dfki.cos.basys.processcontrol.model.VariableType)value$; break;
-    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+      case 0: name = value$ != null ? value$.toString() : null; break;
+      case 1: value = value$; break;
+      case 2: type = (de.dfki.cos.basys.processcontrol.model.VariableType)value$; break;
+      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -209,7 +209,7 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
    */
   @org.apache.avro.specific.AvroGenerated
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Variable>
-    implements org.apache.avro.data.RecordBuilder<Variable> {
+          implements org.apache.avro.data.RecordBuilder<Variable> {
 
     private java.lang.String name;
     private java.lang.Object value;
@@ -261,19 +261,19 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
     }
 
     /**
-      * Gets the value of the 'name' field.
-      * @return The value.
-      */
+     * Gets the value of the 'name' field.
+     * @return The value.
+     */
     public java.lang.String getName() {
       return name;
     }
 
 
     /**
-      * Sets the value of the 'name' field.
-      * @param value The value of 'name'.
-      * @return This builder.
-      */
+     * Sets the value of the 'name' field.
+     * @param value The value of 'name'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.Variable.Builder setName(java.lang.String value) {
       validate(fields()[0], value);
       this.name = value;
@@ -282,18 +282,18 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
     }
 
     /**
-      * Checks whether the 'name' field has been set.
-      * @return True if the 'name' field has been set, false otherwise.
-      */
+     * Checks whether the 'name' field has been set.
+     * @return True if the 'name' field has been set, false otherwise.
+     */
     public boolean hasName() {
       return fieldSetFlags()[0];
     }
 
 
     /**
-      * Clears the value of the 'name' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'name' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.Variable.Builder clearName() {
       name = null;
       fieldSetFlags()[0] = false;
@@ -301,19 +301,19 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
     }
 
     /**
-      * Gets the value of the 'value' field.
-      * @return The value.
-      */
+     * Gets the value of the 'value' field.
+     * @return The value.
+     */
     public java.lang.Object getValue() {
       return value;
     }
 
 
     /**
-      * Sets the value of the 'value' field.
-      * @param value The value of 'value'.
-      * @return This builder.
-      */
+     * Sets the value of the 'value' field.
+     * @param value The value of 'value'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.Variable.Builder setValue(java.lang.Object value) {
       validate(fields()[1], value);
       this.value = value;
@@ -322,18 +322,18 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
     }
 
     /**
-      * Checks whether the 'value' field has been set.
-      * @return True if the 'value' field has been set, false otherwise.
-      */
+     * Checks whether the 'value' field has been set.
+     * @return True if the 'value' field has been set, false otherwise.
+     */
     public boolean hasValue() {
       return fieldSetFlags()[1];
     }
 
 
     /**
-      * Clears the value of the 'value' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'value' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.Variable.Builder clearValue() {
       value = null;
       fieldSetFlags()[1] = false;
@@ -341,19 +341,19 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
     }
 
     /**
-      * Gets the value of the 'type' field.
-      * @return The value.
-      */
+     * Gets the value of the 'type' field.
+     * @return The value.
+     */
     public de.dfki.cos.basys.processcontrol.model.VariableType getType() {
       return type;
     }
 
 
     /**
-      * Sets the value of the 'type' field.
-      * @param value The value of 'type'.
-      * @return This builder.
-      */
+     * Sets the value of the 'type' field.
+     * @param value The value of 'type'.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.Variable.Builder setType(de.dfki.cos.basys.processcontrol.model.VariableType value) {
       validate(fields()[2], value);
       this.type = value;
@@ -362,18 +362,18 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
     }
 
     /**
-      * Checks whether the 'type' field has been set.
-      * @return True if the 'type' field has been set, false otherwise.
-      */
+     * Checks whether the 'type' field has been set.
+     * @return True if the 'type' field has been set, false otherwise.
+     */
     public boolean hasType() {
       return fieldSetFlags()[2];
     }
 
 
     /**
-      * Clears the value of the 'type' field.
-      * @return This builder.
-      */
+     * Clears the value of the 'type' field.
+     * @return This builder.
+     */
     public de.dfki.cos.basys.processcontrol.model.Variable.Builder clearType() {
       type = null;
       fieldSetFlags()[2] = false;
@@ -399,19 +399,19 @@ public class Variable extends org.apache.avro.specific.SpecificRecordBase implem
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumWriter<Variable>
-    WRITER$ = (org.apache.avro.io.DatumWriter<Variable>)MODEL$.createDatumWriter(SCHEMA$);
+          WRITER$ = (org.apache.avro.io.DatumWriter<Variable>)MODEL$.createDatumWriter(SCHEMA$);
 
   @Override public void writeExternal(java.io.ObjectOutput out)
-    throws java.io.IOException {
+          throws java.io.IOException {
     WRITER$.write(this, SpecificData.getEncoder(out));
   }
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumReader<Variable>
-    READER$ = (org.apache.avro.io.DatumReader<Variable>)MODEL$.createDatumReader(SCHEMA$);
+          READER$ = (org.apache.avro.io.DatumReader<Variable>)MODEL$.createDatumReader(SCHEMA$);
 
   @Override public void readExternal(java.io.ObjectInput in)
-    throws java.io.IOException {
+          throws java.io.IOException {
     READER$.read(this, SpecificData.getDecoder(in));
   }
 
