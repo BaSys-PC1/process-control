@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.dfki.cos.basys.processcontrol.model.ControlComponentRequest;
 import de.dfki.cos.basys.processcontrol.model.ControlComponentResponse;
 import de.dfki.cos.basys.processcontrol.model.OperationMode;
+import de.dfki.cos.basys.processcontrol.model.Variable;
 import org.apache.avro.specific.SpecificData;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,7 @@ public class JacksonConfiguration {
         mapper.addMixIn(ControlComponentResponse.class, IgnoreSchemaProperty.class);
         mapper.addMixIn(ControlComponentRequest.class, IgnoreSchemaProperty.class);
         mapper.addMixIn(OperationMode.class, IgnoreSchemaProperty.class);
+        mapper.addMixIn(Variable.class, IgnoreSchemaProperty.class);
         return mapper;
     }
 }
