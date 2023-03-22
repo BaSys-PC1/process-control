@@ -54,3 +54,31 @@ mqtt:
   clientId: mqtt-task-channel
   hostname: ${KAFKA_BROKER_ENDPOINT}
   port: 1883
+basys:
+  mqtt-to-kafka-bridge:
+    name: test
+    bridges:
+      statusSafetyLightCurtain:
+        source: basysafe/safetylightcurtain/status
+        target: basysafe/safetylightcurtain/status
+        transformerService: safetyLightCurtainStatusTransformer
+      statusSignalColumn:
+        source: basysafe/signalcolumn/status
+        target: basysafe/signalcolumn/status
+        transformerService: signalColumnStatusTransformer
+      statusInitiator:
+        source: basysafe/initiator/status
+        target: basysafe/initiator/status
+        transformerService: initiatorStatusTransformer
+      statusEstopButton:
+        source: basysafe/estopbutton/status
+        target: basysafe/estopbutton/status
+        transformerService: estopButtonStatusTransformer
+      statusAckButton:
+        source: basysafe/ackbutton/status
+        target: basysafe/ackbutton/status
+        transformerService: ackButtonStatusTransformer
+      statusPress:
+        source: basysafe/press/status
+        target: basysafe/press/status
+        transformerService: pressStatusTransformer
