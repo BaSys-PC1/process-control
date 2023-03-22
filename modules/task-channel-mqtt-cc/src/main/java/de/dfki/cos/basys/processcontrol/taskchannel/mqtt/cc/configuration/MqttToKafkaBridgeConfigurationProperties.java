@@ -7,6 +7,5 @@ import java.util.Map;
 @Data
 public class MqttToKafkaBridgeConfigurationProperties {
 
-    private String name;
-    private Map<String, MqttToKafkaRouteConfigurationProperties> bridges;
+    private Map<String, MqttToKafkaRouteConfigurationProperties> routes;
 }

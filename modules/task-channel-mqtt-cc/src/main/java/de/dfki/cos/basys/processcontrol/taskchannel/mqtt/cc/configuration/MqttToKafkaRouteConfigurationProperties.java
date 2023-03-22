@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class MqttToKafkaRouteConfigurationProperties {
     private String source;
-    private String target;
     private String transformerService;
 }

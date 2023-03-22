@@ -18,7 +18,7 @@
     
 	<properties>
         <java.version>11</java.version>
-        <avro.version>1.10.2</avro.version>
+        <avro.version>1.11.0</avro.version>
     </properties>
 
     <dependencies>
