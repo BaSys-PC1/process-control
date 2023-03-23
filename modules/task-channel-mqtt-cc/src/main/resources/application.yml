@@ -1,4 +1,4 @@
-debug: false
+debug: true
 server:
   port: 8088
 management:
@@ -25,6 +25,42 @@ spring:
           binder: kafka-avro
           consumer:
             useNativeDecoding: true
+        statusSafetyLightCurtain:
+          destination: basysafe.safetylightcurtain.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusSignalColumn:
+          destination: basysafe.signalcolumn.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusInitiator:
+          destination: basysafe.initiator.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusEstopButton:
+          destination: basysafe.estopbutton.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusAckButton:
+          destination: basysafe.ackbutton.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusPress:
+          destination: basysafe.press.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
       binders:
         #kafka-json:
         #  type: kafka
@@ -54,3 +90,24 @@ mqtt:
   clientId: mqtt-task-channel
   hostname: ${KAFKA_BROKER_ENDPOINT}
   port: 1883
+basys:
+  mqtt-to-kafka-bridge:
+    routes:
+      statusSafetyLightCurtain:
+        source: basysafe/safetylightcurtain/status
+        transformerService: safetyLightCurtainStatusTransformer
+      statusSignalColumn:
+        source: basysafe/signalcolumn/status
+        transformerService: signalColumnStatusTransformer
+      statusInitiator:
+        source: basysafe/initiator/status
+        transformerService: initiatorStatusTransformer
+      statusEstopButton:
+        source: basysafe/estopbutton/status
+        transformerService: estopButtonStatusTransformer
+      statusAckButton:
+        source: basysafe/ackbutton/status
+        transformerService: ackButtonStatusTransformer
+      statusPress:
+        source: basysafe/press/status
+        transformerService: pressStatusTransformer
