@@ -24,7 +24,7 @@ public class EstopButtonStatusTransformer implements Function<String, EStopStatu
                         .setSeconds(instant.getEpochSecond())
                         .build())
                 .setData(EStopStatus.newBuilder()
-                        .setStatus(jsonObject.getAsJsonPrimitive("status").getAsInt())
+                        .setStatus(jsonObject.getAsJsonPrimitive("status").getAsBoolean() ? 1 : 0)
                         .build())
                 .build();
 

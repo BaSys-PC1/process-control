@@ -25,10 +25,10 @@ public class SignalColumnStatusTransformer implements Function<String, SignalCol
                         .setSeconds(instant.getEpochSecond())
                         .build())
                 .setData(SignalColumnStatus.newBuilder()
-                        .setRed(jsonObject.getAsJsonPrimitive("red").getAsInt())
-                        .setYellow(jsonObject.getAsJsonPrimitive("yellow").getAsInt())
-                        .setGreen(jsonObject.getAsJsonPrimitive("green").getAsInt())
-                        .setWhite(jsonObject.getAsJsonPrimitive("white").getAsInt())
+                        .setRed(jsonObject.getAsJsonPrimitive("red").getAsBoolean() ? 1 : 0)
+                        .setYellow(jsonObject.getAsJsonPrimitive("yellow").getAsBoolean() ? 1 : 0)
+                        .setGreen(jsonObject.getAsJsonPrimitive("green").getAsBoolean() ? 1 : 0)
+                        .setWhite(jsonObject.getAsJsonPrimitive("white").getAsBoolean() ? 1 : 0)
                         .build())
                 .build();
 
