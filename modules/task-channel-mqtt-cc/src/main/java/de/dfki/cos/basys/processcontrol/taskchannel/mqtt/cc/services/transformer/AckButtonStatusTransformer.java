@@ -26,7 +26,7 @@ public class AckButtonStatusTransformer implements Function<String, AckButtonSta
                         .setSeconds(instant.getEpochSecond())
                         .build())
                 .setData(AckButtonStatus.newBuilder()
-                        .setStatus(jsonObject.getAsJsonPrimitive("status").getAsInt())
+                        .setStatus(jsonObject.getAsJsonPrimitive("status").getAsBoolean() ? 1 : 0)
                         .build())
                 .build();
 

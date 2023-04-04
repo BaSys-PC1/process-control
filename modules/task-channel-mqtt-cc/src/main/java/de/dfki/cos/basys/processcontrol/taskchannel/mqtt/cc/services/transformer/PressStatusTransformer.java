@@ -19,6 +19,10 @@ public class PressStatusTransformer implements Function<String, PressStatusStamp
         DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
         Instant instant = Instant.from(formatter.parse(jsonObject.getAsJsonPrimitive("timestamp").getAsString()));
 
+        if ("completed".equals(jsonObject.getAsJsonPrimitive("opmode").getAsString())) {
+            jsonObject.addProperty("opmode","complete");
+        }
+
         PressStatusStamped status = PressStatusStamped.newBuilder()
                 .setTimestamp(TimestampUnix.newBuilder()
                         .setSeconds(instant.getEpochSecond())
