@@ -19,13 +19,39 @@ public class PressStatusTransformer implements Function<String, PressStatusStamp
         DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
         Instant instant = Instant.from(formatter.parse(jsonObject.getAsJsonPrimitive("timestamp").getAsString()));
 
-        if ("completed".equals(jsonObject.getAsJsonPrimitive("opmode").getAsString())) {
-            jsonObject.addProperty("opmode","complete");
+        //TODO: use workState in Avro message.
+
+        String exState = jsonObject.getAsJsonPrimitive("state").getAsString();
+        switch (exState) {
+            case "ready to load":
+                jsonObject.addProperty("state","stopped");
+                break;
+            case "completed":
+                jsonObject.addProperty("state","complete");
+                break;
+            case "loaded":
+                jsonObject.addProperty("state","idle");
+                break;
+            case "reset safetylightcurtain":
+                jsonObject.addProperty("state","idle");
+                break;
+            case "safetylightcurtain nOK":
+                jsonObject.addProperty("state","suspended");
+                break;
+            case "reset estop":
+                jsonObject.addProperty("state","stopped");
+                break;
+            case "estop nOK":
+                jsonObject.addProperty("state","aborted");
+                break;
+            default:
+
         }
 
         PressStatusStamped status = PressStatusStamped.newBuilder()
                 .setTimestamp(TimestampUnix.newBuilder()
                         .setSeconds(instant.getEpochSecond())
+                        .setNseconds(instant.getNano())
                         .build())
                 .setData(PressStatus.newBuilder()
                         .setCounter(jsonObject.getAsJsonPrimitive("counter").getAsInt())

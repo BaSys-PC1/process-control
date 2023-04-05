@@ -23,6 +23,7 @@ public class SignalColumnStatusTransformer implements Function<String, SignalCol
         SignalColumnStatusStamped status = SignalColumnStatusStamped.newBuilder()
                 .setTimestamp(TimestampUnix.newBuilder()
                         .setSeconds(instant.getEpochSecond())
+                        .setNseconds(instant.getNano())
                         .build())
                 .setData(SignalColumnStatus.newBuilder()
                         .setRed(jsonObject.getAsJsonPrimitive("red").getAsBoolean() ? 1 : 0)

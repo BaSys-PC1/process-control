@@ -24,6 +24,7 @@ public class AckButtonStatusTransformer implements Function<String, AckButtonSta
         AckButtonStatusStamped status = AckButtonStatusStamped.newBuilder()
                 .setTimestamp(TimestampUnix.newBuilder()
                         .setSeconds(instant.getEpochSecond())
+                        .setNseconds(instant.getNano())
                         .build())
                 .setData(AckButtonStatus.newBuilder()
                         .setStatus(jsonObject.getAsJsonPrimitive("status").getAsBoolean() ? 1 : 0)

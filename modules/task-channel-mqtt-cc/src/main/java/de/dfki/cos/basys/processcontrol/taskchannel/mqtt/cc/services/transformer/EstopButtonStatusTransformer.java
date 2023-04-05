@@ -22,6 +22,7 @@ public class EstopButtonStatusTransformer implements Function<String, EStopStatu
         EStopStatusStamped status = EStopStatusStamped.newBuilder()
                 .setTimestamp(TimestampUnix.newBuilder()
                         .setSeconds(instant.getEpochSecond())
+                        .setNseconds(instant.getNano())
                         .build())
                 .setData(EStopStatus.newBuilder()
                         .setStatus(jsonObject.getAsJsonPrimitive("status").getAsBoolean() ? 1 : 0)

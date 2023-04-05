@@ -22,6 +22,7 @@ public class InitiatorStatusTransformer implements Function<String, InitiatorSta
         InitiatorStatusStamped status = InitiatorStatusStamped.newBuilder()
                 .setTimestamp(TimestampUnix.newBuilder()
                         .setSeconds(instant.getEpochSecond())
+                        .setNseconds(instant.getNano())
                         .build())
                 .setData(InitiatorStatus.newBuilder()
                         .setOccupied(jsonObject.getAsJsonPrimitive("status").getAsBoolean())

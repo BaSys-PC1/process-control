@@ -41,8 +41,11 @@ public class SignalColumnCommandService {
 
         String topic = COMMAND_TOPIC.replace(".","/").replace("status","command");
 
+        //String muss genau so lauten für Licht an: {"yellow":"true"}
+        // keine Leerzeichen erlaubt, es wird ein einfacher Stringvergleich (kein JSON) gemacht
+
         try {
-            publish(topic, jsonObject.toString(), 2, false);
+            publish(topic, jsonObject.toString().replace(" ", ""), 2, false);
         } catch (MqttException e) {
             log.error(e.getMessage(), e);
         }

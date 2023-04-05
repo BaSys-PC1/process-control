@@ -23,6 +23,7 @@ public class SafetyLightCurtainStatusTransformer implements Function<String, Lig
         LightCurtainStatusStamped status = LightCurtainStatusStamped.newBuilder()
                 .setTimestamp(TimestampUnix.newBuilder()
                         .setSeconds(instant.getEpochSecond())
+                        .setNseconds(instant.getNano())
                         .build())
                 .setData(LightCurtainStatus.newBuilder()
                         .setStatus(Collections.singletonList(jsonObject.getAsJsonPrimitive("status").getAsBoolean()))
