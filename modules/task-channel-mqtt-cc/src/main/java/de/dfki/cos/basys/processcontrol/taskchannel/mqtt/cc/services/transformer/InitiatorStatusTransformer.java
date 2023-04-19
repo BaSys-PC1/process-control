@@ -10,20 +10,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
 @Service
-public class InitiatorStatusTransformer implements Function<String, InitiatorStatusStamped> {
+public class InitiatorStatusTransformer extends BaseStatusTransformer<InitiatorStatusStamped>{
 
     @Override
-    public InitiatorStatusStamped apply(String json) {
-        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-        Instant instant = Instant.from(formatter.parse(jsonObject.getAsJsonPrimitive("timestamp").getAsString()));
-
+    protected InitiatorStatusStamped applyWithInstant(JsonObject jsonObject, TimestampUnix ts) {
         InitiatorStatusStamped status = InitiatorStatusStamped.newBuilder()
-                .setTimestamp(TimestampUnix.newBuilder()
-                        .setSeconds(instant.getEpochSecond())
-                        .setNseconds(instant.getNano())
-                        .build())
+                .setTimestamp(ts)
                 .setData(InitiatorStatus.newBuilder()
                         .setOccupied(jsonObject.getAsJsonPrimitive("status").getAsBoolean())
                         .build())

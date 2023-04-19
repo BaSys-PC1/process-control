@@ -11,20 +11,11 @@ import java.util.Collections;
 import java.util.function.Function;
 
 @Service
-public class SignalColumnStatusTransformer implements Function<String, SignalColumnStatusStamped> {
-
+public class SignalColumnStatusTransformer extends BaseStatusTransformer<SignalColumnStatusStamped> {
     @Override
-    public SignalColumnStatusStamped apply(String json) {
-        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-        Instant instant = Instant.from(formatter.parse(jsonObject.getAsJsonPrimitive("timestamp").getAsString()));
-
+    protected SignalColumnStatusStamped applyWithInstant(JsonObject jsonObject, TimestampUnix ts) {
         SignalColumnStatusStamped status = SignalColumnStatusStamped.newBuilder()
-                .setTimestamp(TimestampUnix.newBuilder()
-                        .setSeconds(instant.getEpochSecond())
-                        .setNseconds(instant.getNano())
-                        .build())
+                .setTimestamp(ts)
                 .setData(SignalColumnStatus.newBuilder()
                         .setRed(jsonObject.getAsJsonPrimitive("red").getAsBoolean() ? 1 : 0)
                         .setYellow(jsonObject.getAsJsonPrimitive("yellow").getAsBoolean() ? 1 : 0)

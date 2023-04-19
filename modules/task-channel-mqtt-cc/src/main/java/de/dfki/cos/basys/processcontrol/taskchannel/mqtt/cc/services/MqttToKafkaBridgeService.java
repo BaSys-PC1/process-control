@@ -42,6 +42,7 @@ public class MqttToKafkaBridgeService implements ApplicationContextAware {
             log.info("creating route {}: {}", binding, route.getSource());
             try {
                 mqttClient.subscribe(route.getSource(), (s, mqttMessage) -> {
+                    try {
                     log.info("message arrived on topic {}: {}", s, mqttMessage.toString() );
                     Function<String, Object> transformer = applicationContext.getBean(route.getTransformerService(), Function.class );
                     log.info("transforming message with {}", transformer.getClass());
@@ -52,6 +53,9 @@ public class MqttToKafkaBridgeService implements ApplicationContextAware {
                     }
                     else {
                         log.warn("result is null");
+                    }
+                    }catch (Exception e) {
+                        log.error(e.toString());
                     }
                 });
             } catch (MqttException e) {

@@ -11,20 +11,12 @@ import java.util.Collections;
 import java.util.function.Function;
 
 @Service
-public class SafetyLightCurtainStatusTransformer implements Function<String, LightCurtainStatusStamped> {
+public class SafetyLightCurtainStatusTransformer extends BaseStatusTransformer<LightCurtainStatusStamped> {
 
     @Override
-    public LightCurtainStatusStamped apply(String json) {
-        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-        Instant instant = Instant.from(formatter.parse(jsonObject.getAsJsonPrimitive("timestamp").getAsString()));
-
+    protected LightCurtainStatusStamped applyWithInstant(JsonObject jsonObject, TimestampUnix ts) {
         LightCurtainStatusStamped status = LightCurtainStatusStamped.newBuilder()
-                .setTimestamp(TimestampUnix.newBuilder()
-                        .setSeconds(instant.getEpochSecond())
-                        .setNseconds(instant.getNano())
-                        .build())
+                .setTimestamp(ts)
                 .setData(LightCurtainStatus.newBuilder()
                         .setStatus(Collections.singletonList(jsonObject.getAsJsonPrimitive("status").getAsBoolean()))
                         .build())

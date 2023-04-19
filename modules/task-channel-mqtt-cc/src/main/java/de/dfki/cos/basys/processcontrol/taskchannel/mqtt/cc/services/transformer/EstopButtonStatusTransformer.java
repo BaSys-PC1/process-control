@@ -10,20 +10,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
 @Service
-public class EstopButtonStatusTransformer implements Function<String, EStopStatusStamped> {
-
+public class EstopButtonStatusTransformer extends BaseStatusTransformer<EStopStatusStamped>{
     @Override
-    public EStopStatusStamped apply(String json) {
-        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-        Instant instant = Instant.from(formatter.parse(jsonObject.getAsJsonPrimitive("timestamp").getAsString()));
-
+    protected EStopStatusStamped applyWithInstant(JsonObject jsonObject, TimestampUnix ts) {
         EStopStatusStamped status = EStopStatusStamped.newBuilder()
-                .setTimestamp(TimestampUnix.newBuilder()
-                        .setSeconds(instant.getEpochSecond())
-                        .setNseconds(instant.getNano())
-                        .build())
+                .setTimestamp(ts)
                 .setData(EStopStatus.newBuilder()
                         .setStatus(jsonObject.getAsJsonPrimitive("status").getAsBoolean() ? 1 : 0)
                         .build())

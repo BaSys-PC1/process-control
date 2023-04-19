@@ -10,17 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
 @Service
-public class PressStatusTransformer implements Function<String, PressStatusStamped> {
-
+public class PressStatusTransformer extends BaseStatusTransformer<PressStatusStamped> {
     @Override
-    public PressStatusStamped apply(String json) {
-        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-        Instant instant = Instant.from(formatter.parse(jsonObject.getAsJsonPrimitive("timestamp").getAsString()));
-
-        //TODO: use workState in Avro message.
-
+    protected PressStatusStamped applyWithInstant(JsonObject jsonObject, TimestampUnix ts) {
         String exState = jsonObject.getAsJsonPrimitive("state").getAsString();
         switch (exState) {
             case "ready to load":
@@ -49,13 +41,11 @@ public class PressStatusTransformer implements Function<String, PressStatusStamp
         }
 
         PressStatusStamped status = PressStatusStamped.newBuilder()
-                .setTimestamp(TimestampUnix.newBuilder()
-                        .setSeconds(instant.getEpochSecond())
-                        .setNseconds(instant.getNano())
-                        .build())
+                .setTimestamp(ts)
                 .setData(PressStatus.newBuilder()
                         .setCounter(jsonObject.getAsJsonPrimitive("counter").getAsInt())
                         .setExState(ExecutionState.valueOf(jsonObject.getAsJsonPrimitive("state").getAsString().toUpperCase()))
+                        .setWorkState(exState)
                         .setOpMode(OperationMode.newBuilder()
                                 .setName(jsonObject.getAsJsonPrimitive("opmode").getAsString())
                                 .setShortName(jsonObject.getAsJsonPrimitive("opmode").getAsString())

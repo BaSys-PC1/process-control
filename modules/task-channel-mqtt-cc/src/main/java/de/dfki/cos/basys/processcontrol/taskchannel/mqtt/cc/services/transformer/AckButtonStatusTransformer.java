@@ -12,20 +12,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
 @Service
-public class AckButtonStatusTransformer implements Function<String, AckButtonStatusStamped> {
-
+public class AckButtonStatusTransformer extends BaseStatusTransformer<AckButtonStatusStamped> {
     @Override
-    public AckButtonStatusStamped apply(String json) {
-        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-        Instant instant = Instant.from(formatter.parse(jsonObject.getAsJsonPrimitive("timestamp").getAsString()));
-
+    protected AckButtonStatusStamped applyWithInstant(JsonObject jsonObject, TimestampUnix ts) {
         AckButtonStatusStamped status = AckButtonStatusStamped.newBuilder()
-                .setTimestamp(TimestampUnix.newBuilder()
-                        .setSeconds(instant.getEpochSecond())
-                        .setNseconds(instant.getNano())
-                        .build())
+                .setTimestamp(ts)
                 .setData(AckButtonStatus.newBuilder()
                         .setStatus(jsonObject.getAsJsonPrimitive("status").getAsBoolean() ? 1 : 0)
                         .build())
