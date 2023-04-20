@@ -1,8 +1,8 @@
 package de.dfki.cos.basys.processcontrol.taskchannel.mqtt.cc.services.transformer;
 
-import org.springframework.stereotype.Service;
-
 import java.util.function.Function;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class PassThroughTransformer implements Function<String, String> {

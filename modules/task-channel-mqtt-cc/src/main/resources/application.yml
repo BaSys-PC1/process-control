@@ -117,6 +117,7 @@ mqtt:
   port: 1883
 basys:
   mqtt-to-kafka-bridge:
+    useMessageTimestamp: ${USE_MESSAGE_TIMESTAMP_FOR_MAPPING:true}
     routes:
       statusSafetyLightCurtain:
         source: basysafe/safetylightcurtain/status

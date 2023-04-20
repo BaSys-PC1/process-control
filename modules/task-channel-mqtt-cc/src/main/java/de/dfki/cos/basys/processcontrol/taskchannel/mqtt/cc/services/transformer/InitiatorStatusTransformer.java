@@ -1,13 +1,12 @@
 package de.dfki.cos.basys.processcontrol.taskchannel.mqtt.cc.services.transformer;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import de.dfki.cos.mrk40.avro.*;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
-import java.util.function.Function;
+import com.google.gson.JsonObject;
+
+import de.dfki.cos.mrk40.avro.InitiatorStatus;
+import de.dfki.cos.mrk40.avro.InitiatorStatusStamped;
+import de.dfki.cos.mrk40.avro.TimestampUnix;
 
 @Service
 public class InitiatorStatusTransformer extends BaseStatusTransformer<InitiatorStatusStamped>{

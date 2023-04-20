@@ -1,15 +1,12 @@
 package de.dfki.cos.basys.processcontrol.taskchannel.mqtt.cc.services.transformer;
 
-import com.google.gson.Gson;
+import org.springframework.stereotype.Service;
+
 import com.google.gson.JsonObject;
+
 import de.dfki.cos.mrk40.avro.AckButtonStatus;
 import de.dfki.cos.mrk40.avro.AckButtonStatusStamped;
 import de.dfki.cos.mrk40.avro.TimestampUnix;
-import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
-import java.util.function.Function;
 
 @Service
 public class AckButtonStatusTransformer extends BaseStatusTransformer<AckButtonStatusStamped> {
