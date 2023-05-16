@@ -19,6 +19,7 @@
 	<properties>
         <java.version>11</java.version>
         <avro.version>1.10.2</avro.version>
+        <docker.image.version>0.3.0-stable</docker.image.version>
     </properties>
 
     <dependencies>

@@ -21,6 +21,7 @@
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
 		<camunda.platform.version>7.16.0</camunda.platform.version>
 		<testcontainers.version>1.17.3</testcontainers.version>
+		<docker.image.version>0.3.0-stable</docker.image.version>
 	</properties>
 
 	<repositories>

@@ -113,3 +113,4 @@ mvn-docker-publish:
   rules:
     - if: $CI_COMMIT_BRANCH == 'master'
     - if: $CI_COMMIT_BRANCH == 'develop'
+    - if: $CI_COMMIT_BRANCH == '0.3.0-stable'

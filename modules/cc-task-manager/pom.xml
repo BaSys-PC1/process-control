@@ -21,6 +21,7 @@
         <avro.version>1.10.2</avro.version>
         <spring-cloud.version>2020.0.4</spring-cloud.version>
         <aas-registry.version>0.3.0-SNAPSHOT</aas-registry.version>
+        <docker.image.version>0.3.0-stable</docker.image.version>
     </properties>
 
     <repositories>
