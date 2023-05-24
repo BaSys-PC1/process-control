@@ -7,10 +7,11 @@ import de.dfki.cos.basys.processcontrol.model.ControlComponentResponse;
 import de.dfki.cos.basys.processcontrol.model.RequestStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.basyx.aas.manager.api.IAssetAdministrationShellManager;
-import org.eclipse.basyx.aas.registry.events.RegistryEvent;
-import org.eclipse.basyx.aas.registry.model.*;
+import de.dfki.cos.basys.aas.registry.events.RegistryEvent;
+import de.dfki.cos.basys.aas.registry.model.*;
 import org.eclipse.basyx.submodel.metamodel.api.ISubmodel;
 import org.eclipse.basyx.submodel.metamodel.api.identifier.IdentifierType;
+import org.eclipse.basyx.submodel.metamodel.api.reference.enums.KeyElements;
 import org.eclipse.basyx.submodel.metamodel.api.submodelelement.ISubmodelElement;
 import org.eclipse.basyx.submodel.metamodel.api.submodelelement.ISubmodelElementCollection;
 import org.eclipse.basyx.submodel.metamodel.api.submodelelement.dataelement.IProperty;
@@ -21,6 +22,7 @@ import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
+import springfox.documentation.schema.ModelReference;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -53,9 +55,9 @@ public class ControlComponentAgentManager implements ControlComponentAgentCallba
     @PostConstruct
     public void initialize() {
         List<AssetAdministrationShellDescriptor> result = aasRegistryServices.searchAasDescriptorsWithSubmodel(ccInstanceSubmodelSemanticId);
-        Key instanceKey = new Key().type(KeyElements.CONCEPTDESCRIPTION).value(ccInstanceSubmodelSemanticId);
+        Key instanceKey = new Key().type(KeyTypes.CONCEPTDESCRIPTION).value(ccInstanceSubmodelSemanticId);
         for (var aasDescriptor: result) {
-            var opt = aasDescriptor.getSubmodelDescriptors().stream().filter(smd -> ((ModelReference)smd.getSemanticId()).getKeys().contains(instanceKey)).findFirst();
+            var opt = aasDescriptor.getSubmodelDescriptors().stream().filter(smd -> smd.getSemanticId().getKeys().contains(instanceKey)).findFirst();
             opt.ifPresent(smDescriptor -> {
                 registerControlComponentAgent(aasDescriptor.getIdentification(), smDescriptor);
             });
@@ -89,12 +91,9 @@ public class ControlComponentAgentManager implements ControlComponentAgentCallba
             case SUBMODEL_REGISTERED:
                 if (event.getSubmodelDescriptor() != null) {
                     Reference ref = event.getSubmodelDescriptor().getSemanticId();
-                    if (ref instanceof ModelReference) {
-                        ModelReference modelReference = (ModelReference) ref;
-                        Key key = modelReference.getKeys().get(0);
-                        if (key.getType() == KeyElements.CONCEPTDESCRIPTION && ccInstanceSubmodelSemanticId.equals(key.getValue())) {
-                            registerControlComponentAgent(event.getId(), event.getSubmodelDescriptor());
-                        }
+                    Key key = ref.getKeys().get(0);
+                    if (key.getType() == KeyTypes.CONCEPTDESCRIPTION && ccInstanceSubmodelSemanticId.equals(key.getValue())) {
+                        registerControlComponentAgent(event.getId(), event.getSubmodelDescriptor());
                     }
                 }
                 break;

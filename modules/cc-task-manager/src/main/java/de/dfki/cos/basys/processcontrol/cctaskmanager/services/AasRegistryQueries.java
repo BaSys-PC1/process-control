@@ -2,9 +2,9 @@ package de.dfki.cos.basys.processcontrol.cctaskmanager.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.basyx.aas.registry.client.api.AasRegistryPaths;
-import org.eclipse.basyx.aas.registry.client.api.RegistryAndDiscoveryInterfaceApi;
-import org.eclipse.basyx.aas.registry.model.*;
+import de.dfki.cos.basys.aas.registry.client.api.AasRegistryPaths;
+import de.dfki.cos.basys.aas.registry.client.api.RegistryAndDiscoveryInterfaceApi;
+import de.dfki.cos.basys.aas.registry.model.*;
 import org.eclipse.basyx.submodel.metamodel.api.ISubmodel;
 import org.eclipse.basyx.submodel.metamodel.api.identifier.IdentifierType;
 import org.eclipse.basyx.submodel.metamodel.map.identifier.Identifier;
@@ -26,7 +26,7 @@ public class AasRegistryQueries {
         log.info("---------------------------------------------");
         ShellDescriptorQuery query = new ShellDescriptorQuery();
         query.setQueryType(ShellDescriptorQuery.QueryTypeEnum.MATCH);
-        query.setPath(AasRegistryPaths.submodelDescriptors().semanticId().asModelReference().keys().value());
+        query.setPath(AasRegistryPaths.submodelDescriptors().semanticId().keys().value());
         query.setValue(semanticId);
 
         var searchResult = registryApi.searchShellDescriptors(new ShellDescriptorSearchRequest().query(query).page(new Page().size(100).index(0)));
@@ -50,7 +50,7 @@ public class AasRegistryQueries {
         log.info("search for aas whose assetId ends with {}", assetName);
         ShellDescriptorQuery query = new ShellDescriptorQuery();
         query.setQueryType(ShellDescriptorQuery.QueryTypeEnum.REGEX);
-        query.setPath(AasRegistryPaths.globalAssetId().asGlobalReference().value());
+        query.setPath(AasRegistryPaths.globalAssetId().keys().value());
         query.setValue(assetName);
 
         var searchResult = registryApi.searchShellDescriptors(new ShellDescriptorSearchRequest().query(query).page(new Page().size(1).index(0)));
@@ -75,7 +75,7 @@ public class AasRegistryQueries {
         log.info("search for aas whose assetId ends with {}", assetName);
         ShellDescriptorQuery query = new ShellDescriptorQuery();
         query.setQueryType(ShellDescriptorQuery.QueryTypeEnum.REGEX);
-        query.setPath(AasRegistryPaths.globalAssetId().asGlobalReference().value());
+        query.setPath(AasRegistryPaths.globalAssetId().keys().value());
         //FIXME: this pattern is probably not strict enough
         query.setValue(".*" + assetName);
 

@@ -6,7 +6,6 @@ import de.dfki.cos.basys.processcontrol.model.ControlComponentResponse;
 import de.dfki.cos.basys.processcontrol.model.OperationMode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.util.Utf8;
-import org.eclipse.basyx.aas.registry.events.RegistryEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;

@@ -6,15 +6,17 @@ import org.eclipse.basyx.aas.manager.ConnectedAssetAdministrationShellManager;
 import org.eclipse.basyx.aas.manager.api.IAssetAdministrationShellManager;
 import org.eclipse.basyx.aas.metamodel.api.IAssetAdministrationShell;
 import org.eclipse.basyx.aas.registration.api.IAASRegistry;
-import org.eclipse.basyx.aas.registry.client.api.AasRegistryPaths;
-import org.eclipse.basyx.aas.registry.client.api.RegistryAndDiscoveryInterfaceApi;
-import org.eclipse.basyx.aas.registry.compatibility.DotAASRegistryProxy;
-import org.eclipse.basyx.aas.registry.model.*;
+import de.dfki.cos.basys.aas.registry.client.api.AasRegistryPaths;
+import de.dfki.cos.basys.aas.registry.client.api.RegistryAndDiscoveryInterfaceApi;
+import de.dfki.cos.basys.aas.registry.compatibility.DotAASRegistryProxy;
+import de.dfki.cos.basys.aas.registry.model.*;
 import org.eclipse.basyx.submodel.metamodel.api.ISubmodel;
 import org.eclipse.basyx.submodel.metamodel.api.identifier.IdentifierType;
+import org.eclipse.basyx.submodel.metamodel.api.reference.enums.KeyElements;
 import org.eclipse.basyx.submodel.metamodel.connected.ConnectedSubmodel;
 import org.eclipse.basyx.submodel.metamodel.map.identifier.Identifier;
 import org.springframework.web.util.UriUtils;
+import springfox.documentation.schema.ModelReference;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -93,16 +95,16 @@ public class TestMain {
             log.info("---------------------------------------------");
             ShellDescriptorQuery query = new ShellDescriptorQuery();
             query.setQueryType(ShellDescriptorQuery.QueryTypeEnum.MATCH);
-            query.setPath(AasRegistryPaths.submodelDescriptors().semanticId().asModelReference().keys().value());
+            query.setPath(AasRegistryPaths.submodelDescriptors().semanticId().keys().value());
             query.setValue(idSubmodelSemanticId);
 
             var searchResult = apiInstance.searchShellDescriptors(new ShellDescriptorSearchRequest().query(query));
             log.info("Result size: " + searchResult.getTotal());
 
-            Key instanceKey = new Key().type(KeyElements.CONCEPTDESCRIPTION).value(idSubmodelSemanticId);
+            Key instanceKey = new Key().type(KeyTypes.CONCEPTDESCRIPTION).value(idSubmodelSemanticId);
 
             for (var aasDescriptor: searchResult.getHits()) {
-                var opt = aasDescriptor.getSubmodelDescriptors().stream().filter(smd -> ((ModelReference)smd.getSemanticId()).getKeys().contains(instanceKey)).findFirst();
+                var opt = aasDescriptor.getSubmodelDescriptors().stream().filter(smd -> smd.getSemanticId().getKeys().contains(instanceKey)).findFirst();
                 opt.ifPresent(smDescriptor -> {
                     ISubmodel sm = aasManager.retrieveSubmodel(new Identifier(IdentifierType.CUSTOM, aasDescriptor.getIdentification()),new Identifier(IdentifierType.CUSTOM, smDescriptor.getIdentification()));
                     log.info(sm.getIdShort());
@@ -118,7 +120,7 @@ public class TestMain {
             log.info("---------------------------------------------");
             ShellDescriptorQuery query = new ShellDescriptorQuery();
             query.setQueryType(ShellDescriptorQuery.QueryTypeEnum.REGEX);
-            query.setPath(AasRegistryPaths.globalAssetId().asGlobalReference().value());
+            query.setPath(AasRegistryPaths.globalAssetId().keys().value());
             query.setValue("mir100_1");
 
             var searchResult = apiInstance.searchShellDescriptors(new ShellDescriptorSearchRequest().query(query));
