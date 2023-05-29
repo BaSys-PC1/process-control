@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>de.dfki.cos.basys.pom</groupId>
 		<artifactId>starter-parent</artifactId>
-		<version>0.3.0-SNAPSHOT</version>
+		<version>0.5.0-SNAPSHOT</version>
 		<relativePath />
 	</parent>
 
@@ -16,23 +16,7 @@
 	<name>task-channel-mqtt-cc</name>
 	<description>MQTT Task Channel for Control Component Requests</description>
 
-	<properties>
-		<java.version>11</java.version>
-		<spring-cloud.version>2020.0.4</spring-cloud.version>
-		<camunda.platform.version>7.16.0</camunda.platform.version>
-		<testcontainers.version>1.17.3</testcontainers.version>
-	</properties>
-
-	<repositories>
-		<repository>
-			<id>confluent</id>
-			<name>Confluent</name>
-			<url>https://packages.confluent.io/maven/</url>
-		</repository>
-	</repositories>
-
 	<dependencies>
-
 		<dependency>
 			<groupId>de.dfki.cos.basys.processcontrol</groupId>
 			<artifactId>shared-model</artifactId>
@@ -54,13 +38,11 @@
 		<dependency>
 			<groupId>org.eclipse.paho</groupId>
 			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-			<version>1.2.5</version>
 		</dependency>
 
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.8.0</version>
 		</dependency>
 
 		<dependency>
@@ -72,7 +54,6 @@
 		<dependency>
 			<groupId>io.confluent</groupId>
 			<artifactId>kafka-avro-serializer</artifactId>
-			<version>6.2.2</version>
 		</dependency>
 
 
@@ -138,13 +119,11 @@
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>testcontainers</artifactId>
-			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>kafka</artifactId>
-			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
 

@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>de.dfki.cos.basys.pom</groupId>
 		<artifactId>starter-parent</artifactId>
-		<version>0.3.0-SNAPSHOT</version>
+		<version>0.5.0-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 	
@@ -16,29 +16,12 @@
     <name>cc-task-manager</name>
     <description>BaSys 4.2 task manager for ControlComponents</description>
     
-	<properties>
-        <java.version>11</java.version>
-        <avro.version>1.10.2</avro.version>
-        <spring-cloud.version>2020.0.4</spring-cloud.version>
-        <aas-registry.version>0.3.0-SNAPSHOT</aas-registry.version>
-    </properties>
-
-    <repositories>
-        <repository>
-            <id>confluent</id>
-            <name>Confluent</name>
-            <url>https://packages.confluent.io/maven/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-    
     
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-    
     
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -58,60 +41,39 @@
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.basyx.aas.registry</groupId>
+            <groupId>de.dfki.cos.basys.aas.registry</groupId>
             <artifactId>aas-registry-client</artifactId>
-            <version>${aas-registry.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.basyx.aas.registry</groupId>
+            <groupId>de.dfki.cos.basys.aas.registry</groupId>
             <artifactId>aas-registry-compatibility</artifactId>
-            <version>${aas-registry.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.basyx.aas.registry</groupId>
+            <groupId>de.dfki.cos.basys.aas.registry</groupId>
             <artifactId>aas-registry-paths</artifactId>
-            <version>${aas-registry.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.basyx.aas.registry</groupId>
+            <groupId>de.dfki.cos.basys.aas.registry</groupId>
             <artifactId>aas-registry-events</artifactId>
-            <version>${aas-registry.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.eclipse.basyx</groupId>
             <artifactId>basyx.sdk</artifactId>
-            <version>${basyx.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.milo</groupId>
-                    <artifactId>sdk-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.milo</groupId>
-                    <artifactId>sdk-server</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.8.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.confluent/kafka-avro-serializer -->
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>kafka-avro-serializer</artifactId>
-            <version>6.2.2</version>
         </dependency>
 
         <dependency>
@@ -164,13 +126,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--			<dependency>-->
-            <!--				<groupId>org.springframework.boot</groupId>-->
-            <!--				<artifactId>spring-boot-dependencies</artifactId>-->
-            <!--				<version>${spring.boot.version}</version>-->
-            <!--				<scope>import</scope>-->
-            <!--				<type>pom</type>-->
-            <!--			</dependency>-->
         </dependencies>
     </dependencyManagement>
 
