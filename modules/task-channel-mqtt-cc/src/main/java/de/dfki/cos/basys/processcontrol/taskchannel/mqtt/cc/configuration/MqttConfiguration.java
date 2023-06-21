@@ -20,7 +20,7 @@ public class MqttConfiguration {
 
     private IMqttClient mqttClient = null;
 
-    @Bean(destroyMethod = "disconnect")
+    @Bean(destroyMethod = "disconnectAndClose")
     public IMqttClient mqttClient(@Value("${mqtt.clientId}") String clientId,
                                   @Value("${mqtt.hostname}") String hostname, @Value("${mqtt.port}") int port) throws MqttException {
 
