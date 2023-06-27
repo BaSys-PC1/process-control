@@ -45,10 +45,13 @@ public class MqttToKafkaBridgeService implements ApplicationContextAware {
 
 	private void subscribeRoutes(String binding, MqttToKafkaRouteConfigurationProperties route) {
 		log.info("creating route {}: {}", binding, route.getSource());
-		try {			
+		try {
+			Function<String, Object> transformer = applicationContext.getBean(route.getTransformerService(),
+					Function.class);
+
 			mqttClient.subscribe(route.getSource(), (topic, mqttMessage) -> {
 				try {
-					onMessageReceived(binding, route, topic, mqttMessage);
+					onMessageReceived(binding, transformer, topic, mqttMessage);
 				} catch (Exception e) {
 					log.error(e.toString());
 				}
@@ -58,17 +61,21 @@ public class MqttToKafkaBridgeService implements ApplicationContextAware {
 		}
 	}
 	
-	private void onMessageReceived(String binding, MqttToKafkaRouteConfigurationProperties route, String topic, MqttMessage mqttMessage) {
-		log.info("message arrived on topic {}: {}", topic, mqttMessage.toString());
-		Function<String, Object> transformer = applicationContext.getBean(route.getTransformerService(),
-				Function.class);
+	private void onMessageReceived(String binding, Function<String, Object> transformer, String topic, MqttMessage mqttMessage) {
+		log.info("message received on topic {}", topic);
+		if (log.isDebugEnabled()) {
+			log.debug(mqttMessage.toString());
+		}
+
 		log.info("transforming message with {}", transformer.getClass());
 		Object result = transformer.apply(mqttMessage.toString());
 		if (result != null) {
-			log.info(result.toString());
+			if (log.isDebugEnabled()) {
+				log.debug(result.toString());
+			}
 			streamBridge.send(binding, result);
 		} else {
-			log.warn("result is null");
+			log.warn("could not send to kafka, transformed message is null");
 		}	
 	}
 
