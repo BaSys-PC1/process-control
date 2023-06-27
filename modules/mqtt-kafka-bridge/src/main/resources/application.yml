@@ -32,18 +32,6 @@ spring:
         binder:
           brokers: ${KAFKA_BROKER_ENDPOINT}
       bindings:
-        controlComponentRequests:
-          destination: control-component-requests
-          content-type: application/*+avro
-          binder: kafka-avro
-          producer:
-            useNativeEncoding: true
-        controlComponentResponses-in-0:
-          destination: control-component-responses
-          content-type: application/*+avro
-          binder: kafka-avro
-          consumer:
-            useNativeDecoding: true
         commandSignalColumn-in-0:
           destination: basysafe.signalcolumn.status
           content-type: application/*+avro
