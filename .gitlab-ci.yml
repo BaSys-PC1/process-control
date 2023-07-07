@@ -22,3 +22,8 @@ docker-publish-cc-task-manager:
   extends: .docker-publish-module
   variables:
     MODULE_NAME: cc-task-manager
+
+docker-publish-mqtt-kafka-bridge:
+  extends: .docker-publish-module
+  variables:
+    MODULE_NAME: mqtt-kafka-bridge
