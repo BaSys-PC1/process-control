@@ -1,0 +1,127 @@
+debug: false
+server:
+  port: 8088
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,metrics"
+spring:
+  cloud:
+    stream:
+      kafka:
+        bindings:
+          statusSafetyLightCurtain:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusSignalColumn:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusInitiator:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusEstopButton:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusAckButton:
+            producer:
+              message-key-expression: headers['target-protocol']
+          statusPress:
+            producer:
+              message-key-expression: headers['target-protocol']
+        binder:
+          brokers: ${KAFKA_BROKER_ENDPOINT}
+      bindings:
+        commandSignalColumn-in-0:
+          destination: basysafe.signalcolumn.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          consumer:
+            useNativeDecoding: true
+        statusSafetyLightCurtain:
+          destination: basysafe.safetylightcurtain.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusSignalColumn:
+          destination: basysafe.signalcolumn.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusInitiator:
+          destination: basysafe.initiator.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusEstopButton:
+          destination: basysafe.estopbutton.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusAckButton:
+          destination: basysafe.ackbutton.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+        statusPress:
+          destination: basysafe.press.status
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
+      binders:
+        #kafka-json:
+        #  type: kafka
+        kafka-avro:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      producer-properties:
+                        key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                        #key.deserializer: org.apache.kafka.common.serialization.StringSerializer
+                        value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                        schema.registry.url: ${SCHEMA_REGISTRY_ENDPOINT}
+                      consumer-properties:
+                        key.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                        #key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                        value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                        schema.registry.url: ${SCHEMA_REGISTRY_ENDPOINT}
+                        specific.avro.reader: true
+mqtt:
+  automaticReconnect: true
+  cleanSession: true
+  connectionTimeout: 10
+  clientId: mqtt-task-channel
+  hostname: ${MQTT_BROKER_ENDPOINT}
+  port: 1883
+basys:
+  mqtt-to-kafka-bridge:
+    useMessageTimestamp: ${USE_MESSAGE_TIMESTAMP_FOR_MAPPING:true}
+    routes:
+      statusSafetyLightCurtain:
+        source: basysafe/safetylightcurtain/status
+        transformerService: safetyLightCurtainStatusTransformer
+      statusSignalColumn:
+        source: basysafe/signalcolumn/status
+        transformerService: signalColumnStatusTransformer
+      statusInitiator:
+        source: basysafe/initiator/status
+        transformerService: initiatorStatusTransformer
+      statusEstopButton:
+        source: basysafe/estopbutton/status
+        transformerService: estopButtonStatusTransformer
+      statusAckButton:
+        source: basysafe/ackbutton/status
+        transformerService: ackButtonStatusTransformer
+      statusPress:
+        source: basysafe/press/status
+        transformerService: pressStatusTransformer

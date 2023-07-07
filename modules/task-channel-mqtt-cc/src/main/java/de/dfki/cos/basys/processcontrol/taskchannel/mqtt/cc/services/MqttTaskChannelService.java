@@ -23,6 +23,7 @@ import javax.annotation.PostConstruct;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -50,6 +51,7 @@ public class MqttTaskChannelService implements IMqttMessageListener {
     @PostConstruct
     public void postConstruct() {
         try {
+            log.info("subscribe to MQTT topic: {}", REQUEST_TOPIC);
             mqttClient.subscribe(REQUEST_TOPIC, this);
         } catch (MqttException e) {
             throw new RuntimeException(e);
@@ -58,12 +60,19 @@ public class MqttTaskChannelService implements IMqttMessageListener {
 
     @Override
     public void messageArrived(String s, MqttMessage mqttMessage) {
+        if (log.isDebugEnabled()) {
+            log.debug("message arrived on topic {}: {}", s, new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+        }
         try {
             ControlComponentRequest request = mapper.readValue(mqttMessage.getPayload(), ControlComponentRequest.class);
             if (request != null) {
                 issuedRequests.put(request.getCorrelationId(), request);
                 log.info("new request arrived for: {}, correlationId: {}", request.getComponentId(), request.getCorrelationId());
+                if (log.isDebugEnabled()) {
+                    log.debug(request.toString());
+                }
                 streamBridge.send("controlComponentRequests", request);
+                log.debug("request forwarded to kafka");
             }
         } catch (IOException e) {
             log.error(e.getMessage(), e);
@@ -71,9 +80,12 @@ public class MqttTaskChannelService implements IMqttMessageListener {
     }
 
     protected void handleComponentResponse(ControlComponentResponse response) {
-        log.info("new response arrived from: {}, correlationId: {}", response.getComponentId(), response.getCorrelationId());
         ControlComponentRequest externalTask = issuedRequests.remove(response.getRequest().getCorrelationId());
         if (externalTask != null) {
+            log.info("new response arrived from: {}, correlationId: {}", response.getComponentId(), response.getCorrelationId());
+            if (log.isDebugEnabled()) {
+                log.debug(response.toString());
+            }
             try {
 
 //                DatumWriter<ControlComponentResponse> writer = new GenericDatumWriter<>(ControlComponentResponse.getClassSchema());
@@ -86,17 +98,12 @@ public class MqttTaskChannelService implements IMqttMessageListener {
                 //String payload = Json.toString(response);
                 String payload  = mapper.writeValueAsString(response);
                 publish(RESPONSE_TOPIC, payload, 2, false);
-            } catch (JsonProcessingException e) {
-                log.error(e.getMessage(), e);
-            } catch (MqttPersistenceException e) {
-                log.error(e.getMessage(), e);
-            } catch (MqttException e) {
-                log.error(e.getMessage(), e);
             } catch (IOException e) {
                 log.error(e.getMessage(), e);
             }
         } else {
-            //do nothing; this worker instance has not issued that control component request
+            log.info("unknown response arrived from: {}, correlationId: {}", response.getComponentId(), response.getCorrelationId());
+            log.info("this worker instance has not issued that control component request");
         }
     }
 
@@ -105,15 +112,22 @@ public class MqttTaskChannelService implements IMqttMessageListener {
         return this::handleComponentResponse;
     }
 
-    private void publish(final String topic, final String payload, int qos, boolean retained)
-            throws MqttPersistenceException, MqttException {
-        log.debug("publish to topic : " + topic);
+    private void publish(final String topic, final String payload, int qos, boolean retained) {
+        if (log.isDebugEnabled()) {
+            log.debug("publish to topic : " + topic);
+            log.debug(payload);
+        }
         MqttMessage mqttMessage = new MqttMessage();
         mqttMessage.setPayload(payload.getBytes());
         mqttMessage.setQos(qos);
         mqttMessage.setRetained(retained);
 
-        mqttClient.publish(topic, mqttMessage);
+        try {
+            mqttClient.publish(topic, mqttMessage);
+        } catch (MqttException e) {
+            log.error("could not publish message to MQTT topic {}: {}", topic, payload);
+            log.error(e.getMessage(), e);
+        }
     }
 
 }

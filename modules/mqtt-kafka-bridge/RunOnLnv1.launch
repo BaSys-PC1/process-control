@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+    <stringAttribute key="bad_container_name" value="\task-channel-mqtt-cc\run-on-lnv-1.launc"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/task-channel-mqtt-cc/src/main/java/de/dfki/cos/basys/processcontrol/taskchannel/mqtt/cc/MqttCcTaskChannelApplication.java"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="1"/>
+    </listAttribute>
+    <mapAttribute key="org.eclipse.debug.core.environmentVariables">
+        <mapEntry key="KAFKA_BROKER_ENDPOINT" value="basys-lnv-1.mrk40.dfki.lan:9092"/>
+        <mapEntry key="MQTT_BROKER_ENDPOINT" value="basys-lnv-1.mrk40.dfki.lan"/>
+        <mapEntry key="SCHEMA_REGISTRY_ENDPOINT" value="http://basys-lnv-1.mrk40.dfki.lan:8081"/>
+        <mapEntry key="USE_MESSAGE_TIMESTAMP_FOR_MAPPING" value="false"/>
+    </mapAttribute>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_SHOW_CODEDETAILS_IN_EXCEPTION_MESSAGES" value="true"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
+    <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="de.dfki.cos.basys.processcontrol.taskchannel.mqtt.cc.MqttCcTaskChannelApplication"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="task-channel-mqtt-cc"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="task-channel-mqtt-cc"/>
+    <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
+</launchConfiguration>

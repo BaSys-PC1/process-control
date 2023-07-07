@@ -22,23 +22,11 @@ public class MqttConfiguration {
 
     @Bean()
     public IMqttClient mqttClient(@Value("${mqtt.clientId}") String clientId,
-                                  @Value("${mqtt.hostname}") String hostname,
-                                  @Value("${mqtt.port}") int port) throws MqttException {
+                                  @Value("${mqtt.hostname}") String hostname, @Value("${mqtt.port}") int port) throws MqttException {
 
         mqttClient = new MqttClient("tcp://" + hostname + ":" + port, clientId);
         mqttClient.connect(mqttConnectOptions());
         return mqttClient;
     }
-
-//    public void disconnectAndClose() {
-//        try {
-//            mqttClient.disconnectForcibly();
-//            mqttClient.close();
-//        } catch (MqttException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-
 
 }
