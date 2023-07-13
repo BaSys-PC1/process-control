@@ -206,14 +206,14 @@ public class ControlComponentAgentManager implements ControlComponentAgentCallba
                                 .build();
                     } else {
                         ControlComponentRequestStatus status = agent.handleControlComponentRequest(controlComponentRequest);
-                        if (status.getStatus() != RequestStatus.ACCEPTED && status.getStatus() != RequestStatus.QUEUED) {
+                        if (status.getStatus() != RequestStatus.ACCEPTED /* && status.getStatus() != RequestStatus.QUEUED*/) {
                             response = ControlComponentResponse.newBuilder()
                                     .setRequest(controlComponentRequest)
                                     .setComponentId(controlComponentRequest.getComponentId())
                                     .setAasId(controlComponentRequest.getAasId())
                                     .setCorrelationId(controlComponentRequest.getCorrelationId())
                                     .setMessage(status.getMessage())
-                                    .setStatus(status.getStatus())
+                                    .setStatus(status.getStatus() == RequestStatus.DONE ? RequestStatus.OK : status.getStatus())
                                     .setStatusCode(0)
                                     .setOutputParameters(Collections.emptyList())
                                     .build();
