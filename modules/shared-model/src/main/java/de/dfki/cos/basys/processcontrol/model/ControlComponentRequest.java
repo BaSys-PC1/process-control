@@ -23,10 +23,10 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
   private static final SpecificData MODEL$ = new SpecificData();
 
   private static final BinaryMessageEncoder<ControlComponentRequest> ENCODER =
-          new BinaryMessageEncoder<ControlComponentRequest>(MODEL$, SCHEMA$);
+      new BinaryMessageEncoder<ControlComponentRequest>(MODEL$, SCHEMA$);
 
   private static final BinaryMessageDecoder<ControlComponentRequest> DECODER =
-          new BinaryMessageDecoder<ControlComponentRequest>(MODEL$, SCHEMA$);
+      new BinaryMessageDecoder<ControlComponentRequest>(MODEL$, SCHEMA$);
 
   /**
    * Return the BinaryMessageEncoder instance used by this class.
@@ -69,7 +69,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
    * @throws java.io.IOException if the given bytes could not be deserialized into an instance of this class
    */
   public static ControlComponentRequest fromByteBuffer(
-          java.nio.ByteBuffer b) throws java.io.IOException {
+      java.nio.ByteBuffer b) throws java.io.IOException {
     return DECODER.decode(b);
   }
 
@@ -119,16 +119,16 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
   // Used by DatumWriter.  Applications should not call.
   public java.lang.Object get(int field$) {
     switch (field$) {
-      case 0: return componentId;
-      case 1: return aasId;
-      case 2: return correlationId;
-      case 3: return occupierId;
-      case 4: return requestType;
-      case 5: return occupationCommand;
-      case 6: return executionMode;
-      case 7: return executionCommand;
-      case 8: return operationMode;
-      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+    case 0: return componentId;
+    case 1: return aasId;
+    case 2: return correlationId;
+    case 3: return occupierId;
+    case 4: return requestType;
+    case 5: return occupationCommand;
+    case 6: return executionMode;
+    case 7: return executionCommand;
+    case 8: return operationMode;
+    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -136,16 +136,16 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-      case 0: componentId = value$ != null ? value$.toString() : null; break;
-      case 1: aasId = value$ != null ? value$.toString() : null; break;
-      case 2: correlationId = value$ != null ? value$.toString() : null; break;
-      case 3: occupierId = value$ != null ? value$.toString() : null; break;
-      case 4: requestType = (de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType)value$; break;
-      case 5: occupationCommand = (de.dfki.cos.basys.processcontrol.model.OccupationCommand)value$; break;
-      case 6: executionMode = (de.dfki.cos.basys.processcontrol.model.ExecutionMode)value$; break;
-      case 7: executionCommand = (de.dfki.cos.basys.processcontrol.model.ExecutionCommand)value$; break;
-      case 8: operationMode = (de.dfki.cos.basys.processcontrol.model.OperationMode)value$; break;
-      default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
+    case 0: componentId = value$ != null ? value$.toString() : null; break;
+    case 1: aasId = value$ != null ? value$.toString() : null; break;
+    case 2: correlationId = value$ != null ? value$.toString() : null; break;
+    case 3: occupierId = value$ != null ? value$.toString() : null; break;
+    case 4: requestType = (de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType)value$; break;
+    case 5: occupationCommand = (de.dfki.cos.basys.processcontrol.model.OccupationCommand)value$; break;
+    case 6: executionMode = (de.dfki.cos.basys.processcontrol.model.ExecutionMode)value$; break;
+    case 7: executionCommand = (de.dfki.cos.basys.processcontrol.model.ExecutionCommand)value$; break;
+    case 8: operationMode = (de.dfki.cos.basys.processcontrol.model.OperationMode)value$; break;
+    default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
@@ -341,7 +341,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
    */
   @org.apache.avro.specific.AvroGenerated
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<ControlComponentRequest>
-          implements org.apache.avro.data.RecordBuilder<ControlComponentRequest> {
+    implements org.apache.avro.data.RecordBuilder<ControlComponentRequest> {
 
     private java.lang.String componentId;
     private java.lang.String aasId;
@@ -356,7 +356,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
 
     /** Creates a new Builder */
     private Builder() {
-      super(SCHEMA$);
+      super(SCHEMA$, MODEL$);
     }
 
     /**
@@ -411,7 +411,7 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
      * @param other The existing instance to copy.
      */
     private Builder(de.dfki.cos.basys.processcontrol.model.ControlComponentRequest other) {
-      super(SCHEMA$);
+      super(SCHEMA$, MODEL$);
       if (isValidValue(fields()[0], other.componentId)) {
         this.componentId = data().deepCopy(fields()[0].schema(), other.componentId);
         fieldSetFlags()[0] = true;
@@ -452,19 +452,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Gets the value of the 'componentId' field.
-     * @return The value.
-     */
+      * Gets the value of the 'componentId' field.
+      * @return The value.
+      */
     public java.lang.String getComponentId() {
       return componentId;
     }
 
 
     /**
-     * Sets the value of the 'componentId' field.
-     * @param value The value of 'componentId'.
-     * @return This builder.
-     */
+      * Sets the value of the 'componentId' field.
+      * @param value The value of 'componentId'.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setComponentId(java.lang.String value) {
       validate(fields()[0], value);
       this.componentId = value;
@@ -473,18 +473,18 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Checks whether the 'componentId' field has been set.
-     * @return True if the 'componentId' field has been set, false otherwise.
-     */
+      * Checks whether the 'componentId' field has been set.
+      * @return True if the 'componentId' field has been set, false otherwise.
+      */
     public boolean hasComponentId() {
       return fieldSetFlags()[0];
     }
 
 
     /**
-     * Clears the value of the 'componentId' field.
-     * @return This builder.
-     */
+      * Clears the value of the 'componentId' field.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearComponentId() {
       componentId = null;
       fieldSetFlags()[0] = false;
@@ -492,19 +492,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Gets the value of the 'aasId' field.
-     * @return The value.
-     */
+      * Gets the value of the 'aasId' field.
+      * @return The value.
+      */
     public java.lang.String getAasId() {
       return aasId;
     }
 
 
     /**
-     * Sets the value of the 'aasId' field.
-     * @param value The value of 'aasId'.
-     * @return This builder.
-     */
+      * Sets the value of the 'aasId' field.
+      * @param value The value of 'aasId'.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setAasId(java.lang.String value) {
       validate(fields()[1], value);
       this.aasId = value;
@@ -513,18 +513,18 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Checks whether the 'aasId' field has been set.
-     * @return True if the 'aasId' field has been set, false otherwise.
-     */
+      * Checks whether the 'aasId' field has been set.
+      * @return True if the 'aasId' field has been set, false otherwise.
+      */
     public boolean hasAasId() {
       return fieldSetFlags()[1];
     }
 
 
     /**
-     * Clears the value of the 'aasId' field.
-     * @return This builder.
-     */
+      * Clears the value of the 'aasId' field.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearAasId() {
       aasId = null;
       fieldSetFlags()[1] = false;
@@ -532,19 +532,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Gets the value of the 'correlationId' field.
-     * @return The value.
-     */
+      * Gets the value of the 'correlationId' field.
+      * @return The value.
+      */
     public java.lang.String getCorrelationId() {
       return correlationId;
     }
 
 
     /**
-     * Sets the value of the 'correlationId' field.
-     * @param value The value of 'correlationId'.
-     * @return This builder.
-     */
+      * Sets the value of the 'correlationId' field.
+      * @param value The value of 'correlationId'.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setCorrelationId(java.lang.String value) {
       validate(fields()[2], value);
       this.correlationId = value;
@@ -553,18 +553,18 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Checks whether the 'correlationId' field has been set.
-     * @return True if the 'correlationId' field has been set, false otherwise.
-     */
+      * Checks whether the 'correlationId' field has been set.
+      * @return True if the 'correlationId' field has been set, false otherwise.
+      */
     public boolean hasCorrelationId() {
       return fieldSetFlags()[2];
     }
 
 
     /**
-     * Clears the value of the 'correlationId' field.
-     * @return This builder.
-     */
+      * Clears the value of the 'correlationId' field.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearCorrelationId() {
       correlationId = null;
       fieldSetFlags()[2] = false;
@@ -572,19 +572,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Gets the value of the 'occupierId' field.
-     * @return The value.
-     */
+      * Gets the value of the 'occupierId' field.
+      * @return The value.
+      */
     public java.lang.String getOccupierId() {
       return occupierId;
     }
 
 
     /**
-     * Sets the value of the 'occupierId' field.
-     * @param value The value of 'occupierId'.
-     * @return This builder.
-     */
+      * Sets the value of the 'occupierId' field.
+      * @param value The value of 'occupierId'.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setOccupierId(java.lang.String value) {
       validate(fields()[3], value);
       this.occupierId = value;
@@ -593,18 +593,18 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Checks whether the 'occupierId' field has been set.
-     * @return True if the 'occupierId' field has been set, false otherwise.
-     */
+      * Checks whether the 'occupierId' field has been set.
+      * @return True if the 'occupierId' field has been set, false otherwise.
+      */
     public boolean hasOccupierId() {
       return fieldSetFlags()[3];
     }
 
 
     /**
-     * Clears the value of the 'occupierId' field.
-     * @return This builder.
-     */
+      * Clears the value of the 'occupierId' field.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearOccupierId() {
       occupierId = null;
       fieldSetFlags()[3] = false;
@@ -612,19 +612,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Gets the value of the 'requestType' field.
-     * @return The value.
-     */
+      * Gets the value of the 'requestType' field.
+      * @return The value.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType getRequestType() {
       return requestType;
     }
 
 
     /**
-     * Sets the value of the 'requestType' field.
-     * @param value The value of 'requestType'.
-     * @return This builder.
-     */
+      * Sets the value of the 'requestType' field.
+      * @param value The value of 'requestType'.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setRequestType(de.dfki.cos.basys.processcontrol.model.ControlComponentRequestType value) {
       validate(fields()[4], value);
       this.requestType = value;
@@ -633,18 +633,18 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Checks whether the 'requestType' field has been set.
-     * @return True if the 'requestType' field has been set, false otherwise.
-     */
+      * Checks whether the 'requestType' field has been set.
+      * @return True if the 'requestType' field has been set, false otherwise.
+      */
     public boolean hasRequestType() {
       return fieldSetFlags()[4];
     }
 
 
     /**
-     * Clears the value of the 'requestType' field.
-     * @return This builder.
-     */
+      * Clears the value of the 'requestType' field.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearRequestType() {
       requestType = null;
       fieldSetFlags()[4] = false;
@@ -652,19 +652,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Gets the value of the 'occupationCommand' field.
-     * @return The value.
-     */
+      * Gets the value of the 'occupationCommand' field.
+      * @return The value.
+      */
     public de.dfki.cos.basys.processcontrol.model.OccupationCommand getOccupationCommand() {
       return occupationCommand;
     }
 
 
     /**
-     * Sets the value of the 'occupationCommand' field.
-     * @param value The value of 'occupationCommand'.
-     * @return This builder.
-     */
+      * Sets the value of the 'occupationCommand' field.
+      * @param value The value of 'occupationCommand'.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setOccupationCommand(de.dfki.cos.basys.processcontrol.model.OccupationCommand value) {
       validate(fields()[5], value);
       this.occupationCommand = value;
@@ -673,18 +673,18 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Checks whether the 'occupationCommand' field has been set.
-     * @return True if the 'occupationCommand' field has been set, false otherwise.
-     */
+      * Checks whether the 'occupationCommand' field has been set.
+      * @return True if the 'occupationCommand' field has been set, false otherwise.
+      */
     public boolean hasOccupationCommand() {
       return fieldSetFlags()[5];
     }
 
 
     /**
-     * Clears the value of the 'occupationCommand' field.
-     * @return This builder.
-     */
+      * Clears the value of the 'occupationCommand' field.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearOccupationCommand() {
       occupationCommand = null;
       fieldSetFlags()[5] = false;
@@ -692,19 +692,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Gets the value of the 'executionMode' field.
-     * @return The value.
-     */
+      * Gets the value of the 'executionMode' field.
+      * @return The value.
+      */
     public de.dfki.cos.basys.processcontrol.model.ExecutionMode getExecutionMode() {
       return executionMode;
     }
 
 
     /**
-     * Sets the value of the 'executionMode' field.
-     * @param value The value of 'executionMode'.
-     * @return This builder.
-     */
+      * Sets the value of the 'executionMode' field.
+      * @param value The value of 'executionMode'.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setExecutionMode(de.dfki.cos.basys.processcontrol.model.ExecutionMode value) {
       validate(fields()[6], value);
       this.executionMode = value;
@@ -713,18 +713,18 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Checks whether the 'executionMode' field has been set.
-     * @return True if the 'executionMode' field has been set, false otherwise.
-     */
+      * Checks whether the 'executionMode' field has been set.
+      * @return True if the 'executionMode' field has been set, false otherwise.
+      */
     public boolean hasExecutionMode() {
       return fieldSetFlags()[6];
     }
 
 
     /**
-     * Clears the value of the 'executionMode' field.
-     * @return This builder.
-     */
+      * Clears the value of the 'executionMode' field.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearExecutionMode() {
       executionMode = null;
       fieldSetFlags()[6] = false;
@@ -732,19 +732,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Gets the value of the 'executionCommand' field.
-     * @return The value.
-     */
+      * Gets the value of the 'executionCommand' field.
+      * @return The value.
+      */
     public de.dfki.cos.basys.processcontrol.model.ExecutionCommand getExecutionCommand() {
       return executionCommand;
     }
 
 
     /**
-     * Sets the value of the 'executionCommand' field.
-     * @param value The value of 'executionCommand'.
-     * @return This builder.
-     */
+      * Sets the value of the 'executionCommand' field.
+      * @param value The value of 'executionCommand'.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setExecutionCommand(de.dfki.cos.basys.processcontrol.model.ExecutionCommand value) {
       validate(fields()[7], value);
       this.executionCommand = value;
@@ -753,18 +753,18 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Checks whether the 'executionCommand' field has been set.
-     * @return True if the 'executionCommand' field has been set, false otherwise.
-     */
+      * Checks whether the 'executionCommand' field has been set.
+      * @return True if the 'executionCommand' field has been set, false otherwise.
+      */
     public boolean hasExecutionCommand() {
       return fieldSetFlags()[7];
     }
 
 
     /**
-     * Clears the value of the 'executionCommand' field.
-     * @return This builder.
-     */
+      * Clears the value of the 'executionCommand' field.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearExecutionCommand() {
       executionCommand = null;
       fieldSetFlags()[7] = false;
@@ -772,19 +772,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Gets the value of the 'operationMode' field.
-     * @return The value.
-     */
+      * Gets the value of the 'operationMode' field.
+      * @return The value.
+      */
     public de.dfki.cos.basys.processcontrol.model.OperationMode getOperationMode() {
       return operationMode;
     }
 
 
     /**
-     * Sets the value of the 'operationMode' field.
-     * @param value The value of 'operationMode'.
-     * @return This builder.
-     */
+      * Sets the value of the 'operationMode' field.
+      * @param value The value of 'operationMode'.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder setOperationMode(de.dfki.cos.basys.processcontrol.model.OperationMode value) {
       validate(fields()[8], value);
       this.operationModeBuilder = null;
@@ -794,9 +794,9 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Checks whether the 'operationMode' field has been set.
-     * @return True if the 'operationMode' field has been set, false otherwise.
-     */
+      * Checks whether the 'operationMode' field has been set.
+      * @return True if the 'operationMode' field has been set, false otherwise.
+      */
     public boolean hasOperationMode() {
       return fieldSetFlags()[8];
     }
@@ -837,9 +837,9 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
     }
 
     /**
-     * Clears the value of the 'operationMode' field.
-     * @return This builder.
-     */
+      * Clears the value of the 'operationMode' field.
+      * @return This builder.
+      */
     public de.dfki.cos.basys.processcontrol.model.ControlComponentRequest.Builder clearOperationMode() {
       operationMode = null;
       operationModeBuilder = null;
@@ -881,19 +881,19 @@ public class ControlComponentRequest extends org.apache.avro.specific.SpecificRe
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumWriter<ControlComponentRequest>
-          WRITER$ = (org.apache.avro.io.DatumWriter<ControlComponentRequest>)MODEL$.createDatumWriter(SCHEMA$);
+    WRITER$ = (org.apache.avro.io.DatumWriter<ControlComponentRequest>)MODEL$.createDatumWriter(SCHEMA$);
 
   @Override public void writeExternal(java.io.ObjectOutput out)
-          throws java.io.IOException {
+    throws java.io.IOException {
     WRITER$.write(this, SpecificData.getEncoder(out));
   }
 
   @SuppressWarnings("unchecked")
   private static final org.apache.avro.io.DatumReader<ControlComponentRequest>
-          READER$ = (org.apache.avro.io.DatumReader<ControlComponentRequest>)MODEL$.createDatumReader(SCHEMA$);
+    READER$ = (org.apache.avro.io.DatumReader<ControlComponentRequest>)MODEL$.createDatumReader(SCHEMA$);
 
   @Override public void readExternal(java.io.ObjectInput in)
-          throws java.io.IOException {
+    throws java.io.IOException {
     READER$.read(this, SpecificData.getDecoder(in));
   }
 

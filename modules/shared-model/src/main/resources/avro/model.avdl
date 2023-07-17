@@ -52,8 +52,10 @@ protocol ControlComponentMessages {
 		union {null,OperationMode} operationMode;
 	}
 
+    // should be devided into RequestStatus (ACCEPTED, REJECTED, DONE) and ResponseStatus (OK, NOT_OK)
+	// removed UNDEFINED, NOOP, QUEUED
 	enum RequestStatus {
-		UNDEFINED, ACCEPTED, REJECTED, NOOP, QUEUED, DONE, OK, NOT_OK
+		ACCEPTED, REJECTED, DONE, OK, NOT_OK
 	}
 
 	record ControlComponentRequestStatus {
