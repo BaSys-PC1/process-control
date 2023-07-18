@@ -56,7 +56,7 @@ logging.level.org.camunda.bpm.client: info # increase the log level of the appli
 
 camunda.processDeployer:
   sourcePath: ./processes
-  fileSuffixes: .bpmn_
+  fileSuffixes: .bpmn
   recursive: false
   watch: true
   endpoint: ${CAMUNDA_REST_ENDPOINT}

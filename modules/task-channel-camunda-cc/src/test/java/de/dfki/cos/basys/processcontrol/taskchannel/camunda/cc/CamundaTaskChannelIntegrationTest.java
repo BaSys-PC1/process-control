@@ -114,7 +114,6 @@ public class CamundaTaskChannelIntegrationTest {
 	}
 
 	@Test
-	@Ignore
 	public void testFileIntegration() throws InterruptedException, ApiException, IOException {
 		log.info("testFileIntegration()");
 		// await test .bpmn file is deployed
