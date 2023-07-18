@@ -94,6 +94,10 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
     protected ControlComponentRequestStatus handleExecutionCommandRequest(ControlComponentRequest req) {
         log.info("handleExecutionCommandRequest '{}' (businessKey = {})", req.getExecutionCommand(), req.getOccupierId());
 
+        log.info("caching current request");
+        currentRequest = req;
+        log.debug(currentRequest.toString());
+
         ComponentOrderStatus order = controlComponentClient.raiseExecutionCommand(de.dfki.cos.basys.controlcomponent.ExecutionCommand.get(req.getExecutionCommand().name()));
 
         ControlComponentRequestStatus status = new ControlComponentRequestStatus();
@@ -172,23 +176,41 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
     public void onIdle() {
         log.info("onIdle - start");
         if (currentRequest != null) {
-            OperationMode opMode = currentRequest.getOperationMode();
-            try {
-                ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
-                    ComponentOrderStatus status1 = controlComponentClient.setOperationMode(opMode.getName());
-                    if (status1.getStatus() == OrderStatus.DONE) {
-                        log.debug("set operation mode to {}", opMode.getName());
-                        for (Variable var : opMode.getInputParameters()) {
-                            //TODO: put switch block into Variable class, test date parsing and setting via opcua
-                            controlComponentClient.setParameterValue(var.getName(), var.getValue());
+            if (currentRequest.getExecutionCommand() != null) {
+                log.info("currentRequest is ExecutionCommandRequest " + currentRequest.getExecutionCommand());
+                if (currentRequest.getExecutionCommand() == ExecutionCommand.RESET) {
+                    ControlComponentResponse response = new ControlComponentResponse();
+                    response.setRequest(currentRequest);
+                    response.setComponentId(currentRequest.getComponentId());
+                    response.setAasId(currentRequest.getAasId());
+                    response.setCorrelationId(currentRequest.getCorrelationId());
+                    response.setStatus(RequestStatus.OK);
+                    response.setStatusCode(controlComponentClient.getErrorCode());
+                    response.setOutputParameters(new ArrayList<>(0));
+                    callback.onControlComponentResponse(response);
+                    log.info("nulling current request");
+                    currentRequest = null;
+                }
+            }
+            else if (currentRequest.getOperationMode() != null) {
+                OperationMode opMode = currentRequest.getOperationMode();
+                try {
+                    ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
+                        ComponentOrderStatus status1 = controlComponentClient.setOperationMode(opMode.getName());
+                        if (status1.getStatus() == OrderStatus.DONE) {
+                            log.debug("set operation mode to {}", opMode.getName());
+                            for (Variable var : opMode.getInputParameters()) {
+                                //TODO: put switch block into Variable class, test date parsing and setting via opcua
+                                controlComponentClient.setParameterValue(var.getName(), var.getValue());
+                            }
+                            status1 = controlComponentClient.start();
                         }
-                        status1 = controlComponentClient.start();
-                    }
-                    return status1;
+                        return status1;
 
-                }).get();
-            } catch (InterruptedException | ExecutionException e) {
-                log.error(e.getMessage(),e);
+                    }).get();
+                } catch (InterruptedException | ExecutionException e) {
+                    log.error(e.getMessage(), e);
+                }
             }
         } else {
             log.warn("currentRequest is null");
@@ -200,37 +222,42 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
     public void onComplete() {
         log.info("onComplete - start");
         if (currentRequest != null) {
-            OperationMode opMode = currentRequest.getOperationMode();
-            try {
-                ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
-                    ComponentOrderStatus status1 = controlComponentClient.free();
+            ControlComponentResponse response = new ControlComponentResponse();
+            response.setRequest(currentRequest);
+            response.setComponentId(currentRequest.getComponentId());
+            response.setAasId(currentRequest.getAasId());
+            response.setCorrelationId(currentRequest.getCorrelationId());
+            //In general being in the COMPLETED state is ok
+            response.setStatus(RequestStatus.OK);
+            response.setStatusCode(controlComponentClient.getErrorCode());
 
-                    ControlComponentResponse response = new ControlComponentResponse();
-                    response.setRequest(currentRequest);
-                    response.setComponentId(currentRequest.getComponentId());
-                    response.setAasId(currentRequest.getAasId());
-                    response.setCorrelationId(currentRequest.getCorrelationId());
-                    response.setStatus(RequestStatus.OK);
-                    response.setStatusCode(controlComponentClient.getErrorCode());
-                    response.setOutputParameters(new ArrayList<>(opMode.getOutputParameters().size()));
+            if (currentRequest.getOperationMode() != null) {
+                OperationMode opMode = currentRequest.getOperationMode();
+                try {
+                    ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
+                        ComponentOrderStatus status1 = controlComponentClient.free();
 
-                    for (Variable var : opMode.getOutputParameters()) {
-                        ParameterInfo p = controlComponentClient.getParameter(var.getName().toString());
-                        Variable outVar = new Variable(var.getName(), p.getValue(), var.getType());
-                        response.getOutputParameters().add(outVar);
-                        if (var.getType() != VariableTypeHelper.fromOpcUa(p.getType())) {
-                            log.warn("output parameter {} : retrieved type {} does not match expected type {}!", var.getName(), VariableTypeHelper.fromOpcUa(p.getType()), p.getType());
+                        response.setOutputParameters(new ArrayList<>(opMode.getOutputParameters().size()));
+
+                        for (Variable var : opMode.getOutputParameters()) {
+                            ParameterInfo p = controlComponentClient.getParameter(var.getName().toString());
+                            Variable outVar = new Variable(var.getName(), p.getValue(), var.getType());
+                            response.getOutputParameters().add(outVar);
+                            if (var.getType() != VariableTypeHelper.fromOpcUa(p.getType())) {
+                                log.warn("output parameter {} : retrieved type {} does not match expected type {}!", var.getName(), VariableTypeHelper.fromOpcUa(p.getType()), p.getType());
+                            }
                         }
-                    }
 
-                    callback.onControlComponentResponse(response);
-                    log.info("nulling current request");
-                    currentRequest = null;
-                    return status1;
-                }).get();
-            } catch (InterruptedException | ExecutionException e) {
-                log.error(e.getMessage(),e);
+                        return status1;
+                    }).get();
+                } catch (InterruptedException | ExecutionException e) {
+                    log.error(e.getMessage(), e);
+                }
             }
+
+            callback.onControlComponentResponse(response);
+            log.info("nulling current request");
+            currentRequest = null;
         } else {
             log.warn("currentRequest is null");
         }
@@ -241,38 +268,52 @@ public class ControlComponentAgent implements PackMLWaitStatesHandler /*, Status
     public void onStopped() {
         log.info("onStopped - start");
         if (currentRequest != null) {
-            OperationMode opMode = currentRequest.getOperationMode();
-            try {
-                ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
-                    ComponentOrderStatus status1 = controlComponentClient.free();
 
-                    ControlComponentResponse response = new ControlComponentResponse();
-                    response.setRequest(currentRequest);
-                    response.setComponentId(currentRequest.getComponentId());
-                    response.setAasId(currentRequest.getAasId());
-                    response.setCorrelationId(currentRequest.getCorrelationId());
-                    response.setStatus(RequestStatus.NOT_OK);
-                    response.setStatusCode(controlComponentClient.getErrorCode());
-                    response.setOutputParameters(new ArrayList<>(opMode.getOutputParameters().size()));
+            ControlComponentResponse response = new ControlComponentResponse();
+            response.setRequest(currentRequest);
+            response.setComponentId(currentRequest.getComponentId());
+            response.setAasId(currentRequest.getAasId());
+            response.setCorrelationId(currentRequest.getCorrelationId());
+            response.setStatusCode(controlComponentClient.getErrorCode());
+            //In general being in the STOPPED state is not ok
+            response.setStatus(RequestStatus.NOT_OK);
+            response.setOutputParameters(new ArrayList<>(0));
 
-                    for (Variable var : opMode.getOutputParameters()) {
-                        ParameterInfo p = controlComponentClient.getParameter(var.getName().toString());
-                        Variable outVar = new Variable(var.getName(), p.getValue(), var.getType());
-                        response.getOutputParameters().add(outVar);
-                        if (var.getType() != VariableTypeHelper.fromOpcUa(p.getType())) {
-                            log.warn("output parameter {} : retrieved type {} does not match expected type {}!", var.getName(), VariableTypeHelper.fromOpcUa(p.getType()), p.getType());
-                        }
-                    }
-
-                    callback.onControlComponentResponse(response);
-
-                    log.info("nulling current request");
-                    currentRequest = null;
-                    return status1;
-                }).get();
-            } catch (InterruptedException | ExecutionException e) {
-                log.error(e.getMessage(),e);
+            if (currentRequest.getExecutionCommand() != null) {
+                log.info("currentRequest is ExecutionCommandRequest " + currentRequest.getExecutionCommand());
+                if (currentRequest.getExecutionCommand() == ExecutionCommand.STOP) {
+                    //Except for explicitly stopping the CC
+                    response.setStatus(RequestStatus.OK);
+                }
             }
+            else if (currentRequest.getOperationMode() != null) {
+                log.info("currentRequest is OperationModeRequest");
+                OperationMode opMode = currentRequest.getOperationMode();
+                try {
+                    ComponentOrderStatus status = ComponentContext.getStaticContext().getScheduledExecutorService().submit(() -> {
+                        ComponentOrderStatus status1 = controlComponentClient.free();
+
+                        response.setOutputParameters(new ArrayList<>(opMode.getOutputParameters().size()));
+
+                        for (Variable var : opMode.getOutputParameters()) {
+                            ParameterInfo p = controlComponentClient.getParameter(var.getName().toString());
+                            Variable outVar = new Variable(var.getName(), p.getValue(), var.getType());
+                            response.getOutputParameters().add(outVar);
+                            if (var.getType() != VariableTypeHelper.fromOpcUa(p.getType())) {
+                                log.warn("output parameter {} : retrieved type {} does not match expected type {}!", var.getName(), VariableTypeHelper.fromOpcUa(p.getType()), p.getType());
+                            }
+                        }
+
+                        return status1;
+                    }).get();
+                } catch (InterruptedException | ExecutionException e) {
+                    log.error(e.getMessage(), e);
+                }
+            }
+
+            callback.onControlComponentResponse(response);
+            log.info("nulling current request");
+            currentRequest = null;
         } else {
             log.warn("currentRequest is null");
         }

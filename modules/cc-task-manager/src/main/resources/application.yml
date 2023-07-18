@@ -1,4 +1,8 @@
 debug: false
+logging:
+  level:
+    root: INFO
+    de.dfki.cos.basys: INFO
 server:
   port: 8082
 management:
@@ -70,7 +74,7 @@ basys:
   aasRegistry:
     type: dotaas
     service:
-      connectionString: http://aasregistry.dockerhost
+      connectionString: ${AAS_REGISTRY_ENDPOINT}
   semanticIds:
     ccinstanceSubmodel: https://wiki.eclipse.org/BaSyx_/_Submodels#Control_Component_Instance
 

@@ -80,11 +80,14 @@ public class MqttTaskChannelService implements IMqttMessageListener {
     }
 
     protected void handleComponentResponse(ControlComponentResponse response) {
+        log.info("new response arrived from: {}, correlationId: {}", response.getComponentId(), response.getCorrelationId());
         ControlComponentRequest externalTask = issuedRequests.remove(response.getRequest().getCorrelationId());
         if (externalTask != null) {
-            log.info("new response arrived from: {}, correlationId: {}", response.getComponentId(), response.getCorrelationId());
             if (log.isDebugEnabled()) {
+                log.debug("Response");
                 log.debug(response.toString());
+                log.debug("Request");
+                log.debug(externalTask.toString());
             }
             try {
 
@@ -102,8 +105,7 @@ public class MqttTaskChannelService implements IMqttMessageListener {
                 log.error(e.getMessage(), e);
             }
         } else {
-            log.info("unknown response arrived from: {}, correlationId: {}", response.getComponentId(), response.getCorrelationId());
-            log.info("this worker instance has not issued that control component request");
+            log.info("skip, this worker instance has not issued that control component request");
         }
     }
 

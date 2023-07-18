@@ -48,6 +48,10 @@ public class CamundaExternalTaskWorker implements ExternalTaskHandler {
 		if (request != null) {
 			externalTasks.put(request.getCorrelationId(), externalTask);
 			log.info("new request arrived for:   {}, correlationId: {}", request.getComponentId(), request.getCorrelationId());
+			if (log.isDebugEnabled()) {
+				log.debug(externalTask.toString());
+				log.debug(request.toString());
+			}
 			streamBridge.send("controlComponentRequests", request);
 		}
 	}
@@ -132,6 +136,12 @@ public class CamundaExternalTaskWorker implements ExternalTaskHandler {
 		log.info("new response arrived from: {}, correlationId: {}", response.getComponentId(), response.getCorrelationId());
 		ExternalTask externalTask = externalTasks.remove(response.getRequest().getCorrelationId());
 		if (externalTask != null) {
+			if (log.isDebugEnabled()) {
+				log.debug("Response");
+				log.debug(response.toString());
+				log.debug("Request");
+				log.debug(externalTask.toString());
+			}
 			if (response.getStatus() == RequestStatus.OK) {
 				if (response.getOutputParameters().size() > 0) {
 					Map<String, Object> variables = new HashMap<>();
@@ -147,7 +157,7 @@ public class CamundaExternalTaskWorker implements ExternalTaskHandler {
 				externalTaskService.handleFailure(externalTask, response.getMessage().toString(), "", maxRetryCount, retryTimeout);
 			}
 		} else {
-			//do nothing; this worker instance has not issued that control component request
+			log.info("skip, this worker instance has not issued that control component request");
 		}
 	}
 
