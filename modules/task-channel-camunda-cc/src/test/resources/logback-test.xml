@@ -13,4 +13,10 @@
     <logger name="com.github.dockerjava" level="warn">
         <appender-ref ref="STDOUT" />
     </logger>
+    <logger name="org.apache.kafka" level="warn">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="de.dfki.cos.basys" level="debug">
+        <appender-ref ref="STDOUT" />
+    </logger>
 </configuration>
