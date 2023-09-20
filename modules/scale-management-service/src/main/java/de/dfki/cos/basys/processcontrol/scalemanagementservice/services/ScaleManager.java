@@ -44,7 +44,7 @@ public class ScaleManager {
             ISubmodelElementCollection processesCollection = (ISubmodelElementCollection) instanceSubmodel.getSubmodelElement("Processes");
             ISubmodelElementCollection manufacturingProcess = (ISubmodelElementCollection) processesCollection.getSubmodelElement("ManufacturingBoxedRaspberryPi");
             IProperty maxDuration = manufacturingProcess.getProperties().get("MaxDuration");
-            log.info("MaxDuration: {}", maxDuration.getValue());
+            log.info("MaxDuration (via AAS SDK): {}", maxDuration.getValue());
         });
 
     }

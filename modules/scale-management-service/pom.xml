@@ -87,6 +87,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>de.dfki.cos.basys.aas</groupId>
+            <artifactId>knowledgegraph</artifactId>
+            <version>0.5.1-SNAPSHOT</version> <!--TODO Change to ${project.version} when available-->
+        </dependency>
+
     </dependencies>
 
 

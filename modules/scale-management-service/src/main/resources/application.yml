@@ -15,8 +15,16 @@ basys:
   aasRegistry:
     type: dotaas
     service:
-      connectionString: http://aasregistry.basys-lnv-1.mrk40.dfki.lan
+      connectionString: ${AAS_REGISTRY_ENDPOINT}
   semanticIds:
     idShort: boxed_raspberry_pi_type_aas
     processSubmodel: https://dfki.de/ids/cd/sm_processes
+
+spring:
+  data:
+    neo4j:
+      username: ${NEO4J_USERNAME}
+      password: ${NEO4J_PASSWORD}
+  neo4j:
+    uri: ${NEO4J_ENDPOINT}
 
