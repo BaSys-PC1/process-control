@@ -1,0 +1,22 @@
+debug: false
+logging:
+  level:
+    root: INFO
+    de.dfki.cos.basys: INFO
+server:
+  port: 8089
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,metrics"
+
+basys:
+  aasRegistry:
+    type: dotaas
+    service:
+      connectionString: http://aasregistry.basys-lnv-1.mrk40.dfki.lan
+  semanticIds:
+    idShort: boxed_raspberry_pi_type_aas
+    processSubmodel: https://dfki.de/ids/cd/sm_processes
+
