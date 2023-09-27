@@ -21,10 +21,25 @@ basys:
     processSubmodel: https://dfki.de/ids/cd/sm_processes
 
 spring:
+  application:
+    name: scale-management-service
   data:
     neo4j:
       username: ${NEO4J_USERNAME}
       password: ${NEO4J_PASSWORD}
   neo4j:
     uri: ${NEO4J_ENDPOINT}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+mqtt:
+  automaticReconnect: true
+  cleanSession: true
+  connectionTimeout: 10
+  clientId: scale-management-service
+  hostname: ${MQTT_BROKER_ENDPOINT}
+  port: 1883
 
