@@ -12,7 +12,9 @@ import org.eclipse.basyx.submodel.metamodel.map.identifier.Identifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
@@ -76,22 +78,22 @@ public class WGSManager {
         Component c1 = new Component();
         c1.setName("Name 1");
         c1.setChecked(true);
-        c1.setURL("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png");
+        c1.setUrl("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png");
         Component c2 = new Component();
         c2.setName("Name 2");
         c2.setChecked(true);
-        c2.setURL("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png");
+        c2.setUrl("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png");
         s.setComponents(new Component[]{c1, c2});
 
         Tool t1 = new Tool();
         t1.setName("Schrauber");
-        t1.setURL("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png");
+        t1.setUrl("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png");
         s.setTools(new Tool[] {t1});
 
         Image i1 = new Image();
-        i1.setURL("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png");
+        i1.setUrl("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png");
         Image i2 = new Image();
-        i2.setURL("/extern/img/steps/step.jpg");
+        i2.setUrl("/extern/img/steps/step.jpg");
         s.setImages(new Image[] {i1, i2});
 
         StepHint sh1 = new StepHint();
@@ -105,8 +107,16 @@ public class WGSManager {
         sh3.setDescriptionShort("Kurze Beschreibung 789");
         s.setStepHints(new StepHint[] {sh1, sh2, sh3});
 
-        this.restTemplate.postForObject(url, s, Step.class);
+        Step stepResult = null;
+        try {
+            stepResult = this.restTemplate.postForObject(url, s, Step.class);
+        }
+        catch (Exception ex){
+            log.error("Error: {}", ex.getMessage());
+        }
+
+        if (stepResult == null) return;
+
+        log.info(stepResult.toString());
     }
-
-
 }
