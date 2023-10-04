@@ -1,4 +1,4 @@
-package de.dfki.cos.basys.processcontrol.wgsmanagementservice.model;
+package de.dfki.cos.basys.processcontrol.wgsmanagementservice.model.registry;
 
 import com.google.gson.annotations.SerializedName;
 

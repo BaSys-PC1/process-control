@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 //@EnableDiscoveryClient
-public class ScaleManagementServiceApplication {
+public class WGSManagementServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ScaleManagementServiceApplication.class, args);
+		SpringApplication.run(WGSManagementServiceApplication.class, args);
 	}
 
 }

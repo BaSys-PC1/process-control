@@ -1,10 +1,8 @@
 package de.dfki.cos.basys.processcontrol.wgsmanagementservice.services;
 
-import de.dfki.cos.basys.processcontrol.wgsmanagementservice.model.InstanceWrapper;
+import de.dfki.cos.basys.processcontrol.wgsmanagementservice.model.registry.InstanceWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.IMqttClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -14,10 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import javax.json.Json;
-import javax.json.JsonObject;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Check if WGS is online
