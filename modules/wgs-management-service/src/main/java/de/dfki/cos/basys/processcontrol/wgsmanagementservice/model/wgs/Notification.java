@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Component {
-    private String name;
-    private boolean checked;
-    private String url;
+public class Notification {
+    private String title;
+    private String description;
 }

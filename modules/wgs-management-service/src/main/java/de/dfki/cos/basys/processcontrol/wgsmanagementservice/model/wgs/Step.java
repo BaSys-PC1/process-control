@@ -16,4 +16,5 @@ public class Step {
     private Tool[] tools;
     private Image[] images;
     private StepHint[] stepHints;
+    private Notification[] notifications;
 }

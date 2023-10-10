@@ -37,7 +37,7 @@ public class ServiceRegistryManager {
         this.isUp = false;
     }
 
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
     public void checkAvailability() {
         String url = this.eurekaConnectionString + "/v2/apps/wgs/wgs-pc";
         InstanceWrapper instance = null;
