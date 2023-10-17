@@ -17,6 +17,9 @@ public class KafkaService {
     @Autowired
     private StreamBridge streamBridge;
 
+    @Autowired
+    private WGSManager wgsManager;
+
     @Bean
     public Consumer<Notification> notificationUpdates() {
         return this::handleNotificationUpdates;
@@ -24,6 +27,7 @@ public class KafkaService {
 
     private void handleNotificationUpdates(Notification notification) {
         log.info("new notification of type {} and show {}", notification.getType(), notification.getShow());
+        wgsManager.sendNotification(notification.getType(), notification.getShow());
 
 //        if (notification.getShow()) {
 //            notification.setShow(false);
@@ -39,5 +43,6 @@ public class KafkaService {
 
     private void handleStepChangeUpdates(StepChange stepChange) {
         log.info("new step change with id {}", stepChange.getWorkstepId());
+        wgsManager.sendStep(stepChange.getWorkstepId().toString());
     }
 }

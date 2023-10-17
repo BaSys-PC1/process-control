@@ -19,6 +19,8 @@ basys:
   semanticIds:
     idShort: boxed_raspberry_pi_type_aas
     processSubmodel: https://dfki.de/ids/cd/sm_processes
+  wgsDashboard:
+    connectionString: ${WGS_DASHBOARD_ENDPOINT}
 
 spring:
   application:

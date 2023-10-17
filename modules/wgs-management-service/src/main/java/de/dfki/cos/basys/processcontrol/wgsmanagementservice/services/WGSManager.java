@@ -1,5 +1,6 @@
 package de.dfki.cos.basys.processcontrol.wgsmanagementservice.services;
 
+import de.dfki.cos.basys.processcontrol.model.NotificationType;
 import de.dfki.cos.basys.processcontrol.wgsmanagementservice.model.wgs.*;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.basyx.aas.manager.api.IAssetAdministrationShellManager;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
 
 @Service
 @Slf4j
@@ -35,6 +37,11 @@ public class WGSManager {
 
     private final RestTemplate restTemplate;
 
+    private Step currentStep;
+
+    @Value("${basys.wgsDashboard.connectionString:http://localhost:3000/}")
+    private String baseUrl;
+
     public WGSManager(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
@@ -42,6 +49,7 @@ public class WGSManager {
     @PostConstruct
     public void initialize() {
         log.info("Started ScaleManagementService");
+        currentStep = getCurrentStep();
 
         AssetAdministrationShellDescriptor aasDescriptor = aasRegistryServices.searchAasDescriptorByIdShort(idShort);
         Key instanceKey = new Key().type(KeyTypes.CONCEPTDESCRIPTION).value(processSubmodelSemanticId);
@@ -55,23 +63,18 @@ public class WGSManager {
             IProperty maxDuration = manufacturingProcess.getProperties().get("MaxDuration");
             log.info("MaxDuration (via AAS SDK): {}", maxDuration.getValue());
         });
-
-        this.sendStep();
     }
 
-    public void sendStep() {
-        //TODO: Retrieve info from AAS
-        String url = "http://localhost:3000/events/step-change";
-
-        Step s = new Step();
-        s.setName("Arbeitsschritt 1");
-        s.setDescription("Beschreibung des Arbeitsschritts");
-        s.setActive(0);
-        s.setStationID("827");
-        s.setVariantID("911");
-        s.setCurrentAmount(7);
-        s.setAmountTotal(8);
-        s.setFinished(false);
+    public void sendStep(String workstepId) {
+        //TODO: Retrieve info from AAS based on workstepId
+        currentStep.setName("Arbeitsschritt 1");
+        currentStep.setDescription("Beschreibung des Arbeitsschritts");
+        currentStep.setActive(0);
+        currentStep.setStationID("827");
+        currentStep.setVariantID(workstepId);
+        currentStep.setCurrentAmount(7);
+        currentStep.setAmountTotal(8);
+        currentStep.setFinished(false);
 
         Component c1 = Component.builder()
                 .name("Name 1")
@@ -83,13 +86,13 @@ public class WGSManager {
                 .checked(false)
                 .url("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png")
                 .build();
-        s.setComponents(new Component[]{c1, c2});
+        currentStep.setComponents(new Component[]{c1, c2});
 
         Tool t1 = Tool.builder()
                 .name("Schrauber")
                 .url("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png")
                 .build();
-        s.setTools(new Tool[] {t1});
+        currentStep.setTools(new Tool[] {t1});
 
         Image i1 = Image.builder()
                 .url("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png")
@@ -97,7 +100,7 @@ public class WGSManager {
         Image i2 = Image.builder()
                 .url("https://www.dfki.de/fileadmin/user_upload/DFKI/Medien/Logos/Logos_DFKI/DFKI_Logo.png")
                 .build();
-        s.setImages(new Image[] {i1, i2});
+        currentStep.setImages(new Image[] {i1, i2});
 
         StepHint sh1 = StepHint.builder()
                 .name("Arbeitsschritt 1")
@@ -111,17 +114,49 @@ public class WGSManager {
                 .name("Arbeitsschritt 3")
                 .descriptionShort("Kurze Beschreibung 789")
                 .build();
-        s.setStepHints(new StepHint[] {sh1, sh2, sh3});
+        currentStep.setStepHints(new StepHint[] {sh1, sh2, sh3});
+
+        this.sendCurrentStep();
+    }
+
+    public void sendNotification(NotificationType type, Boolean show){
 
         Notification n1 = Notification.builder()
-                .title("Test")
-                .description("Show that")
                 .build();
-        s.setNotifications(new Notification[]{n1});
+        switch (type) {
+            case WRONG_QUANTITY_TAKEN:
+                n1.setTitle("Wrong quantity");
+                n1.setDescription("A wrong quantity was taken out of the box.");
+                break;
+            case WRONG_DIRECTION_REACHED:
+                n1.setTitle("Wrong direction reached");
+                n1.setDescription("You reached a wrong direction with one of your hands.");
+                break;
+            case GRASPED_AT_WRONG_LOCATION:
+                n1.setTitle("Grasped at wrong location");
+                n1.setDescription("You grasped at a wrong box.");
+            case LEADING_INTO_WRONG_DIRECTION:
+                n1.setTitle("Leading into wrong direction");
+                n1.setDescription("One of your hands was leading into a wrong direction.");
+        }
 
+        // REST API return null if no notification is set
+        Notification[] currentNotifications = currentStep.getNotifications() != null ? currentStep.getNotifications() : new Notification[]{};
+        // Extend existing notifications
+        Notification[] updatedNotifications = addElement(currentNotifications, n1);
+        currentStep.setNotifications(updatedNotifications);
+
+        this.sendCurrentStep();
+    }
+
+    private Step getCurrentStep() {
+        return this.restTemplate.getForObject(baseUrl + "active-step/current", Step.class);
+    }
+
+    private void sendCurrentStep(){
         Step stepResult = null;
         try {
-            stepResult = this.restTemplate.postForObject(url, s, Step.class);
+            stepResult = this.restTemplate.postForObject(baseUrl + "events/step-change", currentStep, Step.class);
         }
         catch (Exception ex){
             log.error("Error: {}", ex.getMessage());
@@ -130,5 +165,11 @@ public class WGSManager {
         if (stepResult == null) return;
 
         log.info(stepResult.toString());
+    }
+
+    private static <X> X[] addElement(X[] myArray, X element) {
+        X[] array = Arrays.copyOf(myArray, myArray.length + 1);
+        array[myArray.length] = element;
+        return array;
     }
 }
