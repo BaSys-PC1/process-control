@@ -31,16 +31,26 @@ spring:
     uri: ${NEO4J_ENDPOINT}
   cloud:
     function:
-      definition: aasRegistryUpdates
+      definition: notificationUpdates;stepChangeUpdates
     stream:
       kafka:
         binder:
           brokers: ${KAFKA_BROKER_ENDPOINT}
       bindings:
-        aasRegistryUpdates-in-0:
-          destination: aas-registry
-          content-type: application/json
-          binder: kafka-json
+        notificationUpdates-in-0:
+          destination: wgs-notification
+          content-type: application/*+avro
+          binder: kafka-avro
+        stepChangeUpdates-in-0:
+          destination: wgs-step-change
+          content-type: application/*+avro
+          binder: kafka-avro
+        notification:
+          destination: wgs-notification
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
       binders:
         kafka-json:
           type: kafka
