@@ -1,0 +1,59 @@
+{
+  "name": "Restliche Schrauben hinzufügen",
+  "description": "Bitte entnehmen Sie zwei weitere Schrauben aus Box 5 und stecken Sie diese in die restlichen Öffnungen der Oberschale vor Ihnen auf dem Tisch. Danach verschrauben Sie diese bitte mit dem Schraubendreher.",
+  "active": 6,
+  "stationID": "666",
+  "variantID": "999",
+  "currentAmount": 0,
+  "amountTotal": 1,
+  "finished": false,
+  "components": [
+    {
+      "name": "Schraube (2)",
+      "checked": false,
+      "url": "https://www.dataparts.eu/media/images/org/AEO-91000-06358-00K-Schraube-M6x35-Inbus-schwarz-Benelli-Aprilia-Beta-Aeon.jpg"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Schraubendreher",
+      "url": "https://images.obi.de/product/AT/1500x1500/819030_1.jpg"
+    }
+  ],
+  "images": [
+    {
+      "url": "http://hybrit-lnv-1.mrk40.dfki.lan:8100/pics/workstep_7.png"
+    }
+  ],
+  "stepHints": [
+    {
+      "name": "Muttern einlegen",
+      "descriptionShort": "4 Muttern (Box 1) in Vorlage legen"
+    },
+    {
+      "name": "Unterschale einlegen",
+      "descriptionShort": "Eine Unterschale (Box 2) einlegen"
+    },
+    {
+      "name": "Microcontroller einlegen",
+      "descriptionShort": "Einen Microcontroller (Box 3) einlegen"
+    },
+    {
+      "name": "Oberschale einlegen",
+      "descriptionShort": "Eine Oberschale (Box 4) einlegen"
+    },
+    {
+      "name": "Erste Schraube hinzufügen",
+      "descriptionShort": "Eine Schraube (Box 5) einlegen und festziehen"
+    },
+    {
+      "name": "Weitere Schraube hinzufügen",
+      "descriptionShort": "Zweite Schraube (Box 5) gegenüber einlegen und festziehen"
+    },
+    {
+      "name": "Restliche Schrauben hinzufügen",
+      "descriptionShort": "Restliche 2 Schrauben (Box 5) einlegen und festziehen"
+    }
+  ],
+  "notifications": []
+}

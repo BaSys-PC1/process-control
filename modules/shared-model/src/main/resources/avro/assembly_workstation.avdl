@@ -1,0 +1,49 @@
+@namespace("de.dfki.cos.basys.processcontrol.model")
+protocol AssemblyWorkstationMessages {
+	/*
+		Worker guidance system events
+	*/
+	enum NotificationType {
+		LEADING_INTO_WRONG_DIRECTION, WRONG_LOCATION_REACHED, GRASPED_AT_WRONG_LOCATION, WRONG_QUANTITY_TAKEN
+	}
+
+	// topic: aws.notification
+	record Notification {
+		NotificationType type;
+		boolean show;
+	}
+
+	// topic: aws.step-change
+	record StepChange {
+		string workstepId;
+	}
+
+	/*
+		Logitech camera events
+	*/
+
+	enum HandName {
+		LEFT, RIGHT
+	}
+
+	enum HandEventType {
+		LEADING_INTO_DIRECTION, LOCATION_REACHED, GRASPED_AT_LOCATION
+	}
+
+	// topic: aws.hand-event
+	record HandEvent {
+		HandName handName;
+		HandEventType type;
+		string target; // e.g. material location 'box_01'
+	}
+
+	/*
+		Flir camera events
+	*/
+
+	// topic: aws.assembly-event
+	record AssemblyEvent {
+		string workstepId;
+		float confidence;
+	}
+}

@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class Notification extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 2495536489267038505L;
+  private static final long serialVersionUID = 1263352273349339960L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Notification\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"NotificationType\",\"symbols\":[\"LEADING_INTO_WRONG_DIRECTION\",\"WRONG_DIRECTION_REACHED\",\"GRASPED_AT_WRONG_LOCATION\",\"WRONG_QUANTITY_TAKEN\"]}},{\"name\":\"show\",\"type\":\"boolean\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Notification\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"NotificationType\",\"symbols\":[\"LEADING_INTO_WRONG_DIRECTION\",\"WRONG_LOCATION_REACHED\",\"GRASPED_AT_WRONG_LOCATION\",\"WRONG_QUANTITY_TAKEN\"]}},{\"name\":\"show\",\"type\":\"boolean\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();

@@ -1,5 +1,6 @@
 package de.dfki.cos.basys.processcontrol.wgsmanagementservice.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.dfki.cos.basys.processcontrol.model.NotificationType;
 import de.dfki.cos.basys.processcontrol.wgsmanagementservice.model.wgs.*;
 import lombok.extern.slf4j.Slf4j;
@@ -13,11 +14,16 @@ import org.eclipse.basyx.submodel.metamodel.map.identifier.Identifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -41,6 +47,9 @@ public class WGSManager {
 
     @Value("${basys.wgsDashboard.connectionString:http://localhost:3000/}")
     private String baseUrl;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public WGSManager(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
@@ -67,6 +76,14 @@ public class WGSManager {
 
     public void sendStep(String workstepId) {
         //TODO: Retrieve info from AAS based on workstepId
+        try {
+            File jsonFile = new ClassPathResource("data/" + workstepId + ".json").getFile();
+            currentStep = objectMapper.readValue(jsonFile, Step.class);
+            this.sendCurrentStep();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+/*
         currentStep.setName("Arbeitsschritt 1");
         currentStep.setDescription("Beschreibung des Arbeitsschritts");
         currentStep.setActive(0);
@@ -114,46 +131,84 @@ public class WGSManager {
                 .name("Arbeitsschritt 3")
                 .descriptionShort("Kurze Beschreibung 789")
                 .build();
-        currentStep.setStepHints(new StepHint[] {sh1, sh2, sh3});
-
-        this.sendCurrentStep();
+        currentStep.setStepHints(new StepHint[] {sh1, sh2, sh3});*/
     }
 
     public void sendNotification(NotificationType type, Boolean show){
-
-        Notification n1 = Notification.builder()
-                .build();
-        switch (type) {
-            case WRONG_QUANTITY_TAKEN:
-                n1.setTitle("Wrong quantity");
-                n1.setDescription("A wrong quantity was taken out of the box.");
-                break;
-            case WRONG_DIRECTION_REACHED:
-                n1.setTitle("Wrong direction reached");
-                n1.setDescription("You reached a wrong direction with one of your hands.");
-                break;
-            case GRASPED_AT_WRONG_LOCATION:
-                n1.setTitle("Grasped at wrong location");
-                n1.setDescription("You grasped at a wrong box.");
-            case LEADING_INTO_WRONG_DIRECTION:
-                n1.setTitle("Leading into wrong direction");
-                n1.setDescription("One of your hands was leading into a wrong direction.");
-        }
-
         // REST API return null if no notification is set
         Notification[] currentNotifications = currentStep.getNotifications() != null ? currentStep.getNotifications() : new Notification[]{};
-        // Extend existing notifications
-        Notification[] updatedNotifications = addElement(currentNotifications, n1);
-        currentStep.setNotifications(updatedNotifications);
+        String title = "";
+        String description = "";
+        switch (type) {
+            case WRONG_QUANTITY_TAKEN:
+                title = "Wrong quantity";
+                description = "A wrong quantity was taken out of the box.";
+                break;
+            case WRONG_LOCATION_REACHED:
+                title = "Wrong location reached";
+                description = "You reached a wrong location with one of your hands.";
+                break;
+            case GRASPED_AT_WRONG_LOCATION:
+                title = "Grasped at wrong location";
+                description = "You grasped at a wrong box.";
+                break;
+            case LEADING_INTO_WRONG_DIRECTION:
+                title = "Leading into wrong direction";
+                description = "One of your hands was leading into a wrong direction.";
+        }
 
+        String finalTitle = title;
+        // See if notification is already shown on server side
+        Optional<Notification> notification = Arrays.stream(currentNotifications).filter(n -> n.getTitle().equals(finalTitle)).findFirst();
+
+        if (!show) {
+            // Notification shall be removed
+            if (notification.isEmpty()){
+                // nothing to do here
+                return;
+            }
+            else {
+                // Remove notification from array
+                currentNotifications = Arrays.stream(currentNotifications).filter(n -> !Objects.equals(n.getTitle(), finalTitle)).toArray(Notification[]::new);
+            }
+
+        }
+        else {
+            // Notification shall be added
+            if (notification.isPresent()){
+                // nothing to do here
+                return;
+            }
+            else {
+                Notification n1 = Notification.builder()
+                        .title(title)
+                        .description(description)
+                        .build();
+
+                // Extend existing notifications
+                currentNotifications = addElement(currentNotifications, n1);
+            }
+        }
+
+        currentStep.setNotifications(currentNotifications);
         this.sendCurrentStep();
     }
 
     private Step getCurrentStep() {
-        return this.restTemplate.getForObject(baseUrl + "active-step/current", Step.class);
+        Step stepResult = null;
+        try {
+            stepResult = this.restTemplate.getForObject(baseUrl + "active-step/current", Step.class);
+        }
+        catch (Exception ex){
+            log.error("Error: {}", ex.getMessage());
+        }
+
+        if (stepResult == null) return new Step();
+        return stepResult;
     }
 
     private void sendCurrentStep(){
+        //send material box on Kafka topic for Logitech program
         Step stepResult = null;
         try {
             stepResult = this.restTemplate.postForObject(baseUrl + "events/step-change", currentStep, Step.class);
