@@ -27,3 +27,8 @@ docker-publish-mqtt-kafka-bridge:
   extends: .docker-publish-module
   variables:
     MODULE_NAME: mqtt-kafka-bridge
+
+docker-publish-wgs-management-service:
+  extends: .docker-publish-module
+  variables:
+    MODULE_NAME: wgs-management-service
