@@ -1,5 +1,6 @@
 package de.dfki.cos.basys.processcontrol.wgsmanagementservice.services;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.dfki.cos.basys.processcontrol.model.NotificationType;
 import de.dfki.cos.basys.processcontrol.wgsmanagementservice.model.wgs.*;
@@ -139,22 +140,14 @@ public class WGSManager {
         Notification[] currentNotifications = currentStep.getNotifications() != null ? currentStep.getNotifications() : new Notification[]{};
         String title = "";
         String description = "";
-        switch (type) {
-            case WRONG_QUANTITY_TAKEN:
-                title = "Wrong quantity";
-                description = "A wrong quantity was taken out of the box.";
-                break;
-            case WRONG_LOCATION_REACHED:
-                title = "Wrong location reached";
-                description = "You reached a wrong location with one of your hands.";
-                break;
-            case GRASPED_AT_WRONG_LOCATION:
-                title = "Grasped at wrong location";
-                description = "You grasped at a wrong box.";
-                break;
-            case LEADING_INTO_WRONG_DIRECTION:
-                title = "Leading into wrong direction";
-                description = "One of your hands was leading into a wrong direction.";
+
+        try {
+            File jsonFile = new ClassPathResource("data/notifications.json").getFile();
+            JsonNode node = objectMapper.readValue(jsonFile, JsonNode.class);
+            title = node.get(type.toString()).get("title").asText();
+            description = node.get(type.toString()).get("description").asText();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         String finalTitle = title;

@@ -9,7 +9,7 @@
       <env name="NEO4J_PASSWORD" value="dfkibasys" />
       <env name="NEO4J_USERNAME" value="neo4j" />
       <env name="SCHEMA_REGISTRY_ENDPOINT" value="http://kafka.mrk40.dfki.lan:8081" />
-      <env name="WGS_DASHBOARD_ENDPOINT" value="http://localhost:3000/" />
+      <env name="WGS_DASHBOARD_ENDPOINT" value="http://hybrit-lnv-1.mrk40.dfki.lan:3002/" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="de.dfki.cos.basys.processcontrol.wgsmanagementservice.WGSManagementServiceApplication" />
     <module name="wgs-management-service" />
