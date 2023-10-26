@@ -18,6 +18,7 @@ package de.dfki.cos.basys.processcontrol.taskchannel.camunda.cc.configuration;
 
 import de.dfki.cos.basys.processcontrol.model.ControlComponentResponse;
 import de.dfki.cos.basys.processcontrol.taskchannel.camunda.cc.services.CamundaExternalTaskWorker;
+import de.dfki.cos.basys.processcontrol.taskchannel.camunda.cc.services.WGSExternalTaskWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.client.spring.SpringTopicSubscription;
 import org.camunda.bpm.client.spring.annotation.ExternalTaskSubscription;
@@ -45,7 +46,10 @@ public class HandlerConfiguration {
   protected String workerId;
 
   @Autowired
-  private CamundaExternalTaskWorker worker;
+  private CamundaExternalTaskWorker camundaWorker;
+
+  @Autowired
+  private WGSExternalTaskWorker wgsWorker;
 
   public HandlerConfiguration(ClientProperties properties) {
     workerId = properties.getWorkerId();
@@ -54,7 +58,13 @@ public class HandlerConfiguration {
   @ExternalTaskSubscription("ControlComponent")
   @Bean
   public ExternalTaskHandler controlComponent() {
-    return worker;
+    return camundaWorker;
+  }
+
+  @ExternalTaskSubscription("WGSDashboard")
+  @Bean
+  public ExternalTaskHandler wgsDashboard() {
+    return wgsWorker;
   }
 
 //  @ExternalTaskSubscription("creditScoreChecker")
