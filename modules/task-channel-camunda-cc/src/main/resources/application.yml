@@ -81,5 +81,5 @@ camunda.bpm.client:
       variable-names: componentId, requestType, token, inputParameters, outputParameters
       auto-open: false # Defines whether the subscription is opened automatically or not
     WGSDashboard:
-      variable-names: workstepId, token, inputParameters, outputParameters
+      variable-names: componentId, workstepId, inputParameters, outputParameters
       auto-open: false # Defines whether the subscription is opened automatically or not

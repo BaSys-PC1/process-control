@@ -76,9 +76,9 @@ public class WGSExternalTaskWorker implements ExternalTaskHandler {
 			return null;
 		}
 
-		String token = externalTask.getVariable("token");
+		String token = externalTask.getVariable("componentId");
 		if (token == null) {
-			externalTaskService.handleFailure(externalTask, "No token", "ExternalTask does not contain a token", maxRetryCount, retryTimeout);
+			externalTaskService.handleFailure(externalTask, "No token", "ExternalTask does not contain a componentId", maxRetryCount, retryTimeout);
 			return null;
 		}
 
