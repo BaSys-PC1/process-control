@@ -14,5 +14,9 @@
   "LEADING_INTO_WRONG_DIRECTION": {
     "title": "In falsche Richtung greifend",
     "description": "Eine Hand wurde in eine falsche Richtung bewegt."
+  },
+  "WRONG_ORIENTATION": {
+    "title": "Bauteil in falscher Richtung",
+    "description": "Das aktuelle Bauteil wurde in falscher Richtung platziert."
   }
 }
