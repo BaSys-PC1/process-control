@@ -17,6 +17,8 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -69,24 +71,39 @@ public class ServiceRegistryManager {
     }
 
     public void sendConfig() {
-        // TODO: Retrieve from AAS
-        JsonObject tarePayload = Json.createObjectBuilder()
-                .add("channel", 1)
-                .add("value", 0.043855) // box weight
-                .build();
-        JsonObject refPiecesPayload = Json.createObjectBuilder()
-                .add("channel", 1)
-                .add("pieces", 6)// 0.0014 / piece with High precision
-                .build();
         try {
-            TimeUnit.SECONDS.sleep(1);
             mqttClient.publish("scale/startMeasurement", new MqttMessage("{}".getBytes()));
             TimeUnit.SECONDS.sleep(1);
-            mqttClient.publish("scale/tare", new MqttMessage(tarePayload.toString().getBytes()));
-            TimeUnit.SECONDS.sleep(1);
-            mqttClient.publish("scale/refPieces", new MqttMessage(refPiecesPayload.toString().getBytes()));
         } catch (MqttException | InterruptedException e) {
             throw new RuntimeException(e);
+        }
+
+        // TODO: Retrieve from AAS
+        double boxWeight = 0.043855;
+        HashMap<Integer, Integer> piecesPerScale = new HashMap<>();
+        piecesPerScale.put(1, 6); //Muttern
+        piecesPerScale.put(2, 1); //Unterschalen
+        piecesPerScale.put(3, 1); //Microcontroller
+        piecesPerScale.put(4, 1); //Oberschalen
+        piecesPerScale.put(5, 1); //Schrauben (0.0014 / piece with High precision)
+
+        for (Map.Entry<Integer, Integer> pair : piecesPerScale.entrySet()) {
+            JsonObject tarePayload = Json.createObjectBuilder()
+                    .add("channel", pair.getKey())
+                    .add("value", boxWeight) // box weight
+                    .build();
+            JsonObject refPiecesPayload = Json.createObjectBuilder()
+                    .add("channel", pair.getKey())
+                    .add("pieces", pair.getValue())
+                    .build();
+            try {
+                mqttClient.publish("scale/tare", new MqttMessage(tarePayload.toString().getBytes()));
+                TimeUnit.SECONDS.sleep(1);
+                mqttClient.publish("scale/refPieces", new MqttMessage(refPiecesPayload.toString().getBytes()));
+                TimeUnit.SECONDS.sleep(1);
+            } catch (MqttException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
