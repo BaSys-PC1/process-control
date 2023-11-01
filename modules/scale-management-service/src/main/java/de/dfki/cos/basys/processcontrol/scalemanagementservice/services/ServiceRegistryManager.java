@@ -1,6 +1,7 @@
 package de.dfki.cos.basys.processcontrol.scalemanagementservice.services;
 
 import de.dfki.cos.basys.processcontrol.scalemanagementservice.model.InstanceWrapper;
+import de.dfki.cos.basys.processcontrol.scalemanagementservice.model.ScaleProps;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -80,21 +81,22 @@ public class ServiceRegistryManager {
 
         // TODO: Retrieve from AAS
         double boxWeight = 0.043855;
-        HashMap<Integer, Integer> piecesPerScale = new HashMap<>();
-        piecesPerScale.put(1, 6); //Muttern
-        piecesPerScale.put(2, 1); //Unterschalen
-        piecesPerScale.put(3, 1); //Microcontroller
-        piecesPerScale.put(4, 1); //Oberschalen
-        piecesPerScale.put(5, 1); //Schrauben (0.0014 / piece with High precision)
+        Map<Integer, ScaleProps> piecesPerScale = new HashMap<>();
+        piecesPerScale.put(1, new ScaleProps(6, "Mutter"));
+        piecesPerScale.put(2, new ScaleProps(1, "Unterschale"));
+        piecesPerScale.put(3, new ScaleProps(1, "Microcontroller"));
+        piecesPerScale.put(4, new ScaleProps(1, "Oberschale"));
+        piecesPerScale.put(5, new ScaleProps(1, "Schraube")); //(0.0014 / piece with High precision)
 
-        for (Map.Entry<Integer, Integer> pair : piecesPerScale.entrySet()) {
+        for (Map.Entry<Integer, ScaleProps> pair : piecesPerScale.entrySet()) {
             JsonObject tarePayload = Json.createObjectBuilder()
                     .add("channel", pair.getKey())
                     .add("value", boxWeight) // box weight
                     .build();
             JsonObject refPiecesPayload = Json.createObjectBuilder()
                     .add("channel", pair.getKey())
-                    .add("pieces", pair.getValue())
+                    .add("pieces", pair.getValue().getPieces())
+                    .add("material", pair.getValue().getMaterial())
                     .build();
             try {
                 mqttClient.publish("scale/tare", new MqttMessage(tarePayload.toString().getBytes()));
