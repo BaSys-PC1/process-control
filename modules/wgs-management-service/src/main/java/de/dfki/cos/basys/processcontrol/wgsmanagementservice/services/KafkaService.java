@@ -43,6 +43,11 @@ public class KafkaService {
 
     private void handleStepChangeUpdates(StepChange stepChange) {
         log.info("new step change with id {}", stepChange.getWorkstepId());
+        //TODO: Create own message / topic later
+        if (stepChange.getWorkstepId().toString().equals("checkMaterial")) {
+            wgsManager.sendMaterialCheckedUpdate();
+            return;
+        }
         wgsManager.sendStep(stepChange.getWorkstepId().toString());
     }
 }
