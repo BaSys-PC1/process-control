@@ -135,6 +135,11 @@ public class WGSManager {
         currentStep.setStepHints(new StepHint[] {sh1, sh2, sh3});*/
     }
 
+    public void sendMaterialCheckedUpdate() {
+        currentStep.getComponents()[0].setChecked(true);
+        this.sendCurrentStep();
+    }
+
     public void sendNotification(NotificationType type, Boolean show){
         // REST API return null if no notification is set
         Notification[] currentNotifications = currentStep.getNotifications() != null ? currentStep.getNotifications() : new Notification[]{};
