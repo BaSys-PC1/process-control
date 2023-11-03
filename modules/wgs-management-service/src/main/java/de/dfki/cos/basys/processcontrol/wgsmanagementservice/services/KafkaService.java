@@ -46,6 +46,7 @@ public class KafkaService {
         //TODO: Create own message / topic later
         if (stepChange.getWorkstepId() == "checkMaterial") {
             wgsManager.sendMaterialCheckedUpdate();
+            return;
         }
         wgsManager.sendStep(stepChange.getWorkstepId().toString());
     }
