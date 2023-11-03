@@ -1,6 +1,6 @@
 {
   "name": "Muttern einlegen",
-  "description": "Bitte entnehmen Sie 4 Muttern aus Box 1 und legen Sie diese in die Vorlage vor Ihnen auf dem Tisch.",
+  "description": "Bitte entnehmen Sie 4 Muttern aus Box 1 und legen Sie diese in die Vorlage vor Ihnen auf dem Tisch. Danach zur Bestätigung bitte die Hände auf die blauen Flächen legen.",
   "active": 0,
   "stationID": "666",
   "variantID": "999",

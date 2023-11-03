@@ -1,6 +1,6 @@
 {
   "name": "Weitere Schraube hinzufügen",
-  "description": "Bitte entnehmen Sie eine weitere Schraube aus Box 5 und stecken Sie diese wie abgebildet in die schräg gegenüberliegende Öffnung der Oberschale vor Ihnen auf dem Tisch. Danach verschrauben Sie diese bitte mit dem Schraubendreher.",
+  "description": "Bitte entnehmen Sie eine weitere Schraube aus Box 5 und stecken Sie diese wie abgebildet in die schräg gegenüberliegende Öffnung der Oberschale vor Ihnen auf dem Tisch. Danach verschrauben Sie diese bitte mit dem Schraubendreher und legen zur Bestätigung die Hände auf die blauen Flächen.",
   "active": 5,
   "stationID": "666",
   "variantID": "999",

@@ -8,8 +8,8 @@
     "description": "Es wurde eine falsche Box mit der Hand erreicht."
   },
   "GRASPED_AT_WRONG_LOCATION": {
-    "title": "An falscher Box gegriffen",
-    "description": "Es wurde an einer falschen Box gegriffen."
+    "title": "In falsche Box gegriffen",
+    "description": "Es wurde in eine falsche Box gegriffen."
   },
   "LEADING_INTO_WRONG_DIRECTION": {
     "title": "In falsche Richtung greifend",
