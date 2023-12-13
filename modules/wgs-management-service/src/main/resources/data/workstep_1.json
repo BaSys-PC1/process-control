@@ -1,0 +1,54 @@
+{
+  "name": "Muttern einlegen",
+  "description": "Bitte entnehmen Sie 4 Muttern aus Box 1 und legen Sie diese in die Vorlage vor Ihnen auf dem Tisch. Danach zur Bestätigung bitte die Hände auf die blauen Flächen legen.",
+  "active": 0,
+  "stationID": "666",
+  "variantID": "999",
+  "currentAmount": 0,
+  "amountTotal": 1,
+  "finished": false,
+  "components": [
+    {
+      "name": "Mutter (4)",
+      "checked": false,
+      "url": "http://hybrit-lnv-1.mrk40.dfki.lan:8100/pics/mutter.png"
+    }
+  ],
+  "tools": [],
+  "images": [
+    {
+      "url": "http://hybrit-lnv-1.mrk40.dfki.lan:8100/pics/workstep_1.png"
+    }
+  ],
+  "stepHints": [
+    {
+      "name": "Muttern einlegen",
+      "descriptionShort": "4 Muttern (Box 1) in Vorlage legen"
+    },
+    {
+      "name": "Unterschale einlegen",
+      "descriptionShort": "Eine Unterschale (Box 2) einlegen"
+    },
+    {
+      "name": "Microcontroller einlegen",
+      "descriptionShort": "Einen Microcontroller (Box 3) einlegen"
+    },
+    {
+      "name": "Oberschale einlegen",
+      "descriptionShort": "Eine Oberschale (Box 4) einlegen"
+    },
+    {
+      "name": "Erste Schraube hinzufügen",
+      "descriptionShort": "Eine Schraube (Box 5) einlegen und festziehen"
+    },
+    {
+      "name": "Weitere Schraube hinzufügen",
+      "descriptionShort": "Zweite Schraube (Box 5) gegenüber einlegen und festziehen"
+    },
+    {
+      "name": "Restliche Schrauben hinzufügen",
+      "descriptionShort": "Restliche 2 Schrauben (Box 5) einlegen und festziehen"
+    }
+  ],
+  "notifications": []
+}

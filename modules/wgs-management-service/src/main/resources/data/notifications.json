@@ -1,0 +1,22 @@
+{
+  "WRONG_QUANTITY_TAKEN": {
+    "title": "Falsche Anzahl",
+    "description": "Es wurde eine falsche Anzahl aus der Box entnommen."
+  },
+  "WRONG_LOCATION_REACHED": {
+    "title": "Falsche Box erreicht",
+    "description": "Es wurde eine falsche Box mit der Hand erreicht."
+  },
+  "GRASPED_AT_WRONG_LOCATION": {
+    "title": "In falsche Box gegriffen",
+    "description": "Es wurde in eine falsche Box gegriffen."
+  },
+  "LEADING_INTO_WRONG_DIRECTION": {
+    "title": "In falsche Richtung greifend",
+    "description": "Eine Hand wurde in eine falsche Richtung bewegt."
+  },
+  "WRONG_ORIENTATION": {
+    "title": "Bauteil in falscher Richtung",
+    "description": "Das aktuelle Bauteil wurde in falscher Richtung platziert."
+  }
+}

@@ -23,6 +23,7 @@
 		<module>modules/cc-task-manager</module>
 		<module>modules/mqtt-kafka-bridge</module>
 		<module>modules/scale-management-service</module>
+		<module>modules/wgs-management-service</module>
 		
 <!--		<module>modules/task-channel-camunda-wallet</module>-->
 <!--        <module>modules/kafka-messaging-test</module>-->

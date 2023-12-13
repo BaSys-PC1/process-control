@@ -29,6 +29,12 @@ spring:
           binder: kafka-avro
           consumer:
             useNativeDecoding: true
+        stepChange:
+          destination: wgs-step-change
+          content-type: application/*+avro
+          binder: kafka-avro
+          producer:
+            useNativeEncoding: true
       binders:
         #kafka-json:
         #  type: kafka
@@ -73,4 +79,7 @@ camunda.bpm.client:
       lock-duration: 10000 # Defines for how long the External Tasks are locked until they can be fetched again
     ControlComponent:
       variable-names: componentId, requestType, token, inputParameters, outputParameters
+      auto-open: false # Defines whether the subscription is opened automatically or not
+    WGSDashboard:
+      variable-names: componentId, workstepId, inputParameters, outputParameters
       auto-open: false # Defines whether the subscription is opened automatically or not
