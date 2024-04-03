@@ -18,5 +18,9 @@
   "WRONG_ORIENTATION": {
     "title": "Bauteil in falscher Richtung",
     "description": "Das aktuelle Bauteil wurde in falscher Richtung platziert."
+  },
+  "WRONG_WORKSTEP": {
+    "title": "Arbeitsschritt nicht korrekt",
+    "description": "Der aktuelle Arbeitsschritt wurde nicht korrekt ausgeführt."
   }
 }
