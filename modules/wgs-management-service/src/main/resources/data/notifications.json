@@ -37,8 +37,8 @@
   "WRONG_WORKSTEP": {
     "title": "Arbeitsschritt nicht korrekt",
     "description": "Der aktuelle Arbeitsschritt wurde nicht korrekt ausgeführt.",
-    	"icon": "rule",
-			"x": "960px",
-		  "y": "800px"
+    "icon": "rule",
+		"x": "960px",
+		"y": "800px"
   }
 }
