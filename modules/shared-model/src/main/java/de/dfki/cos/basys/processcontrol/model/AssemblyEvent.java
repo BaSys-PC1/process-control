@@ -17,7 +17,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
   private static final long serialVersionUID = 4225064765560600043L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"AssemblyEvent\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"workstepId\",\"type\":\"string\"},{\"name\":\"confidence\",\"type\":\"float\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"AssemblyEvent\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"workstepId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"confidence\",\"type\":\"float\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -73,7 +73,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
     return DECODER.decode(b);
   }
 
-  private java.lang.CharSequence workstepId;
+  private java.lang.String workstepId;
   private float confidence;
 
   /**
@@ -88,7 +88,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
    * @param workstepId The new value for workstepId
    * @param confidence The new value for confidence
    */
-  public AssemblyEvent(java.lang.CharSequence workstepId, java.lang.Float confidence) {
+  public AssemblyEvent(java.lang.String workstepId, java.lang.Float confidence) {
     this.workstepId = workstepId;
     this.confidence = confidence;
   }
@@ -108,7 +108,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: workstepId = (java.lang.CharSequence)value$; break;
+    case 0: workstepId = value$ != null ? value$.toString() : null; break;
     case 1: confidence = (java.lang.Float)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
@@ -118,7 +118,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
    * Gets the value of the 'workstepId' field.
    * @return The value of the 'workstepId' field.
    */
-  public java.lang.CharSequence getWorkstepId() {
+  public java.lang.String getWorkstepId() {
     return workstepId;
   }
 
@@ -127,7 +127,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
    * Sets the value of the 'workstepId' field.
    * @param value the value to set.
    */
-  public void setWorkstepId(java.lang.CharSequence value) {
+  public void setWorkstepId(java.lang.String value) {
     this.workstepId = value;
   }
 
@@ -189,7 +189,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<AssemblyEvent>
     implements org.apache.avro.data.RecordBuilder<AssemblyEvent> {
 
-    private java.lang.CharSequence workstepId;
+    private java.lang.String workstepId;
     private float confidence;
 
     /** Creates a new Builder */
@@ -233,7 +233,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
       * Gets the value of the 'workstepId' field.
       * @return The value.
       */
-    public java.lang.CharSequence getWorkstepId() {
+    public java.lang.String getWorkstepId() {
       return workstepId;
     }
 
@@ -243,7 +243,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
       * @param value The value of 'workstepId'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.AssemblyEvent.Builder setWorkstepId(java.lang.CharSequence value) {
+    public de.dfki.cos.basys.processcontrol.model.AssemblyEvent.Builder setWorkstepId(java.lang.String value) {
       validate(fields()[0], value);
       this.workstepId = value;
       fieldSetFlags()[0] = true;
@@ -313,7 +313,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
     public AssemblyEvent build() {
       try {
         AssemblyEvent record = new AssemblyEvent();
-        record.workstepId = fieldSetFlags()[0] ? this.workstepId : (java.lang.CharSequence) defaultValue(fields()[0]);
+        record.workstepId = fieldSetFlags()[0] ? this.workstepId : (java.lang.String) defaultValue(fields()[0]);
         record.confidence = fieldSetFlags()[1] ? this.confidence : (java.lang.Float) defaultValue(fields()[1]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
@@ -358,7 +358,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
   {
     org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
     if (fieldOrder == null) {
-      this.workstepId = in.readString(this.workstepId instanceof Utf8 ? (Utf8)this.workstepId : null);
+      this.workstepId = in.readString();
 
       this.confidence = in.readFloat();
 
@@ -366,7 +366,7 @@ public class AssemblyEvent extends org.apache.avro.specific.SpecificRecordBase i
       for (int i = 0; i < 2; i++) {
         switch (fieldOrder[i].pos()) {
         case 0:
-          this.workstepId = in.readString(this.workstepId instanceof Utf8 ? (Utf8)this.workstepId : null);
+          this.workstepId = in.readString();
           break;
 
         case 1:
