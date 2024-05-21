@@ -17,7 +17,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
   private static final long serialVersionUID = -2631835580881070231L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"HandEvent\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"handName\",\"type\":{\"type\":\"enum\",\"name\":\"HandName\",\"symbols\":[\"LEFT\",\"RIGHT\"]}},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"HandEventType\",\"symbols\":[\"LEADING_INTO_DIRECTION\",\"LOCATION_REACHED\",\"GRASPED_AT_LOCATION\"]}},{\"name\":\"target\",\"type\":\"string\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"HandEvent\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"handName\",\"type\":{\"type\":\"enum\",\"name\":\"HandName\",\"symbols\":[\"LEFT\",\"RIGHT\"]}},{\"name\":\"type\",\"type\":{\"type\":\"enum\",\"name\":\"HandEventType\",\"symbols\":[\"LEADING_INTO_DIRECTION\",\"LOCATION_REACHED\",\"GRASPED_AT_LOCATION\"]}},{\"name\":\"target\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -75,7 +75,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
 
   private de.dfki.cos.basys.processcontrol.model.HandName handName;
   private de.dfki.cos.basys.processcontrol.model.HandEventType type;
-  private java.lang.CharSequence target;
+  private java.lang.String target;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -90,7 +90,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
    * @param type The new value for type
    * @param target The new value for target
    */
-  public HandEvent(de.dfki.cos.basys.processcontrol.model.HandName handName, de.dfki.cos.basys.processcontrol.model.HandEventType type, java.lang.CharSequence target) {
+  public HandEvent(de.dfki.cos.basys.processcontrol.model.HandName handName, de.dfki.cos.basys.processcontrol.model.HandEventType type, java.lang.String target) {
     this.handName = handName;
     this.type = type;
     this.target = target;
@@ -114,7 +114,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
     switch (field$) {
     case 0: handName = (de.dfki.cos.basys.processcontrol.model.HandName)value$; break;
     case 1: type = (de.dfki.cos.basys.processcontrol.model.HandEventType)value$; break;
-    case 2: target = (java.lang.CharSequence)value$; break;
+    case 2: target = value$ != null ? value$.toString() : null; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -157,7 +157,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
    * Gets the value of the 'target' field.
    * @return The value of the 'target' field.
    */
-  public java.lang.CharSequence getTarget() {
+  public java.lang.String getTarget() {
     return target;
   }
 
@@ -166,7 +166,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
    * Sets the value of the 'target' field.
    * @param value the value to set.
    */
-  public void setTarget(java.lang.CharSequence value) {
+  public void setTarget(java.lang.String value) {
     this.target = value;
   }
 
@@ -213,7 +213,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
 
     private de.dfki.cos.basys.processcontrol.model.HandName handName;
     private de.dfki.cos.basys.processcontrol.model.HandEventType type;
-    private java.lang.CharSequence target;
+    private java.lang.String target;
 
     /** Creates a new Builder */
     private Builder() {
@@ -344,7 +344,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
       * Gets the value of the 'target' field.
       * @return The value.
       */
-    public java.lang.CharSequence getTarget() {
+    public java.lang.String getTarget() {
       return target;
     }
 
@@ -354,7 +354,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
       * @param value The value of 'target'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.HandEvent.Builder setTarget(java.lang.CharSequence value) {
+    public de.dfki.cos.basys.processcontrol.model.HandEvent.Builder setTarget(java.lang.String value) {
       validate(fields()[2], value);
       this.target = value;
       fieldSetFlags()[2] = true;
@@ -387,7 +387,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
         HandEvent record = new HandEvent();
         record.handName = fieldSetFlags()[0] ? this.handName : (de.dfki.cos.basys.processcontrol.model.HandName) defaultValue(fields()[0]);
         record.type = fieldSetFlags()[1] ? this.type : (de.dfki.cos.basys.processcontrol.model.HandEventType) defaultValue(fields()[1]);
-        record.target = fieldSetFlags()[2] ? this.target : (java.lang.CharSequence) defaultValue(fields()[2]);
+        record.target = fieldSetFlags()[2] ? this.target : (java.lang.String) defaultValue(fields()[2]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -437,7 +437,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
 
       this.type = de.dfki.cos.basys.processcontrol.model.HandEventType.values()[in.readEnum()];
 
-      this.target = in.readString(this.target instanceof Utf8 ? (Utf8)this.target : null);
+      this.target = in.readString();
 
     } else {
       for (int i = 0; i < 3; i++) {
@@ -451,7 +451,7 @@ public class HandEvent extends org.apache.avro.specific.SpecificRecordBase imple
           break;
 
         case 2:
-          this.target = in.readString(this.target instanceof Utf8 ? (Utf8)this.target : null);
+          this.target = in.readString();
           break;
 
         default:

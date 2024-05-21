@@ -1,22 +1,44 @@
 {
   "WRONG_QUANTITY_TAKEN": {
     "title": "Falsche Anzahl",
-    "description": "Es wurde eine falsche Anzahl aus der Box entnommen."
+    "description": "Es wurde eine falsche Anzahl aus der Box entnommen.",
+    "icon": "pin",
+		"x": "850px",
+		"y": "900px"
   },
   "WRONG_LOCATION_REACHED": {
     "title": "Falsche Box erreicht",
-    "description": "Es wurde eine falsche Box mit der Hand erreicht."
+    "description": "Es wurde eine falsche Box mit der Hand erreicht.",
+    "icon": "inbox",
+		"x": "520px",
+		"y": "900px"
   },
   "GRASPED_AT_WRONG_LOCATION": {
     "title": "In falsche Box gegriffen",
-    "description": "Es wurde in eine falsche Box gegriffen."
+    "description": "Es wurde in eine falsche Box gegriffen.",
+    "icon": "inbox",
+		"x": "520px",
+		"y": "955px"
   },
   "LEADING_INTO_WRONG_DIRECTION": {
     "title": "In falsche Richtung greifend",
-    "description": "Eine Hand wurde in eine falsche Richtung bewegt."
+    "description": "Eine Hand wurde in eine falsche Richtung bewegt.",
+  	"icon": "alt_route",
+		"x": "670px",
+		"y": "900px"
   },
   "WRONG_ORIENTATION": {
     "title": "Bauteil in falscher Richtung",
-    "description": "Das aktuelle Bauteil wurde in falscher Richtung platziert."
+    "description": "Das aktuelle Bauteil wurde in falscher Richtung platziert.",
+    "icon": "autorenew",
+		"x": "1000px",
+		"y": "955px"
+  },
+  "WRONG_WORKSTEP": {
+    "title": "Arbeitsschritt nicht korrekt",
+    "description": "Der aktuelle Arbeitsschritt wurde nicht korrekt ausgeführt.",
+    "icon": "rule",
+		"x": "1000px",
+		"y": "900px"
   }
 }

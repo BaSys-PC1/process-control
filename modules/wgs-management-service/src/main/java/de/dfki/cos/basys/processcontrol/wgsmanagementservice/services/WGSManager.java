@@ -145,12 +145,18 @@ public class WGSManager {
         Notification[] currentNotifications = currentStep.getNotifications() != null ? currentStep.getNotifications() : new Notification[]{};
         String title = "";
         String description = "";
+        String icon = "";
+        String x = "";
+        String y = "";
 
         try {
             File jsonFile = new ClassPathResource("data/notifications.json").getFile();
             JsonNode node = objectMapper.readValue(jsonFile, JsonNode.class);
             title = node.get(type.toString()).get("title").asText();
             description = node.get(type.toString()).get("description").asText();
+            icon = node.get(type.toString()).get("icon").asText();
+            x = node.get(type.toString()).get("x").asText();
+            y = node.get(type.toString()).get("y").asText();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -181,6 +187,9 @@ public class WGSManager {
                 Notification n1 = Notification.builder()
                         .title(title)
                         .description(description)
+                        .icon(icon)
+                        .x(x)
+                        .y(y)
                         .build();
 
                 // Extend existing notifications

@@ -1,5 +1,5 @@
 package de.dfki.cos.basys.processcontrol.wgsmanagementservice.services;
-
+/*
 import lombok.extern.slf4j.Slf4j;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.Session;
@@ -32,3 +32,4 @@ public class KnowledgeGraphService {
     }
 
 }
+*/

@@ -12,4 +12,7 @@ import lombok.NoArgsConstructor;
 public class Notification {
     private String title;
     private String description;
+    private String icon;
+    private String x;
+    private String y;
 }

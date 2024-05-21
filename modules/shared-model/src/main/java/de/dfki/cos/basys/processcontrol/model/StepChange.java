@@ -17,7 +17,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
   private static final long serialVersionUID = -6272629730556719334L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"StepChange\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"workstepId\",\"type\":\"string\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"StepChange\",\"namespace\":\"de.dfki.cos.basys.processcontrol.model\",\"fields\":[{\"name\":\"workstepId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -73,7 +73,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
     return DECODER.decode(b);
   }
 
-  private java.lang.CharSequence workstepId;
+  private java.lang.String workstepId;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -86,7 +86,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
    * All-args constructor.
    * @param workstepId The new value for workstepId
    */
-  public StepChange(java.lang.CharSequence workstepId) {
+  public StepChange(java.lang.String workstepId) {
     this.workstepId = workstepId;
   }
 
@@ -104,7 +104,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: workstepId = (java.lang.CharSequence)value$; break;
+    case 0: workstepId = value$ != null ? value$.toString() : null; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -113,7 +113,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
    * Gets the value of the 'workstepId' field.
    * @return The value of the 'workstepId' field.
    */
-  public java.lang.CharSequence getWorkstepId() {
+  public java.lang.String getWorkstepId() {
     return workstepId;
   }
 
@@ -122,7 +122,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
    * Sets the value of the 'workstepId' field.
    * @param value the value to set.
    */
-  public void setWorkstepId(java.lang.CharSequence value) {
+  public void setWorkstepId(java.lang.String value) {
     this.workstepId = value;
   }
 
@@ -167,7 +167,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<StepChange>
     implements org.apache.avro.data.RecordBuilder<StepChange> {
 
-    private java.lang.CharSequence workstepId;
+    private java.lang.String workstepId;
 
     /** Creates a new Builder */
     private Builder() {
@@ -202,7 +202,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
       * Gets the value of the 'workstepId' field.
       * @return The value.
       */
-    public java.lang.CharSequence getWorkstepId() {
+    public java.lang.String getWorkstepId() {
       return workstepId;
     }
 
@@ -212,7 +212,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
       * @param value The value of 'workstepId'.
       * @return This builder.
       */
-    public de.dfki.cos.basys.processcontrol.model.StepChange.Builder setWorkstepId(java.lang.CharSequence value) {
+    public de.dfki.cos.basys.processcontrol.model.StepChange.Builder setWorkstepId(java.lang.String value) {
       validate(fields()[0], value);
       this.workstepId = value;
       fieldSetFlags()[0] = true;
@@ -243,7 +243,7 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
     public StepChange build() {
       try {
         StepChange record = new StepChange();
-        record.workstepId = fieldSetFlags()[0] ? this.workstepId : (java.lang.CharSequence) defaultValue(fields()[0]);
+        record.workstepId = fieldSetFlags()[0] ? this.workstepId : (java.lang.String) defaultValue(fields()[0]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -285,13 +285,13 @@ public class StepChange extends org.apache.avro.specific.SpecificRecordBase impl
   {
     org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
     if (fieldOrder == null) {
-      this.workstepId = in.readString(this.workstepId instanceof Utf8 ? (Utf8)this.workstepId : null);
+      this.workstepId = in.readString();
 
     } else {
       for (int i = 0; i < 1; i++) {
         switch (fieldOrder[i].pos()) {
         case 0:
-          this.workstepId = in.readString(this.workstepId instanceof Utf8 ? (Utf8)this.workstepId : null);
+          this.workstepId = in.readString();
           break;
 
         default:
