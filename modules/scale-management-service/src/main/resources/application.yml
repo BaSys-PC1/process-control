@@ -1,0 +1,45 @@
+debug: false
+logging:
+  level:
+    root: INFO
+    de.dfki.cos.basys: INFO
+server:
+  port: 8089
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,metrics"
+
+basys:
+  aasRegistry:
+    type: dotaas
+    service:
+      connectionString: ${AAS_REGISTRY_ENDPOINT}
+  semanticIds:
+    idShort: boxed_raspberry_pi_type_aas
+    processSubmodel: https://dfki.de/ids/cd/sm_processes
+
+spring:
+  application:
+    name: scale-management-service
+  data:
+    neo4j:
+      username: ${NEO4J_USERNAME}
+      password: ${NEO4J_PASSWORD}
+  neo4j:
+    uri: ${NEO4J_ENDPOINT}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_ENDPOINT}
+
+mqtt:
+  automaticReconnect: true
+  cleanSession: true
+  connectionTimeout: 10
+  clientId: scale-management-service
+  hostname: ${MQTT_BROKER_ENDPOINT}
+  port: 1883
+

@@ -32,3 +32,8 @@ docker-publish-wgs-management-service:
   extends: .docker-publish-module
   variables:
     MODULE_NAME: wgs-management-service
+
+docker-publish-scale-management-service:
+  extends: .docker-publish-module
+  variables:
+    MODULE_NAME: scale-management-service

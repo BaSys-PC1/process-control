@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ScaleManagementService" type="Application" factoryName="Application">
+    <envs>
+      <env name="AAS_REGISTRY_ENDPOINT" value="http://aasregistry.basys-lnv-1.mrk40.dfki.lan" />
+      <env name="EUREKA_SERVER_ENDPOINT" value="http://serviceregistry.basys-lnv-1.mrk40.dfki.lan/eureka" />
+      <env name="MQTT_BROKER_ENDPOINT" value="emqx.basys-lnv-1.mrk40.dfki.lan" />
+      <env name="NEO4J_ENDPOINT" value="neo4j://neo4j.basys-lnv-1.mrk40.dfki.lan:7687" />
+      <env name="NEO4J_PASSWORD" value="dfkibasys" />
+      <env name="NEO4J_USERNAME" value="neo4j" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="de.dfki.cos.basys.processcontrol.scalemanagementservice.ScaleManagementServiceApplication" />
+    <module name="scale-management-service" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
