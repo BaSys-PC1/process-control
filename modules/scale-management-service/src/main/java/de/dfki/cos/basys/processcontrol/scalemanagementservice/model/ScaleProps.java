@@ -9,5 +9,4 @@ public class ScaleProps {
     int pieces;
     String material;
     double tare;
-    double zeroDeviation;
 }

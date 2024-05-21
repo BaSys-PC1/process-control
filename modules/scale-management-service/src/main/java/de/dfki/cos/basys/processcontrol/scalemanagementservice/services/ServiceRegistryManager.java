@@ -81,32 +81,27 @@ public class ServiceRegistryManager {
 
         // TODO: Retrieve from AAS
         Map<Integer, ScaleProps> piecesPerScale = new HashMap<>();
-        piecesPerScale.put(1, new ScaleProps(4, "Mutter", 0.058085, -0.012322));
-        piecesPerScale.put(2, new ScaleProps(2, "Unterschale", 0.0548049, 0.01462));
-        piecesPerScale.put(3, new ScaleProps(3, "Microcontroller", 0.0573, 0.022978));
-        piecesPerScale.put(4, new ScaleProps(3, "Oberschale", 0.056996, 0.015253));
-        piecesPerScale.put(5, new ScaleProps(4, "Schraube", 0.057252, 0.0003348)); //(0.0014 / piece with High precision)
+        piecesPerScale.put(1, new ScaleProps(17, "Mutter", 0.043274));
+        piecesPerScale.put(2, new ScaleProps(2, "Unterschale", 0.071262));
+        piecesPerScale.put(3, new ScaleProps(3, "Microcontroller", 0.08449));
+        piecesPerScale.put(4, new ScaleProps(3, "Oberschale", 0.072289));
+        piecesPerScale.put(5, new ScaleProps(8, "Schraube", 0.059178)); //(0.0014 / piece with High precision)
 
         for (Map.Entry<Integer, ScaleProps> pair : piecesPerScale.entrySet()) {
             JsonObject tarePayload = Json.createObjectBuilder()
                     .add("channel", pair.getKey())
                     .add("value", pair.getValue().getTare()) // box weight
                     .build();
-            JsonObject zeroDeviationPayload = Json.createObjectBuilder()
-                    .add("channel", pair.getKey())
-                    .add("zeroDeviation", pair.getValue().getZeroDeviation())
-                    .build();
             JsonObject refPiecesPayload = Json.createObjectBuilder()
                     .add("channel", pair.getKey())
                     .add("pieces", pair.getValue().getPieces())
                     .add("material", pair.getValue().getMaterial())
                     .build();
+
             try {
-                TimeUnit.SECONDS.sleep(1);
-                mqttClient.publish("scale/zeroDeviation", new MqttMessage(zeroDeviationPayload.toString().getBytes()));
-                TimeUnit.SECONDS.sleep(1);
+                //TimeUnit.SECONDS.sleep(1);
                 mqttClient.publish("scale/tare", new MqttMessage(tarePayload.toString().getBytes()));
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.SECONDS.sleep(5);
                 mqttClient.publish("scale/refPieces", new MqttMessage(refPiecesPayload.toString().getBytes()));
                 TimeUnit.SECONDS.sleep(1);
             } catch (MqttException | InterruptedException e) {
