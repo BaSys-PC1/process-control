@@ -46,4 +46,18 @@ protocol AssemblyWorkstationMessages {
 		string workstepId;
 		float confidence;
 	}
+	
+	/*
+		Object tracking events
+	*/
+
+	// topic: aws.tooltracking-event
+	record ObjectDetectionEvent {
+  		string type;
+  		float confidence;
+  		int x1;
+		int y1;
+  		int x2;
+  		int y2;  
+ 	} 
 }
