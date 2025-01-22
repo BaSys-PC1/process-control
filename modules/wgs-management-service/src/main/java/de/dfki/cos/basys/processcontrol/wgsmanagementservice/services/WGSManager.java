@@ -179,11 +179,7 @@ public class WGSManager {
         }
         else {
             // Notification shall be added
-            if (notification.isPresent()){
-                // nothing to do here
-                return;
-            }
-            else {
+            if (notification.isEmpty()) {
                 Notification n1 = Notification.builder()
                         .title(title)
                         .description(description)
